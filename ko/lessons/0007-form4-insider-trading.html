@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0007 — Form 3/4/5와 내부자 거래</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .warn { background: #fff0f0; border-left: 3px solid #c44; padding: 0.6rem 1rem; margin: 1rem 0; }
+  .warn h4 { margin: 0 0 0.3rem; }
+  .china { background: #f0f4ff; border-left: 3px solid #36a; padding: 0.8rem 1rem; margin: 1rem 0; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0007 · <a href="0006-13f-institutional-holdings.html">← 이전 강의: 13F 기관 보유</a> · <a href="0008-13dg-activist-investors.html">다음 강의: 13D/G Activist 투자자 →</a>
+</div>
+
+<h1>Form 3/4/5와 내부자 거래<br><small style="font-size:1rem;color:#666;">경영진이 발로 투표한다, 그들의 신호를 읽는 방법</small></h1>
+
+<p>
+  Lesson 0006에서는 <strong>외부 기관</strong>(Vanguard, BlackRock 등)이 무엇을 사고 팔았는지 다뤘습니다. 이번 강의에서는 <strong>회사 내부자</strong>(CEO, CFO, 이사)가 무엇을 사고 팔았는지 다룹니다.
+</p>
+
+<p>
+  내부자 거래 데이터는 SEC 공시 체계에서 <strong>신호 대 잡음비가 가장 높은</strong> 종류입니다. 내부자는 외부 투자자보다 회사에 대해 훨씬 더 잘 알고 있기 때문에, 그들의 매수나 매도는 보통 기관 보유 변동보다 더 많은 정보를 담고 있습니다. 단, <strong>제대로 해석</strong>해야 합니다. 그렇지 않으면 오판하고 오도될 수 있습니다.
+</p>
+
+<div class="takeaway">
+  내부자 거래는 "이벤트"가 아닙니다. 그것은 <strong>지속적인 데이터 흐름</strong>입니다. 단일 거래는 의미가 없지만, 가중치를 적용한 전체 심리(InsiderSentiment 지표)는 "이 회사 경영진이 미래에 대해 어떻게 생각하는지"를 알려줍니다.
+</div>
+
+<h2>Section 16이란 무엇이며 누구를 대상으로 하는가</h2>
+
+<p>
+  Section 16은 1934년 증권거래법 제16조로, <strong>회사 내부자</strong>의 지분 보유 및 거래 공시를 규제합니다. 세 가지 주요 범위:
+</p>
+
+<table>
+  <tr><th>대상</th><th>의미</th><th>구체적 예시</th></tr>
+  <tr><td><strong>Officer</strong> (임원)</td><td>회사 임원, 일반적으로 VP 이상</td><td>CEO, CFO, COO, 각 SVP/EVP</td></tr>
+  <tr><td><strong>Director</strong> (이사)</td><td>이사회 구성원</td><td>사외이사, 지주회사 파견 이사</td></tr>
+  <tr><td><strong>10% Owner</strong> (10% 이상 주주)</td><td>회사 지분 >10%를 보유한 주주</td><td>창업자, 지주회사, 대형 패시브 주주</td></tr>
+</table>
+
+<div class="warn">
+  <h4>⚠️ 중국 ADR 회사의 사각지대</h4>
+  <p>
+    Section 16은 <strong>미국 등록 증권</strong>을 보유한 내부자에게만 적용됩니다. 중국 ADR 회사(우씬, AutoHome)의 경영진은 일반적으로 <strong>케이맨/VIE 수준의 지분</strong>을 보유합니다. 이러한 지분은 SEC Section 16의 적용을 받지 않습니다.
+  </p>
+  <p>결과: <strong>UXIN/ATHM에는 Form 4 데이터가 거의 없습니다.</strong> 이는 "내부자 거래가 없다"는 뜻이 아니라 "내부자 거래가 SEC 공시 범위에 속하지 않는다"는 뜻입니다. 시스템은 config.py에서 <code>has_section16 = False</code>로 표시하며, Dashboard에는 "데이터 없음"이 아닌 "해당 없음"으로 표시됩니다.</p>
+</div>
+
+<h2>세 가지 내부자 신고 양식의 차이점</h2>
+
+<p>
+  내부자 거래 공시에는 세 가지 양식이 있으며, 제출 시기와 내용이 다릅니다. 간단히 구분하면:
+</p>
+
+<table>
+  <tr><th>양식</th><th>전체 명칭</th><th>제출 시기</th><th>내용</th></tr>
+  <tr><td><strong>Form 3</strong></td><td>Initial Statement</td><td>내부자 등록 후 10일 이내</td><td>초기 보유 신고 (일회성)</td></tr>
+  <tr><td><strong>Form 4</strong></td><td>Statement of Changes</td><td><strong>거래 후 2영업일 이내</strong></td><td>매매 시마다 신고</td></tr>
+  <tr><td><strong>Form 5</strong></td><td>Annual Statement</td><td>회계연도 종료 후 45일 이내</td><td>연간 집계 (면제 거래)</td></tr>
+</table>
+
+<p>
+  <strong>Form 4가 가장 중요합니다</strong> — 시의성이 가장 높고(2영업일), 모든 거래를 포함합니다. Form 3과 Form 5는 주로 "사후 등록" 성격입니다.
+</p>
+
+<h2>Form 4의 구조: Table I vs Table II</h2>
+
+<p>
+  Form 4는 두 개의 표로 구성되며, 그 차이가 매우 중요합니다:
+</p>
+
+<pre>
+Table I — Non-Derivative Securities（직접 보유 주식의 매매）
+  字段:
+    - Title of Security          股票名称
+    - Transaction Date           交易日
+    - Transaction Code           P=买入, S=卖出, G=赠与, A=授予, F=交税卖出
+    - Amount                     股数
+    - Price                      单价
+    - Amount After               交易后持股数
+
+Table II — Derivative Securities（期权/derivatives 的变动）
+  字段类似，但单位是"期权份数"而非"股数"
+  常见 Code: M=行权, A=授予（期权）, C=转换
+</pre>
+
+<h3>일반적인 거래 코드 (Transaction Code)</h3>
+
+<table>
+  <tr><th>Code</th><th>의미</th><th>신호가 있나요?</th></tr>
+  <tr><td><strong>P</strong></td><td>적극 매수 (Purchase)</td><td>✅✅✅ 강한 긍정 신호 — 내부자가 자비로 매입</td></tr>
+  <tr><td><strong>S</strong></td><td>적극 매도 (Sale)</td><td>✅ 약한 부정 신호 — 포트폴리오 분산일 수 있음, 반드시 하락 전망은 아님</td></tr>
+  <tr><td><strong>F</strong></td><td>세금 납부용 매도 (Tax withholding)</td><td>❌ 거의 신호 없음 — 옵션 행사 시 원천징수세는 표준 절차</td></tr>
+  <tr><td><strong>G</strong></td><td>증여 (Gift)</td><td>❌ 약한 신호 — 자선/가족 신탁에서 흔함</td></tr>
+  <tr><td><strong>A</strong></td><td>부여/행사 (Award/Exercise)</td><td>❌ 신호 없음 — 보상의 일부, 적극적 거래 아님</td></tr>
+  <tr><td><strong>M</strong></td><td>옵션 행사</td><td>행사 후 매도 행동에 따라 다름 (Code F/S 페어링)</td></tr>
+</table>
+
+<div class="warn">
+  <h4>가장 흔한 오해</h4>
+  <p>"Code F 대량 세금 납부용 매도"를 "내부자가 하락을 예상한다"고 오해하는 것. 이것이 가장 큰 함정입니다. 경영진이 10b5-1 플랜에 따라 대량으로 옵션을 행사할 때, Code F 거래(원천징수세)와 Code S 거래(매도)가 동시에 대량 발생합니다.</p>
+  <p>올바른 방법은: <strong>Code P(적극 매수)의 금액</strong>과 <strong>Code S에서 옵션 행사 관련 매도를 제외한 순매도</strong>를 보는 것입니다. 모든 매도 코드를 단순 합산하면 신호가 잡음에 묻힙니다.</p>
+</div>
+
+<h2>내부자 심리 지표의 올바른 계산법</h2>
+
+<p>
+  단순히 매수/매도 건수를 세는 것은 의미가 없습니다(10b5-1 플랜은 대량의 페어링 거래를 발생시킵니다). 올바른 방법은 <strong>가중치 점수 계산</strong>입니다:
+</p>
+
+<pre>
+InsiderSentiment = Σ(买入金额_i × 角色权重_i × 交易代码权重_i)
+                  - Σ(卖出金额_j × 角色权重_j × 交易代码权重_j)
+
+角色权重:
+  CEO / CFO                   2.0    最高决策层
+  10% Owner                   1.5    大股东
+  Director                    1.0    董事会
+  EVP / SVP / VP              0.8    执行层
+
+交易代码权重:
+  P (主动买入)                1.0
+  S (主动卖出)                1.0
+  F (交税卖出)                0.2
+  G (赠与)                    0.3
+  A (期权授予)                0.0
+  M (期权行权)                0.0   (只看向行权后的卖出)
+
+归一化到 [-100, +100]:
+  &gt; +30  → 看多信号
+  -30 ~ +30 → 中性
+  &lt; -30  → 看空信号
+</pre>
+
+<p>
+  <strong>F 가중치가 0이 아닌 0.2인 이유</strong> — 약간의 신호를 보존합니다(대량의 세금 납부용 매도는 대규모 행사 = 집중 현금화를 반영할 수 있음). 그러나 결론을 좌우하지는 않습니다.
+</p>
+
+<div class="takeaway">
+  <strong>흔한 실수 피하기:</strong> 10-K 발표 1개월 전에 대량의 내부자 매도(10b5-1 플랜 사전 설정)가 나타날 수 있습니다. 이것이 반드시 "내부자가 연례 보고서에 자신이 없다"는 뜻은 아닙니다. 10b5-1 프레임워크에 따라 계획적으로 포트폴리오를 분산하는 것일 수 있습니다. 거래 자체가 아니라 10b5-1 플랜의 제출일(보통 8-K Item 8.01 또는 DEF 14A에 있음)을 확인해야 합니다.
+</div>
+
+<h2>Form 144 — 지분 매각의 "예고편"</h2>
+
+<p>
+  Form 144는 또 다른 유형의 내부자 신호입니다. <strong>사전 통지</strong>이며, 사후 공시가 아닙니다.
+</p>
+
+<table>
+  <tr><th>Form 144의 핵심 사실</th></tr>
+  <tr><td>발동 조건: 내부자가 <strong>≥5,000주 또는 ≥$50,000</strong> 이상 매도 계획 시</td></tr>
+  <tr><td>제출 시기: <strong>매도 예정일 1-3영업일 전</strong></td></tr>
+  <tr><td>유효 기간: Form 144 제출 후 <strong>90일 이내</strong>에 매도 완료 필요</td></tr>
+  <tr><td>aggregate market value: 제출일 주가 기준 <strong>예상 가치</strong>(실제 체결가 아님)</td></tr>
+</table>
+
+<p>
+  주요 해석 포인트:
+</p>
+
+<ul>
+  <li>Form 144는 <strong>"이미 팔았다"는 뜻이 아닙니다</strong> — 단지 "팔 준비를 하고 있다"는 뜻입니다. 계획이 실행되지 않을 수도 있습니다</li>
+  <li>하지만 <strong>여러 건의 Form 144가 연속 제출</strong>되면 = 지속적 지분 축소 신호로 주의해야 합니다</li>
+  <li>Form 144로 매도 압력을 예측할 때는 "<strong>실제 실행률</strong>"(OpenInsider 웹사이트에서 이 데이터 확인 가능)을 봐야 합니다</li>
+</ul>
+
+<h2>중국 경쟁사의 특수 처리 (운영 규칙)</h2>
+
+<p>
+  저희 5개 경쟁사 중 <strong>우씬 (UXIN)과 AutoHome (ATHM)은 중국 ADR</strong>입니다. 이들은 Form 4 / Form 144 데이터가 없지만, <strong>모회사 수준의 홍콩/중국 A주 공시</strong>가 있습니다.
+</p>
+
+<div class="china">
+  <h4>시스템 처리 규칙</h4>
+  <p>
+    <strong>1. config.py 표시</strong>: <code>has_section16 = False</code><br>
+    <strong>2. Dashboard 표시</strong>: <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- "데이터 없음"이 아닌 "해당 없음" (수집 실패로 오해되는 것을 방지)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- 옆에 설명: "내부자가 VIE 수준 지분을 보유, SEC 공시 대상 아님"<br>
+    <strong>3. 이상 알림</strong>: <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- 중국 ADR에 갑자기 Form 4가 나타나면 → 적색 경보<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- 이는 <strong>드문 이벤트</strong>로, 내부자가 의도적으로 지분을 케이맨에서 미국 수준으로 이전하여 거래한 것임을 의미<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- 역사적으로 이런 경우는 극히 드물지만, 발생하면 거의 항상 중대한 일이 있음
+  </p>
+</div>
+
+<h2>Carvana의 최근 5개월 내부자 거래</h2>
+
+<p>아래 표는 2026년 1-6월 동안 EDGAR에서 가져온 Carvana Form 4 데이터입니다(간략화):</p>
+
+<table>
+  <tr><th>날짜</th><th>내부자</th><th>역할</th><th>Code</th><th>주식 수</th><th>금액 ($K)</th><th>가중치 적용 후</th></tr>
+  <tr><td>2026-06-11</td><td>Ernest C. Garcia III</td><td>10% Owner (2.0)</td><td>S</td><td>50,000</td><td>15,000</td><td>-30,000</td></tr>
+  <tr><td>2026-06-11</td><td>Mark Jenkins</td><td>CFO (2.0)</td><td>F</td><td>8,000</td><td>2,400</td><td>-960</td></tr>
+  <tr><td>2026-05-22</td><td>Paul Keister</td><td>VP (0.8)</td><td>P</td><td>2,000</td><td>600</td><td>+480</td></tr>
+  <tr><td>2026-03-15</td><td>Ernest C. Garcia III</td><td>10% Owner</td><td>S</td><td>120,000</td><td>30,000</td><td>-90,000</td></tr>
+</table>
+
+<p>
+  이 4건의 거래에 대한 InsiderSentiment = (-30,000 - 960 + 480 - 90,000) / 60,000 = <strong>-200% → 정규화 후 약 -100(극도로 하락 전망)</strong>.
+</p>
+
+<p>
+  하지만 주의: Ernest C. Garcia III는 10% Owner로, 그의 대량 매도는 종종 10b5-1 플랜에 따른 <strong>계획적 포트폴리오 분산</strong>일 뿐, 사업에 대한 비관적 전망이 아닙니다. <strong>8-K 또는 DEF 14A에 공시된 10b5-1 플랜을 확인</strong>해야 성격을 판단할 수 있습니다.
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>Q1: 경영진이 10b5-1 플랜에 따라 집중적으로 옵션을 행사하여 100건의 Code F(세금 납부용 매도) 거래가 발생했습니다. 시스템은 어떻게 해석해야 하나요?</h3>
+<p><input type="text" id="q1" placeholder="한두 문장으로 답변"></p>
+<div class="reveal">
+  <details>
+    <summary>정답 보기</summary>
+    <p><strong>부정적 신호로 거의 해석하지 않습니다. 이는 10b5-1 플랜의 표준 절차입니다.</strong>Code F의 가중치는 0.2이므로, 100건 × 0.2 = 20 단위의 잡음 기여도입니다. 단순히 건수만 보면 "내부자가 대규모로 지분을 축소했다"는 잘못된 결론에 도달할 수 있습니다. 가중치 알고리즘을 적용하면 결과는 중립 또는 약간 부정적일 수 있습니다. 판단 시에는 해당 10b5-1 플랜이 언제 제출되었는지(보통 8-K Item 8.01 또는 DEF 14A에 있음)를 반드시 확인해야 합니다. 제출 시기가 3-6개월 전이라면 기본적으로 계획에 따른 실행입니다.</p>
+  </details>
+</div>
+
+<h3>Q2: UXIN(우씬)의 Dashboard에 "내부자 거래: 해당 없음"으로 표시됩니다. 데이터 수집 실패와 어떻게 구분하나요?</h3>
+<p><input type="text" id="q2" placeholder="한두 문장으로 답변"></p>
+<div class="reveal">
+  <details>
+    <summary>정답 보기</summary>
+    <p><strong>두 가지는 의미가 완전히 다르므로 명확히 구분해야 합니다.</strong>"해당 없음" = 회사 구조상 Section 16 공시 대상이 아님(중국 ADR 내부자는 VIE 수준 지분 보유), 시스템은 config.py에서 has_section16 = False로 표시합니다."데이터 없음" = 수집 실패 또는 해당 기간에 Form 4가 없음(드문 경우, Form 4는 2영업일 이내 강제 공시이므로). Dashboard UI 설계에서는 서로 다른 색상과 문구를 사용해야 합니다("해당 없음"은 회색, 사유 설명 포함; "데이터 없음"은 빨간색, API 오류 가능성 표시).</p>
+  </details>
+</div>
+
+<h3>Q3: Carvana의 CFO가 10b5-1 플랜에 따라 $5M 상당의 주식을 매도했지만, 동시에 VP가 $1M 상당을 적극 매수했습니다. 시스템은 어떻게 점수를 매겨야 하나요?</h3>
+<p><input type="text" id="q2" placeholder="한두 문장으로 답변"></p>
+<div class="reveal">
+  <details>
+    <summary>정답 보기</summary>
+    <p><strong>$5M 매도의 구체적인 Code를 확인해야 합니다.</strong>Code F(세금 납부용 매도) + 관련 Code S(10b5-1 플랜에 따른 매도)라면, 가중치 = 0.2 + 1.0 × 역할 가중치 2.0 = 2.2 단위의 부정적 기여도입니다. 반면 VP의 적극 매수(Code P) = 1.0 × 0.8 = 0.8 단위의 긍정적 기여도입니다. 금액 차이가 5:1이라면 결과는 순부정적 ~-3,400 단위이지만, <strong>정규화 후 -30 ~ 0 구간에 속할 수 있으며, 결론은 "주의"</strong>지 "하락 전망"이 아닙니다. 따라서 금액이 크더라도 10b5-1 플랜에 따른 프로그램 매도이므로 결론에 할인을 적용해야 합니다.</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>다음 강의 미리보기:</strong> <a href="0008-13dg-activist-investors.html">Lesson 0008 — Schedule 13D/G와 Activist 투자자</a>: 누가 회사를 바꾸려고 하는지, 어떻게 식별할 것인지<br>
+  <strong>추천 자료:</strong> <a href="http://openinsider.com/">OpenInsider</a> (무료) — CVNA를 직접 검색하여 실제 Form 4 데이터가 어떻게 생겼는지 확인하고, 데이터를 보면서 Table I/II의 차이를 이해하세요<br>
+  <strong>빠른 참조표:</strong> <a href="../reference/sec-form-types.html">SEC 양식 유형 빠른 참조표</a> (Form 3/4/5/144는 "내부자 거래 및 보유" 블록)
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  궁금한 점이 있으면 대화에서 바로 물어보세요.<br>
+  <em>이 강의는 교차 보유 시리즈의 두 번째 퍼즐 조각입니다. 다음 강의에서는 Form 4보다 빈도는 낮지만 신호 강도는 더 높은 "적극적 투자자" 신고인 13D/G에 대해 다룹니다.</em>
+</p>
+
+</body>
+</html>

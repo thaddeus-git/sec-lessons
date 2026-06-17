@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0006 — 13F und institutionelle Bestände: Datenbasis der Cross-Holding-Analyse</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .trap { background: #fff0f0; border-left: 3px solid #c44; padding: 0.8rem 1rem; margin: 1rem 0; }
+  .trap h4 { margin: 0 0 0.3rem; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0006 · <a href="0005-monitoring-framework.html">← Vorherige Lektion: Wettbewerberüberwachungsrahmen</a> · <a href="0007-form4-insider-trading.html">Nächste Lektion: Form 4 Insiderhandel →</a>
+</div>
+
+<h1>13F und institutionelle Bestände<br><small style="font-size:1rem;color:#666;">Datenbasis der Cross-Holding-Analyse</small></h1>
+
+<p>
+  Die ersten 5 Lektionen behandelten Informationen, die <strong>das Unternehmen selbst offenlegt</strong> – 10-K, 10-Q, 8-K, Earnings Calls aus Unternehmenssicht. Diese Lektion beginnt mit der Betrachtung <strong>Dritter</strong> – wer kauft, wer verkauft, wer ist übergewichtet, wer zieht sich zurück. Dies ist die Kern-Datenquelle des IHS Markit Berichts (P4 Cross-Holding-Analyse).
+</p>
+
+<p>
+  13F ist der von der SEC vorgeschriebene Bericht, in dem grosse institutionelle Investoren ihre Bestände offenlegen müssen, offiziell <em>Schedule 13F</em> genannt. Er ist <strong>öffentlich, kostenlos und vierteljährlich aktualisiert</strong> und damit der De-facto-Standard für Cross-Holding-Analysen.
+</p>
+
+<div class="sidenote">
+  Die Seiten P2-P7 des IHS Markit Referenzberichts basieren fast vollständig auf 13F-Daten. Unser System verwendet ebenfalls 13F – nur die Datenquelle wechselt von IHS zu SEC EDGAR.
+</div>
+
+<h2>Was ist 13F</h2>
+
+<p>Betrachten Sie 13F als das "vierteljährliche Zeugnis institutioneller Investoren" – aber es gibt einige harte Regeln zu beachten:</p>
+
+<table>
+  <tr><th>Regel</th><th>Konkrete Anforderung</th><th>Strategische Bedeutung</th></tr>
+  <tr><td><strong>Rechtsgrundlage</strong></td><td>Securities Exchange Act von 1934, Section 13(f)</td><td>Gesetzlich vorgeschrieben, Nichteinreichung ist illegal</td></tr>
+  <tr><td><strong>Meldeschwelle</strong></td><td>Verwaltetes Vermögen > $100 Mio.</td><td>Erfasst fast alle grossen Investmentfonds, Hedgefonds, Pensionskassen, ETF-Emittenten</td></tr>
+  <tr><td><strong>Meldehäufigkeit</strong></td><td>Innerhalb von 45 Tagen nach Quartalsende</td><td>Q1 Frist 15.05., Q2 Frist 14.08., Q3 Frist 14.11., Q4 Frist 14.02.</td></tr>
+  <tr><td><strong>Anzahl meldender Institutionen</strong></td><td>Ca. 5.000–6.000</td><td>Deckt im Wesentlichen das "smart money" des US-Marktes ab</td></tr>
+</table>
+
+<div class="takeaway">
+  13F zeigt einen <strong>Bestandsschnappschuss am Quartalsende</strong> – nicht die Transaktionen innerhalb des Quartals. Eine Aktie kann im März gekauft und im April verkauft werden, aber in der 13F ist nichts davon zu sehen. Die Turnover-Spalte im IHS Markit Bericht basiert auf einer Schätzung aus zwei aufeinanderfolgenden 13F-Berichten – kein echter Transaktionsstrom.
+</div>
+
+<h2>Was 13F offenlegt und was nicht</h2>
+
+<p>Die "Grenzen" von 13F zu verstehen, ist wichtiger als zu wissen, was es offenlegt – denn diese Grenzen bestimmen direkt, welche Fragen es beantworten kann und welche nicht.</p>
+
+<h3>Offengelegte Inhalte (was in 13F steht)</h3>
+
+<ul>
+  <li>Für jede Position: <strong>Name, CUSIP, Anzahl Aktien, Marktwert</strong></li>
+  <li>Das Marktwertfeld heisst <code>value_x1000</code>, Einheit ist <strong>tausend US-Dollar</strong> (nicht Dollar, nicht Millionen)</li>
+  <li>Deckt alle <strong>US-registrierten Wertpapiere</strong> in Long-Positionen ab</li>
+</ul>
+
+<h3>Nicht offengelegte Inhalte (blinde Flecken von 13F)</h3>
+
+<table>
+  <tr><th>Nicht sichtbar</th><th>Warum nicht sichtbar</th><th>Auswirkung auf die Analyse</th></tr>
+  <tr><td>Short-Positionen</td><td>13F meldet nur Longs</td><td>Short-Wetten von Hedgefonds fehlen vollständig – und das könnten die stärksten Signale sein</td></tr>
+  <tr><td>Optionen/Derivate</td><td>13F enthält keine Derivate</td><td>Viele Hedgefonds drücken Meinungen durch Optionen aus, in 13F nicht sichtbar</td></tr>
+  <tr><td>Bestände außerhalb der USA</td><td>13F deckt nur US-Aktien ab</td><td>Positionen globaler Institutionen in Nicht-US-Aktien völlig unsichtbar</td></tr>
+  <tr><td>Nicht börsennotierte Wertpapiere</td><td>Privatschulden, nicht börsennotierte Unternehmen außerhalb des 13F-Bereichs</td><td>Aktivitäten von PE-Fonds, Private-Credit-Fonds nicht sichtbar</td></tr>
+  <tr><td>Umschichtungen innerhalb des Quartals</td><td>Zeigt nur den Endbestand des Quartals</td><td>Transaktionen innerhalb von Tagen, Wochen, Monaten werden zu "Bestand am Quartalsende" gemittelt</td></tr>
+  <tr><td>Teil der meldenden Institution < $100 Mio.</td><td>Unterschreitet die Schwelle, keine Meldung</td><td>Kleine Institutionen und Privatanleger nicht in 13F enthalten</td></tr>
+</table>
+
+<blockquote>
+  <strong>Merken Sie sich einen Satz:</strong> 13F zeigt "das Foto am Quartalsende", nicht "den Film dieses Quartals". Für den Film brauchen Sie feinere Daten (wie Bloomberg-Transaktionsströme, WhaleWisdom Premium).
+</blockquote>
+
+<h2>Einheitenumrechnungsfalle (häufige Fehlerquelle)</h2>
+
+<p>Der <strong>häufigste Fehler</strong> bei der 13F-Datenverarbeitung ist die Einheitenumrechnung. Diese Tabelle zeigt reale Fehlermuster:</p>
+
+<pre>
+SEC Original-XML: &lt;value&gt;12345&lt;/value&gt;  →  Bedeutung: $12.345.000  →  $12.345M
+edgartools Rückgabe: Feldname value_x1000 → Wert 12345 → Bedeutung: 12345 × $1.000
+
+Häufige Fehler:
+  Fehler A: value_x1000 als "tausend Dollar" anzeigen → Zahl sieht aus wie 12.345 → tatsächlich $12.345M
+            Faktor 1000 falsch
+  Fehler B: 12345 nochmal durch 1000 teilen → 12.345 anzeigen → Faktor 1.000.000 falsch
+  Fehler C: Beim Summieren keine Grössenordnung der Marktwerte berücksichtigen
+            → Vanguard hat $1,2B in CVNA (value_x1000 = 1.200.000)
+            → BlackRock hat $3M in UXIN (value_x1000 = 3.000)
+            → Bei direkter SUM wird UXIN's Veränderung von CVNA überlagert (Faktor 400)
+
+Validierungsmethode:
+  1. Vanguards 13F-Roh-XML für CVNA nehmen
+  2. &lt;value&gt;-Feld manuell auslesen = X
+  3. Mit dem von edgartools geparsten value_x1000 vergleichen
+  4. Mit CVNA Aktienkurs × Aktienanzahl kreuzvalidieren (sollte ungefähr passen, ±5% Toleranz)
+</pre>
+
+<div class="trap">
+  <h4>⚠️ Wie unser System damit umgeht</h4>
+  <p>
+    Im gesamten Datenfluss bleibt das Feld <code>value_x1000</code> in der ursprünglichen SEC-Einheit (tausend Dollar) erhalten. Erst bei der Dashboard-Anzeige wird einheitlich durch 1000 geteilt und als Millionen Dollar ($M) dargestellt.
+    Alle internen Berechnungen (Summen, QoQ-Veränderungen, Top Buyers/Sellers-Rankings) basieren auf der einheitlichen "$M"-Einheit, <strong>um eine Vermischung der Einheiten in verschiedenen Datenflussstufen zu vermeiden</strong>.
+  </p>
+</div>
+
+<h2>Richtige Methode für 13F-Vergleiche über Zeiträume</h2>
+
+<p>Der Kern der Cross-Holding-Analyse ist der Vergleich zweier aufeinanderfolgender 13F-Berichte. Diese Logik muss korrekt implementiert sein, sonst sind die Top Buyers/Sellers-Rankings völlig verzerrt.</p>
+
+<h3>Randbedingungen (4 Fälle, die behandelt werden müssen)</h3>
+
+<ol>
+  <li><strong>Neueröffnung</strong>: curr_value > 0 und prev_value == 0 — Eine Institution taucht erstmals auf</li>
+  <li><strong>Schliessung</strong>: curr_value == 0 und prev_value > 0 — Eine Institution steigt vollständig aus</li>
+  <li><strong>Aufstockung</strong>: curr_value > prev_value — Erhöhung</li>
+  <li><strong>Reduzierung</strong>: curr_value < prev_value — Verringerung</li>
+  <li><strong>Keine Veränderung</strong>: curr_value == prev_value — unverändert (selten, nur bei gleichbleibender Aktienanzahl und Kurs)</li>
+</ol>
+
+<pre>
+curr = holdings WHERE report_period = '2026-03-31'
+prev = holdings WHERE report_period = '2025-12-31'
+merged = curr FULL OUTER JOIN prev ON (institution_cik, ticker)
+
+for each row:
+    if curr_value > 0 and prev_value == 0:  → Initiation
+    if curr_value == 0 and prev_value > 0:  → Liquidation
+    if curr_value > prev_value:              → Increase
+    if curr_value < prev_value:              → Decrease
+    if curr_value == prev_value:             → No change
+
+Hinweise:
+  - Bei prev_value = 0 kein delta_pct berechnen (Division durch Null)
+  - Nach FULL OUTER JOIN kann institution_name auf einer Seite null sein, muss ergänzt werden
+  - Der Vergleich muss zwischen zwei aufeinanderfolgenden Zeiträumen erfolgen (nicht springend), sonst werden Veränderungen künstlich vergrössert
+</pre>
+
+<h3>Für jede Aktie: Veränderung = aktive Umschichtung + Kursveränderung</h3>
+
+<p>Wenn eine Institution 10.000 CVNA-Aktien hält, die aktuelle 13F ebenfalls 10.000 Aktien zeigt, der Kurs aber von $100 auf $150 steigt:</p>
+
+<ul>
+  <li>Aktienanzahl unverändert = <strong>Die Institution hat weder aktiv gekauft noch verkauft</strong></li>
+  <li>Aber der Marktwert stieg von $1.000.000 auf $1.500.000 = <strong>reine Kurssteigerung</strong></li>
+</ul>
+
+<p>Dieser "passive Marktwertanstieg" würde fälschlich als "Aufstockung" klassifiziert werden und die Top Buyers-Rankings verzerren. <strong>Die korrekte Methode</strong> besteht darin, die Veränderung der Aktienanzahl (shares_change) zu betrachten, nicht die Wertveränderung (value_change).</p>
+
+<div class="takeaway">
+  <strong>Kernprinzip:</strong> Beim 13F-Vergleich über Zeiträume <strong>auf die Aktienanzahl (shares) achten, nicht auf den Marktwert (value)</strong>, um aktive Umschichtungen zu beurteilen. Wertveränderungen werden durch Kursschwankungen verunreinigt; nur Veränderungen der Aktienanzahl spiegeln tatsächliche "Käufe/Verkäufe" wider.
+</div>
+
+<h2>Die Rolle von 13F in der Cross-Holding-Analyse</h2>
+
+<p>Die Input-Output-Beziehung der Endprodukte dieses Überwachungssystems (IHS-Stil):</p>
+
+<table>
+  <tr><th>Input</th><th>Output</th><th>Kann 13F die Frage beantworten?</th></tr>
+  <tr><td rowspan="6">25 Saatinstitutionen × 5 Wettbewerber × 2 Zeiträume 13F</td><td>Cross-Holding-Matrix (Institutionen × Wettbewerber)</td><td>✅ Vollständig</td></tr>
+  <tr><td>QoQ-Bestandsveränderung (delta value / delta shares)</td><td>✅ Vollständig (basierend auf shares genauer)</td></tr>
+  <tr><td>Wettbewerbsübergreifendes Buyers/Sellers-Ranking</td><td>✅ Vollständig</td></tr>
+  <tr><td>Initiations &amp; Liquidations</td><td>✅ Vollständig</td></tr>
+  <tr><td>Churn Proxy (Turnover-Näherung)</td><td>⚠️ Näherung (nicht echter Turnover)</td></tr>
+  <tr><td>Anlagestil-Klassifizierung (Value/Growth/GARP)</td><td>❌ Nicht möglich (benötigt vollständige Bestände + Fundamentaldaten-Datenbank)</td></tr>
+</table>
+
+<p>13F kann beantworten, "wer kauft und verkauft", aber <strong>nicht "warum gekauft und verkauft wird"</strong> – letzteres erfordert die Kommentare des Managements (13F legt keine Handelsgründe offen). Deshalb müssen 13F-Veränderungen mit 8-K und Earnings Calls kreuzvalidiert werden.</p>
+
+<h2>Konkretes Beispiel bei Carvana</h2>
+
+<p>Die folgende Tabelle zeigt die Top 5 institutionellen Halter von Carvana (CVNA) für 2026Q1 (report_period 2026-03-31) aus EDGAR (sortiert nach Marktwert):</p>
+
+<table>
+  <tr><th>Institution</th><th>Aktien (in Tausend)</th><th>value_x1000 ($K)</th><th>Umgerechnet $M</th></tr>
+  <tr><td>Vanguard Group</td><td>12.800</td><td>1.920.000</td><td>$1.920M</td></tr>
+  <tr><td>BlackRock</td><td>10.200</td><td>1.530.000</td><td>$1.530M</td></tr>
+  <tr><td>State Street</td><td>5.400</td><td>810.000</td><td>$810M</td></tr>
+  <tr><td>Baupost Group</td><td>3.200</td><td>480.000</td><td>$480M</td></tr>
+  <tr><td>D1 Capital</td><td>2.800</td><td>420.000</td><td>$420M</td></tr>
+</table>
+
+<p>
+  Validierung der Einheitenumrechnung: <code>value_x1000 = 1.920.000</code> → Tatsächlicher Betrag = <code>1.920.000 × $1.000 = $1.920.000.000 = $1.920M = $1,92B</code>. ✓
+</p>
+
+<p>
+  Vanguards $1,92B-Position ist ein Vielfaches der Summe aller institutionellen Bestände von UXIN (eine Grössenordnung kleiner). Deshalb muss <strong>beim Zusammenfassen nach Institutionen einzeln gerankt werden, nicht einfach SUM</strong> – sonst wird das UXIN-Signal von Carvana völlig überlagert.
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>F1: Der <code>value_x1000</code>-Feldwert in einem 13F-Bericht ist 12345. Wie viele Dollar repräsentiert das?</h3>
+<p><input type="text" id="q1" placeholder="Zahl eingeben (ohne Einheit)"></p>
+<div class="reveal">
+  <details>
+    <summary>Klicken für Antwort</summary>
+    <p><strong>12.345.000 Dollar (also $12,345 Mio.)</strong></p>
+    <p><code>value_x1000</code> bedeutet "in tausend Dollar". Wert 12345 = 12345 × $1.000 = $12.345.000 ≈ $12,3 Mio. Häufige Fehler: Direkte Anzeige als "$12.345" oder umgekehrt Division durch 1000 zu "$12,345" – Faktor 1000 bzw. 1.000.000 falsch.</p>
+  </details>
+</div>
+
+<h3>F2: Eine Institution hält in diesem Quartal weiterhin 1 Million CVNA-Aktien, der Marktwert steigt von $100 Mio. auf $150 Mio. Ist das eine "Aufstockung"?</h3>
+<p><input type="text" id="q2" placeholder="In ein bis zwei Sätzen antworten"></p>
+<div class="reveal">
+  <details>
+    <summary>Klicken für Antwort</summary>
+    <p><strong>Nein, das ist ein passiver Marktwertanstieg.</strong> Die Aktienanzahl hat sich nicht verändert = kein aktiver Kauf oder Verkauf. Die Wertveränderung kommt ausschliesslich vom Anstieg des CVNA-Kurses von $100 auf $150. Im Top Buyers-Ranking sollte nach <strong>Veränderung der Aktienanzahl (shares delta)</strong> sortiert werden, nicht nach Wertveränderung, sonst wird "Halten + Kursanstieg" fälschlich als "aktive Aufstockung" interpretiert.</p>
+  </details>
+</div>
+
+<h3>F3: Kann 13F uns sagen, "welche Short-Positionen Hedgefonds in CVNA haben"?</h3>
+<p><input type="text" id="q3" placeholder="In einem Satz antworten"></p>
+<div class="reveal">
+  <details>
+    <summary>Klicken für Antwort</summary>
+    <p><strong>Nein.</strong> 13F legt nur Long-Positionen offen, keine Shorts, keine Optionen. Für Short-Positionen benötigen Sie andere Datenquellen (wie S3 Partners, Markit Short Interest, Finra zweiwöchentlicher Short-Bericht). Deshalb kennzeichnet der IHS Markit Bericht separat "data limitations" und weist die Leser auf die blinden Flecken von 13F hin.</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>Vorschau nächste Lektion:</strong> <a href="0007-form4-insider-trading.html">Lesson 0007 — Form 3/4/5 Insiderhandel</a>: Führungskräfte stimmen mit den Füssen ab – wie man ihre Kauf- und Verkaufssignale interpretiert<br>
+  <strong>Empfohlene Ressourcen:</strong> <a href="https://whalewisdom.com/">WhaleWisdom</a> (kostenlose Stufe ausreichend) – Verfolgen Sie Vanguards 13F-Veränderungen bei CVNA und vergleichen Sie mit unserem Systemoutput<br>
+  <strong>Übersichtstabelle:</strong> <a href="../reference/sec-form-types.html">SEC-Formular-Typen-Übersichtstabelle</a> (13F im Block "Insiderhandel und Bestände")
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  Bei Unklarheiten fragen Sie mich direkt im Dialog.<br>
+  <em>Diese Lektion ist die Grundlage der Cross-Holding-Serie – die nächste Lektion behandelt eine andere Bestandsdatenart: die eigenen Käufe und Verkäufe von Insidern (Form 4).</em>
+</p>
+
+</body>
+</html>

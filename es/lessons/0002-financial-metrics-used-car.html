@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0002 — Métricas financieras clave del sector de autos usados</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  p { margin: 0.7rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; }
+  .quiz details { margin-top: 0.4rem; }
+  .sidenote { float: right; clear: right; width: 180px; margin-right: -210px; font-size: 0.82rem; color: #555; line-height: 1.4; }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  .real-data { background: #f0f7f0; border-left: 3px solid #4a4; padding: 0.8rem 1rem; margin: 1rem 0; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0002 · <a href="0001-sec-filing-101.html">← Lección anterior: SEC Filing 101</a> · <a href="0003-8k-deep-dive.html">Siguiente lección: Interpretación de eventos 8-K →</a>
+</div>
+
+<h1>Métricas financieras clave del sector de autos usados<br><small style="font-size:1rem;color:#666;">Que observar en el 10-K/10-Q y por qué</small></h1>
+
+<p>
+  Un 10-K contiene cientos de métricas financieras, pero el monitoreo competitivo no necesita revisarlas todas. Para el sector de autos usados, solo una docena son realmente importantes. <strong>La clave es entender qué significa cada métrica en el contexto de este sector</strong>—algo que ningún libro de texto de finanzas enseña.
+</p>
+
+<h2>Primera prioridad: Estructura de ingresos</h2>
+
+<div class="sidenote">
+  Carvana 2026Q1: Ingresos Retail $5.86B, Ingresos Wholesale $470M, Otros $92M
+</div>
+
+<p>
+  Los ingresos de una empresa de autos usados no son simplemente "cobrar por cada auto vendido". La pregunta clave es: <strong>¿de dónde viene el dinero?</strong>
+</p>
+
+<table>
+  <tr><th>Tipo de ingreso</th><th>Significado</th><th>Importancia estratégica</th></tr>
+  <tr><td><strong>Ingresos minoristas</strong> (Retail Revenue)</td><td>Ventas al consumidor final (B2C)</td><td>Negocio principal; observar crecimiento y ASP (precio promedio)</td></tr>
+  <tr><td><strong>Ingresos mayoristas</strong> (Wholesale Revenue)</td><td>Subastas/ventas al por mayor a concesionarios (B2B)</td><td>Autos no vendidos que se liquidan al por mayor—un aumento en la proporción mayorista puede indicar problemas de inventario en el canal minorista</td></tr>
+  <tr><td><strong>Ingresos financieros</strong> (Finance/Other Revenue)</td><td>Comisiones de préstamos, seguros, garantías extendidas, etc.</td><td>Fuente oculta de margen; un crecimiento rápido no necesariamente es bueno (podría indicar deterioro en la calidad crediticia)</td></tr>
+</table>
+
+<div class="takeaway">
+  No solo hay que mirar el total de ingresos, sino la estructura. Un aumento repentino en la proporción de ingresos mayoristas significa que los autos no se están vendiendo en el canal minorista.
+</div>
+
+<h2>Segunda prioridad: Rentabilidad—solo dos cosas importan en autos usados</h2>
+
+<h3>El margen bruto (Gross Margin) es el santo grial</h3>
+
+<p>
+  <strong>Los autos usados son un negocio de bajo margen.</strong> A diferencia de las empresas SaaS con márgenes brutos superiores al 70%, las empresas de autos usados suelen operar entre el 15% y el 20%. ¿Por qué vale la pena vigilar el margen bruto?
+</p>
+
+<ul>
+  <li><strong>El margen bruto refleja el diferencial de compra-venta por cada auto</strong> (GPU = Gross Profit Per Unit, ganancia bruta por unidad)</li>
+  <li>Los cambios en el margen bruto son más reveladores que la utilidad neta—la utilidad neta puede distorsionarse por gastos puntuales</li>
+  <li><strong>Una caída sostenida del margen bruto</strong> = aumento en costos de adquisición + imposibilidad de subir precios de venta + círculo vicioso de inventario acumulado y descuentos</li>
+</ul>
+
+<div class="real-data">
+  <strong>Datos reales:</strong> Carvana 2026Q1 Gross Profit = $1.27B, Revenue = $6.43B<br>
+  → Gross Margin = 1.27 ÷ 6.43 = <strong>19.8%</strong><br>
+  Comparación: el concesionario tradicional Carmax suele tener un margen bruto del 12-14% (porque Carmax se basa en "precio único sin regateo", con menor margen pero mayor rotación)
+</div>
+
+<h3>Relación SG&A / Ingresos</h3>
+
+<p>
+  Los gastos de SG&A (ventas, generales y administrativos) son el mayor costo operativo de una empresa de autos usados. ¿Por qué la relación SG&A/Ingresos es más informativa que el margen de utilidad neta?
+</p>
+
+<ul>
+  <li>Los SG&A incluyen publicidad, operación de sucursales y salarios del personal</li>
+  <li><strong>Una relación SG&A/Ingresos decreciente</strong> = las economías de escala están funcionando, los costos fijos por unidad adicional vendida se diluyen</li>
+  <li><strong>Una relación SG&A/Ingresos creciente + crecimiento de ingresos</strong> = la empresa está gastando agresivamente para crecer, hay que preguntarse "¿es sostenible este crecimiento?"</li>
+</ul>
+
+<div class="real-data">
+  <strong>Datos reales:</strong> Carvana 2026Q1 SG&A = $690M, Revenue = $6.43B<br>
+  → SG&A/Revenue = <strong>10.7%</strong><br>
+  Esta relación era de ~12% en 2024, lo que indica que la eficiencia operativa de Carvana está mejorando.
+</div>
+
+<h2>Tercera prioridad: Balance general—lo que más temen las empresas de autos usados</h2>
+
+<p>
+  El talón de Aquiles de las empresas de autos usados está en el balance general, no en el estado de resultados.
+</p>
+
+<table>
+  <tr><th>Indicador</th><th>Por qué es importante</th><th>Señal de alerta</th></tr>
+  <tr><td><strong>Efectivo</strong> (Cash)</td><td>Los autos usados requieren mucho capital; comprar autos necesita efectivo abundante</td><td>Efectivo / Ingresos trimestrales < 0.5 → tensión de liquidez</td></tr>
+  <tr><td><strong>Deuda a largo plazo</strong> (Long Term Debt)</td><td>Las empresas de autos usados piden prestado para financiar inventario</td><td>Crecimiento de deuda supera crecimiento de ingresos → dependencia de nueva deuda para pagar la anterior</td></tr>
+  <tr><td><strong>Inventario</strong> (Inventory)</td><td>El inventario son autos—y los autos se deprecian con el tiempo (¡a diferencia de los iPhones!)</td><td>Días de inventario aumentan repentinamente → los autos no se venden, seguirán descuentos para liquidar</td></tr>
+</table>
+
+<blockquote>
+  <strong>Regla de oro del sector de autos usados:</strong> Cada día adicional que un auto permanece en inventario, pierde un poco de valor. Por eso Carmax prefiere márgenes más bajos a cambio de una mayor rotación—la velocidad de rotación del inventario importa más que la ganancia por unidad.
+</blockquote>
+
+<div class="real-data">
+  <strong>Datos reales:</strong> Carvana 2026Q1 Cash = $2.41B, Total Assets = $13.77B, Long Term Debt = $4.92B (datos FY2025)<br>
+  Efectivo/Ingresos trimestrales = 2.41 ÷ 6.43 = <strong>0.37</strong> → Esta proporción no es peligrosa (el ritmo de pago por compras de vehículos no está completamente sincronizado con el ritmo de ventas), pero merece seguimiento continuo.
+</div>
+
+<h2>Una ficha de indicadores concisa (con esto tendrás suficiente)</h2>
+
+<p>Cada vez que se publique un 10-Q, revisa rápidamente esta tabla:</p>
+
+<table>
+  <tr><th>Indicador</th><th>Qué observar</th><th>Cómo interpretarlo</th></tr>
+  <tr><td>Ingresos</td><td>Crecimiento interanual (YoY)</td><td>Crecimiento acelerado = bueno; desaceleración = investigar a fondo</td></tr>
+  <tr><td>Margen bruto</td><td>Valor absoluto + tendencia</td><td>15-20% es normal en autos usados; caída continua = ⚠️</td></tr>
+  <tr><td>SG&A/Ingresos</td><td>Tendencia</td><td>Decreciente = mejora en eficiencia operativa; creciente = gasto excesivo o expansión</td></tr>
+  <tr><td>Utilidad neta</td><td>Estado de pérdidas y ganancias</td><td>Positivo = saludable; pero excluir ganancias/pérdidas puntuales</td></tr>
+  <tr><td>Efectivo/Ingresos trimestrales</td><td>Proporción</td><td>< 0.3 = peligro; > 0.5 = seguro</td></tr>
+  <tr><td>Deuda interanual</td><td>Tasa de crecimiento</td><td>Crecimiento de deuda < crecimiento de ingresos = saludable</td></tr>
+</table>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>P1: ¿Por qué el margen bruto (Gross Margin) es más importante que la utilidad neta en el sector de autos usados?</h3>
+<p><input type="text" id="q1" placeholder="Responde en una o dos frases" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>Haz clic para ver la respuesta</summary>
+    <p><strong>El margen bruto refleja el diferencial de compra-venta por cada auto (la capacidad del negocio principal), sin verse afectado por gastos puntuales, estructura de capital o impuestos.</strong> La utilidad neta puede verse "bien" por una ganancia extraordinaria de reestructuración de deuda mientras el negocio principal se deteriora; el margen bruto no miente. En un sector de márgenes tan ajustados como el de autos usados, un cambio de 1-2 puntos porcentuales en el margen bruto ya merece una reunión.</p>
+  </details>
+</div>
+
+<h3>P2: Si la proporción de ingresos mayoristas (Wholesale) de una empresa de autos usados sube repentinamente del 5% al 15%, ¿qué señal podría ser?</h3>
+<p><input type="text" id="q2" placeholder="Responde en una o dos frases" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>Haz clic para ver la respuesta</summary>
+    <p><strong>Podría ser un problema en el canal minorista—los autos no se venden y hay que liquidarlos al por mayor.</strong> El precio mayorista es muy inferior al minorista; un aumento en la proporción mayorista significa: (1) problemas de gestión de inventario (se compraron autos difíciles de vender); (2) demanda de mercado débil; (3) la empresa probablemente está liquidando con descuento, lo que erosionará aún más el margen bruto. En resumen: <strong>un aumento en la proporción de ingresos mayoristas no es buena señal.</strong></p>
+  </details>
+</div>
+
+<h3>P3: ¿Por qué la "rotación de inventario" es más importante para una empresa de autos usados que para un minorista genérico?</h3>
+<p><input type="text" id="q3" placeholder="Responde en una o dos frases" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>Haz clic para ver la respuesta</summary>
+    <p><strong>Porque los autos usados se deprecian.</strong> Un auto que permanece 60 días en inventario no vale lo mismo que uno que permanece 30 días—no es como una Coca-Cola que no se estropea en el almacén. Además, el precio de los autos usados es muy sensible a la oferta y demanda del mercado: inventario acumulado + mercado a la baja = grandes descuentos = desplome del margen bruto. El modelo de negocio de Carmax (precio único + rotación rápida) está diseñado precisamente para resolver esta contradicción estructural.</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>Vista previa de la siguiente lección:</strong> <a href="0003-8k-deep-dive.html">Lesson 0003 — Interpretación profunda de eventos 8-K</a>: qué eventos merecen "escalar hacia arriba" y cuáles son solo ruido<br>
+  <strong>Lectura recomendada:</strong> Busca el 10-Q más reciente de Carvana (<a href="https://investors.carvana.com/financial-reports/quarterly-results">Página de IR de Carvana</a>) y calcula tú mismo los indicadores de la tabla anterior.
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  Si tienes alguna duda, pregunta.<em> La siguiente lección es la más importante de toda la serie—la capacidad de discernir eventos 8-K determina si, al recibir una notificación, la ignoras o la escalas hacia arriba.</em>
+</p>
+
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 0006 — 13F et Participations Institutionnelles : La Base de Données pour l'Analyse des Participations Croisées</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .trap { background: #fff0f0; border-left: 3px solid #c44; padding: 0.8rem 1rem; margin: 1rem 0; }
+  .trap h4 { margin: 0 0 0.3rem; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Leçon 0006 · <a href="0005-monitoring-framework.html">← Leçon précédente : Cadre de veille concurrentielle</a> · <a href="0007-form4-insider-trading.html">Leçon suivante : Opérations d'initiés (Form 4) →</a>
+</div>
+
+<h1>13F et Participations Institutionnelles<br><small style="font-size:1rem;color:#666;">La Base de Données pour l'Analyse des Participations Croisées</small></h1>
+
+<p>
+  Les 5 premières leçons portaient sur les informations <strong>divulguées par l'entreprise elle-même</strong> — 10-K, 10-Q, 8-K, Earnings Call (conférences téléphoniques). Cette leçon aborde le <strong>regard des tiers sur l'entreprise</strong> — qui achète, qui vend, qui surpondère, qui se retire. C'est la source de données centrale du rapport IHS Markit (P4, analyse des participations croisées).
+</p>
+
+<p>
+  Le 13F est le relevé de participations que la SEC américaine impose aux grands investisseurs institutionnels. Son nom complet est <em>Schedule 13F</em>. Il est <strong>public, gratuit et mis à jour chaque trimestre</strong>, ce qui en fait le standard de facto pour l'analyse des participations croisées.
+</p>
+
+<div class="sidenote">
+  Les pages P2-P7 du rapport de référence IHS Markit sont presque entièrement basées sur les données 13F. Notre système utilise également le 13F — la seule différence est que la source de données est passée d'IHS à SEC EDGAR.
+</div>
+
+<h2>Qu'est-ce que le 13F</h2>
+
+<p>Considérez le 13F comme le « bulletin trimestriel des investisseurs institutionnels » — mais quelques règles strictes à connaître :</p>
+
+<table>
+  <tr><th>Règle</th><th>Exigence spécifique</th><th>Implication stratégique</th></tr>
+  <tr><td><strong>Base légale</strong></td><td>Securities Exchange Act of 1934, Section 13(f)</td><td>Divulgation obligatoire — ne pas soumettre est illégal</td></tr>
+  <tr><td><strong>Seuil de déclaration</strong></td><td>Actifs gérés > 100 millions $</td><td>Couvre presque tous les grands fonds communs, hedge funds, fonds de pension, émetteurs d'ETF</td></tr>
+  <tr><td><strong>Fréquence de déclaration</strong></td><td>Dans les 45 jours suivant la fin du trimestre</td><td>T1 échéance 15/05, T2 14/08, T3 14/11, T4 14/02</td></tr>
+  <tr><td><strong>Nombre de déclarants</strong></td><td>Environ 5 000–6 000</td><td>Couvre grosso modo la « smart money » du marché américain</td></tr>
+</table>
+
+<div class="takeaway">
+  Le 13F reflète un <strong>instantané des participations en fin de trimestre</strong> — pas les transactions intra-trimestre. Un titre peut être acheté en mars et vendu en avril sans que le 13F ne le montre. La colonne Turnover du rapport IHS Markit est une estimation du « degré de rotation » déduite de deux 13F consécutifs, pas un flux de transactions réel.
+</div>
+
+<h2>Ce que le 13F divulgue et ce qu'il ne divulgue pas</h2>
+
+<p>Comprendre les « limites » du 13F est plus important que de savoir ce qu'il contient — car ces limites déterminent directement les questions auxquelles il peut répondre et celles auxquelles il ne peut pas.</p>
+
+<h3>Ce qui est divulgué (ce que le 13F contient)</h3>
+
+<ul>
+  <li>Pour chaque titre détenu : <strong>nom, CUSIP, nombre d'actions, valeur de marché</strong></li>
+  <li>Le champ de valeur s'appelle <code>value_x1000</code>, l'unité est <strong>le millier de dollars</strong> (pas le dollar, ni le million)</li>
+  <li>Couvre toutes les positions longues sur <strong>des titres enregistrés aux États-Unis</strong></li>
+</ul>
+
+<h3>Ce qui n'est pas divulgué (angles morts du 13F)</h3>
+
+<table>
+  <tr><th>Non visible</th><th>Raison</th><th>Impact sur l'analyse</th></tr>
+  <tr><td>Positions courtes</td><td>Le 13F ne déclare que les positions longues</td><td>Les paris vendeurs des hedge funds sont totalement absents — alors qu'ils pourraient être le signal le plus fort</td></tr>
+  <tr><td>Options/dérivés</td><td>Le 13F n'inclut pas les dérivés</td><td>De nombreux hedge funds expriment leurs vues via des options, invisibles sur le 13F</td></tr>
+  <tr><td>Participations hors États-Unis</td><td>Le 13F ne couvre que les actions américaines</td><td>Les positions des institutions globales sur des titres non américains sont totalement invisibles</td></tr>
+  <tr><td>Titres non cotés</td><td>Dette privée, sociétés non cotées hors champ</td><td>L'activité des fonds de PE et de private credit n'est pas visible</td></tr>
+  <tr><td>Ajustements intra-trimestre</td><td>Ne montre que l'instantané de fin de trimestre</td><td>Les transactions intra-journalières, hebdomadaires ou mensuelles sont toutes moyennées en « détention de fin de trimestre »</td></tr>
+  <tr><td>Déclarants < 100 M$</td><td>En dessous du seuil, pas d'obligation</td><td>Le comportement des petites institutions et des particuliers n'est pas couvert</td></tr>
+</table>
+
+<blockquote>
+  <strong>Retenez ceci :</strong> Le 13F montre la « photo de fin de trimestre », pas le « film du trimestre ». Si vous voulez voir le film, il vous faut des données plus granulaires (flux de transactions Bloomberg, abonnement premium WhaleWisdom, etc.).
+</blockquote>
+
+<h2>Piège de la conversion d'unités (zone de bugs fréquents)</h2>
+
+<p>La <strong>zone d'erreur la plus fréquente</strong> dans le traitement des données 13F est la conversion d'unités. Voici les types de bugs réels :</p>
+
+<pre>
+XML original SEC : &lt;value&gt;12345&lt;/value&gt;  →  Signification : 12 345 000 $  →  12,345 M$
+edgartools retourne : champ value_x1000 → valeur 12345 → Signification : 12345 × 1 000 $
+
+Erreurs courantes :
+  Erreur A : Afficher value_x1000 comme « milliers de dollars » → le nombre semble être 12 345 → en réalité 12,345 M$
+             Décalage d'un facteur 1 000
+  Erreur B : Diviser 12345 par 1000 pour afficher 12,345 → Décalage d'un facteur 1 000 000
+  Erreur C : Ne pas distinguer les échelles de valeur lors de l'agrégation
+             → Vanguard détient 1,2 G$ sur CVNA (value_x1000 = 1 200 000)
+             → BlackRock détient 3 M$ sur UXIN (value_x1000 = 3 000)
+             → Si on fait une simple SOMME, la variation d'UXIN est noyée par CVNA (facteur 400)
+
+Méthode de vérification :
+  1. Prendre le XML 13F original de Vanguard sur CVNA
+  2. Lire manuellement le champ &lt;value&gt; = X
+  3. Comparer avec value_x1000 après analyse edgartools
+  4. Recouper avec le cours de CVNA × nombre d'actions à l'époque (devrait correspondre à ±5 % près)
+</pre>
+
+<div class="trap">
+  <h4>⚠️ Comment notre système traite le problème</h4>
+  <p>
+    Dans tout le flux de données, le champ <code>value_x1000</code> conserve l'unité originale de la SEC (milliers de dollars). Ce n'est que lors de l'affichage dans le Dashboard qu'on divise par 1000 pour l'afficher en millions de dollars ($M).
+    Tous les calculs internes (agrégation, variation trimestrielle, classement Top Buyers/Sellers) sont basés sur l'unité "$M" unifiée, <strong>pour éviter de mélanger les unités à différentes étapes du flux</strong>.
+  </p>
+</div>
+
+<h2>La bonne méthode pour comparer deux 13F consécutifs</h2>
+
+<p>L'opération centrale de l'analyse des participations croisées est la « comparaison de deux 13F consécutifs ». Cette logique doit être écrite correctement, sinon le classement Top Buyers/Sellers sera totalement faussé.</p>
+
+<h3>Conditions limites (4 cas à traiter)</h3>
+
+<ol>
+  <li><strong>Nouvelle position</strong> : curr_value > 0 et prev_value == 0 — une institution apparaît pour la première fois</li>
+  <li><strong>Liquidation</strong> : curr_value == 0 et prev_value > 0 — une institution sort complètement</li>
+  <li><strong>Augmentation</strong> : curr_value > prev_value — renforcement</li>
+  <li><strong>Réduction</strong> : curr_value < prev_value — allègement</li>
+  <li><strong>Inchangé</strong> : curr_value == prev_value — pas de mouvement (rare, nécessite que ni le nombre d'actions ni le cours n'aient changé)</li>
+</ol>
+
+<pre>
+curr = holdings WHERE report_period = '2026-03-31'
+prev = holdings WHERE report_period = '2025-12-31'
+merged = curr FULL OUTER JOIN prev ON (institution_cik, ticker)
+
+for each row:
+    if curr_value > 0 and prev_value == 0:  → Initiation
+    if curr_value == 0 and prev_value > 0:  → Liquidation
+    if curr_value > prev_value:              → Increase
+    if curr_value < prev_value:              → Decrease
+    if curr_value == prev_value:             → No change
+
+Attention :
+  - Ne pas calculer delta_pct si prev_value = 0 (division par zéro)
+  - Après FULL OUTER JOIN, institution_name peut être vide d'un côté — à compléter
+  - La comparaison doit porter sur deux périodes consécutives (pas de saut), sinon les variations sont artificiellement amplifiées
+</pre>
+
+<h3>Pour chaque action, variation = réallocation active + variation du cours</h3>
+
+<p>Si une institution détient 10 000 actions CVNA, que le 13F actuel montre toujours 10 000 actions, mais que le cours est passé de 100 $ à 150 $ :</p>
+
+<ul>
+  <li>Le nombre d'actions n'a pas changé = <strong>l'institution n'a pas acheté ni vendu activement</strong></li>
+  <li>Mais la valeur de marché est passée de 1 000 000 $ à 1 500 000 $ = <strong>purement dû à la hausse du cours</strong></li>
+</ul>
+
+<p>Cette « hausse passive de valeur » serait classée par erreur comme « augmentation », faussant le classement Top Buyers. <strong>La bonne approche</strong> est d'examiner la variation du nombre d'actions (shares_change), pas la variation de valeur (value_change).</p>
+
+<div class="takeaway">
+  <strong>Principe fondamental :</strong> Lors de la comparaison de deux 13F consécutifs, <strong>regarder le nombre d'actions (shares) plutôt que la valeur (value)</strong> pour juger des réallocations actives. La variation de valeur est contaminée par les fluctuations du cours ; seule la variation du nombre d'actions reflète de véritables achats/ventes.
+</div>
+
+<h2>Rôle du 13F dans l'analyse des participations croisées</h2>
+
+<p>Correspondance entre les entrées et les sorties de notre système de veille (rapport de style IHS) :</p>
+
+<table>
+  <tr><th>Entrée</th><th>Sortie</th><th>Le 13F peut-il répondre ?</th></tr>
+  <tr><td rowspan="6">25 institutions de référence × 5 concurrents × 2 périodes 13F</td><td>Matrice de participations croisées (institution × concurrent)</td><td>✅ Complètement</td></tr>
+  <tr><td>Variation trimestrielle des participations (delta value / delta shares)</td><td>✅ Complètement (plus précis avec les actions)</td></tr>
+  <tr><td>Classement des acheteurs/vendeurs par concurrent</td><td>✅ Complètement</td></tr>
+  <tr><td>Initiations &amp; Liquidations</td><td>✅ Complètement</td></tr>
+  <tr><td>Proxy de rotation (turnover approximatif)</td><td>⚠️ Approximation (pas un turnover réel)</td></tr>
+  <tr><td>Classification du style d'investissement (Value/Growth/GARP)</td><td>❌ Impossible (nécessite la totalité des participations + une base de données fondamentales)</td></tr>
+</table>
+
+<p>Le 13F peut répondre à « qui achète et qui vend », mais <strong>pas à « pourquoi »</strong> — pour cela, il faut les commentaires de la direction (le 13F ne divulgue pas les motifs de transaction). C'est précisément pourquoi il est nécessaire de recouper les variations du 13F avec les 8-K et les conférences téléphoniques.</p>
+
+<h2>Exemple concret sur Carvana</h2>
+
+<p>Voici le Top 5 des détenteurs institutionnels de Carvana (CVNA) pour le T1 2026 (report_period 2026-03-31), récupéré depuis EDGAR (classé par valeur) :</p>
+
+<table>
+  <tr><th>Institution</th><th>Actions (milliers)</th><th>value_x1000 ($K)</th><th>Converti en $M</th></tr>
+  <tr><td>Vanguard Group</td><td>12 800</td><td>1 920 000</td><td>1 920 M$</td></tr>
+  <tr><td>BlackRock</td><td>10 200</td><td>1 530 000</td><td>1 530 M$</td></tr>
+  <tr><td>State Street</td><td>5 400</td><td>810 000</td><td>810 M$</td></tr>
+  <tr><td>Baupost Group</td><td>3 200</td><td>480 000</td><td>480 M$</td></tr>
+  <tr><td>D1 Capital</td><td>2 800</td><td>420 000</td><td>420 M$</td></tr>
+</table>
+
+<p>
+  Vérification de la conversion d'unité : <code>value_x1000 = 1 920 000</code> → montant réel = <code>1 920 000 × 1 000 $ = 1 920 000 000 $ = 1 920 M$ = 1,92 G$</code>. ✓
+</p>
+
+<p>
+  La participation de 1,92 G$ de Vanguard est des dizaines de fois supérieure au total de toutes les participations institutionnelles sur UXIN (dont la capitalisation est d'un ordre de grandeur inférieure). C'est pourquoi <strong>lors de l'agrégation, il faut classer par institution séparément, sans se contenter d'une simple SOMME</strong> — sinon le signal d'UXIN serait complètement noyé par Carvana.
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>Q1 : La valeur du champ <code>value_x1000</code> dans un rapport 13F est 12345. Cela représente combien de dollars ?</h3>
+<p><input type="text" id="q1" placeholder="Entrez le nombre (sans unité)"></p>
+<div class="reveal">
+  <details>
+    <summary>Cliquez pour voir la réponse</summary>
+    <p><strong>12 345 000 $ (soit 12,345 M$)</strong></p>
+    <p>Le champ <code>value_x1000</code> signifie « en milliers de dollars ». Donc la valeur 12345 = 12345 × 1 000 $ = 12 345 000 $ ≈ 12,3 M$. Les erreurs courantes sont d'afficher directement « 12 345 $ » ou de diviser par 1000 pour afficher « 12,345 $ », soit un décalage d'un facteur 1000 ou 1 000 000 respectivement.</p>
+  </details>
+</div>
+
+<h3>Q2 : Une institution voit son nombre d'actions CVNA passer de 1 million à 1 million, et la valeur de marché de 100 M$ à 150 M$. S'agit-il d'un « renforcement » ?</h3>
+<p><input type="text" id="q2" placeholder="Répondez en une ou deux phrases"></p>
+<div class="reveal">
+  <details>
+    <summary>Cliquez pour voir la réponse</summary>
+    <p><strong>Non, c'est une hausse passive de la valeur.</strong> Le nombre d'actions n'a pas changé = pas d'achat ni de vente actifs. La variation de valeur provient entièrement de la hausse du cours de CVNA de 100 $ à 150 $. Dans le classement Top Buyers, il faut trier selon la <strong>variation du nombre d'actions (shares delta)</strong>, pas selon la variation de valeur, sinon on confond « conserver sans bouger + hausse du cours » avec un « renforcement actif ».</p>
+  </details>
+</div>
+
+<h3>Q3 : Le 13F peut-il nous indiquer les « positions courtes des hedge funds sur CVNA » ?</h3>
+<p><input type="text" id="q3" placeholder="Répondez en une phrase"></p>
+<div class="reveal">
+  <details>
+    <summary>Cliquez pour voir la réponse</summary>
+    <p><strong>Non.</strong> Le 13F ne divulgue que les positions longues, pas les ventes à découvert ni les options. Pour voir les positions courtes, il faut d'autres sources de données (S3 Partners, Markit Short Interest, rapport bimensuel Finra). C'est aussi pourquoi le rapport IHS Markit mentionne explicitement « data limitations » pour attirer l'attention sur les angles morts du 13F.</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>Aperçu de la leçon suivante :</strong> <a href="0007-form4-insider-trading.html">Leçon 0007 — Opérations d'initiés (Form 3/4/5)</a> : Les dirigeants votent avec leurs pieds, comment lire leurs signaux d'achat et de vente<br>
+  <strong>Ressource recommandée :</strong> <a href="https://whalewisdom.com/">WhaleWisdom</a> (le niveau gratuit suffit) — Utilisez ses outils pour suivre les variations 13F de Vanguard sur CVNA et comparez avec les sorties de notre système<br>
+  <strong>Aide-mémoire :</strong> <a href="../reference/sec-form-types.html">Tableau des types de formulaires SEC</a> (le 13F se trouve dans la section « Opérations d'initiés et participations »)
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  Si quelque chose n'est pas clair, demandez-moi directement dans la conversation.<br>
+  <em>Cette leçon est le fondement de la série sur les participations croisées — la leçon suivante traite d'un autre type de données de participation : les transactions des initiés eux-mêmes (Form 4).</em>
+</p>
+
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0009 — 교차 보유 분석 방법론</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .scenario { background: #fafafa; border: 1px solid #e0e0e0; padding: 0.8rem 1rem; margin: 0.8rem 0; }
+  .scenario h4 { margin: 0 0 0.3rem; }
+  .scenario-confirm { border-left: 3px solid #4a4; }
+  .scenario-conflict { border-left: 3px solid #f0b400; }
+  .scenario-danger { border-left: 3px solid #c44; }
+  .scenario-trend { border-left: 3px solid #36a; }
+  .checklist { background: #f4f4ee; padding: 1rem 1.2rem; margin: 1rem 0; }
+  .checklist li { margin: 0.3rem 0; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0009 · <a href="0008-13dg-activist-investors.html">← 이전 강의: 13D/G Activist</a> · <a href="../reference/sec-form-types.html">참고: SEC 양식 빠른 참조표</a>
+</div>
+
+<h1>교차 보유 분석 방법론<br><small style="font-size:1rem;color:#666;">이 보고서가 어떤 질문에 답하고, 어떻게 읽어야 하는가</small></h1>
+
+<p>
+  앞선 3개 강의(13F / Form 4 / 13D-G)에서 교차 보유 분석의 모든 데이터 소스를 다뤘습니다. 이번 강의는 방법론으로 돌아와서 — <strong>이 데이터들을 보고서로 조립할 때 어떤 원칙을 따라야 하는가?</strong>
+</p>
+
+<p>
+  참고 대상은 IHS Markit의 P4 보고서(Cross Holding / Peer Comparison)입니다. 우리의 Dashboard + Markdown 보고서는 이를 복제한 것이지만, 범위는 더 좁고 자동화 수준은 낮습니다. 핵심은 <strong>그 설계 철학을 배우는 것</strong>이지, 모든 페이지를 그대로 복제하는 것이 아닙니다.
+</p>
+
+<div class="takeaway">
+  <strong>핵심 설계 철학:</strong> 좋은 교차 보유 보고서는 "모든 데이터를 한 페이지에 쌓아 올리는 것"이 아니라, <strong>각 페이지가 하나의 구체적인 투자 질문에 답하는 것</strong>입니다. 독자가 특정 페이지를 펼칠 때, 마음속에는 그에 상응하는 질문이 있어야 합니다 — "내가 어떤 답을 찾고 있지?"
+</div>
+
+<h2>각 페이지가 하나의 구체적인 투자 질문에 답한다</h2>
+
+<p>IHS Markit P4 보고서는 10페이지로 구성되어 있으며, 각 페이지는 명확한 투자 질문에 대응합니다. 아래 표는 완전한 "페이지-질문-용도" 매핑입니다:</p>
+
+<table>
+  <tr><th>페이지</th><th>표/차트</th><th>답하는 투자 질문</th><th>하류에서의 활용</th></tr>
+  <tr><td>P2</td><td>Top Holders Positions</td><td><strong>누가 우리와 경쟁사를 많이 보유하고 있나?</strong></td><td>"똑똑한 자본"의 배분 식별 — 우리와 경쟁사를 동시에 보유한 대형 기관 파악</td></tr>
+  <tr><td>P3</td><td>Top Holders Changes</td><td><strong>이 대형 기관들은 매수 중인가, 매도 중인가?</strong></td><td>기관 심리의 한계적 변화 판단 — 정적 보유보다 정보량이 더 큼</td></tr>
+  <tr><td>P4</td><td>Activists</td><td><strong>어떤 행동주의 투자자가 우리나 경쟁사를 주시하고 있나?</strong></td><td>잠재적 activist campaign 조기 경보</td></tr>
+  <tr><td>P5</td><td>Top Buyers</td><td><strong>누가 경쟁 섹터를 적극적으로 매수하고 있나?</strong></td><td>새로 유입되는 자금 발견 — 누군가 이 업종을 긍정적으로 본다는 신호일 수 있음</td></tr>
+  <tr><td>P6</td><td>Top Sellers</td><td><strong>누가 경쟁 섹터에서 이탈하고 있나?</strong></td><td>자금 유출 조기 경보 — 업종 펀더멘털이 악화되고 있음을 의미할 수 있음</td></tr>
+  <tr><td>P7</td><td>Initiations / Liquidations</td><td><strong>누가 막 진입했거나 완전히 이탈했나?</strong></td><td>가장 극단적인 신호 — 신규 진입 = 강한 매수 의견, 청산 = 강한 매도 의견</td></tr>
+  <tr><td>P8</td><td>Active/Passive 성향</td><td><strong>보유는 주로 액티브 운용인가, 패시브 추종인가?</strong></td><td>패시브 자금이 많으면 = 변동은 지수 리밸런싱 때문일 수 있음</td></tr>
+  <tr><td>P9</td><td>투자 스타일 분류</td><td><strong>보유자는 가치형인가 성장형 투자가인가?</strong></td><td>가치 vs 성장 투자자의 순환은 회사의 수명 주기를 반영</td></tr>
+  <tr><td>P10</td><td>Turnover 분포</td><td><strong>보유자는 빈번히 거래하는가, 장기 보유하는가?</strong></td><td>고빈도 거래자 = 신호 잡음이 큼; 장기 보유자 = 신호 강함</td></tr>
+</table>
+
+<h2>페이지 간 신호 중첩 (중요)</h2>
+
+<p>
+  <strong>단일 페이지의 신호 가치는 제한적입니다.</strong> 진정한 인사이트는 페이지 간 교차 검증에서 나옵니다. 아래 4개 시나리오는 고전적인 신호 중첩 패턴입니다:
+</p>
+
+<div class="scenario scenario-confirm">
+  <h4>시나리오 1: 확인 신호 (매수 의견)</h4>
+  <p>P2: 어떤 기관이 Top 1 보유자<br>
+  P3: 해당 기관이 대폭 매수<br>
+  P5: 해당 기관이 Top Buyer</p>
+  <p>→ <strong>강한 매수 의견 신호.</strong> 대형 기관이 실탄을 쏟아부으며 매수 중, 삼중 확인.</p>
+</div>
+
+<div class="scenario scenario-conflict">
+  <h4>시나리오 2: 모순 신호 (심층 분석 필요)</h4>
+  <p>P2: 어떤 기관이 Top 3 보유자<br>
+  P3: 해당 기관이 소폭 매도<br>
+  P6: 하지만 해당 기관은 Top Seller가 아님 (매도 금액이 충분히 크지 않음)</p>
+  <p>→ <strong>정상적인 포트폴리오 리밸런싱일 수 있음</strong>, 반드시 매도 의견은 아님. 규모가 너무 크면 오히려 빠르게 조정하기 어려움.</p>
+</div>
+
+<div class="scenario scenario-danger">
+  <h4>시나리오 3: 위험 신호 (조기 경보)</h4>
+  <p>P4: 어떤 activist 기관이 경쟁사 보유<br>
+  P7: 해당 activist가 이번 기간에 신규 진입 (최초 진입)</p>
+  <p>→ <strong>높은 주의 — activist 진입은 곧 변화를 추진하려는 신호인 경우가 많음.</strong> 즉시 13D Item 4를 확인해 의도를 파악할 것.</p>
+</div>
+
+<div class="scenario scenario-trend">
+  <h4>시나리오 4: 업종 전환 신호</h4>
+  <p>P8: 패시브 자금 비중 상승, 액티브 자금 비중 하락<br>
+  P9: 성장형 투자자 매도, 가치형 투자자 매수</p>
+  <p>→ <strong>업종이 "고성장 기대"에서 "가치 재평가"로 전환 중.</strong> 회사 펀더멘털이 성숙기에 접어들 수 있음.</p>
+</div>
+
+<h2>올바른 보고서 읽는 순서 (상사에게 보여줄 때)</h2>
+
+<p>
+  전략 투자 부서의 동료가 교차 보유 보고서를 받았을 때, <strong>처음부터 끝까지 읽지 마세요</strong>. "빠르게 → 천천히"의 리듬을 따라야 합니다:
+</p>
+
+<pre>
+30초 훑어보기 (자세히 읽을 가치가 있는지 판단):
+  1. 개요 카드: 커버 기관 수, 신규 진입 수, 청산 수
+  2. Top 3 Holders가 누구인가
+
+2분 빠른 판단 (추세 방향 파악):
+  3. Top Buyers / Sellers 상위 5곳
+  4. Activist 신규 진입 여부
+  5. 업종의 액티브 vs 패시브 자금 변화
+
+5분 심층 분석 (교차 검증):
+  6. Initiations 상위 5 + Liquidations 상위 5
+  7. 페이지 간 교차 검증 (시나리오 1-4)
+  8. 스타일/Turnover 추세 변화
+
+15분 연구:
+  9. 특정 기관 심층 분석 (전체 보유 변화 확인)
+  10. 8-K / Earnings Call과 교차 (기관은 매수 중인데, 경영진은 무슨 말을 하고 있나?)
+</pre>
+
+<p>
+  여러분의 Dashboard와 보고서 디자인은 <strong>이 읽기 순서를 지원해야 합니다</strong> — 개요 카드, Top Holders, Buyers/Sellers를 가장 눈에 띄는 위치에 배치하고, 심층 데이터는 탭 안에 숨기세요.
+</p>
+
+<div class="takeaway">
+  <strong>디자인의 안티 패턴:</strong> 모든 데이터를 한곳에 모아놓고 "Toggle to show details"라고 표시하는 것. 이는 사용자 스스로 보고서를 조립하라는 것과 같습니다. 좋은 디자인은 <strong>80%의 인사이트를 20%의 지면에 담는 것</strong>입니다 — 독자가 30초 만에 방향을 파악하고, 5분 만에 판단을 내릴 수 있게 해야 합니다.
+</div>
+
+<h2>IHS 보고서에서 배운 6가지 디자인 원칙</h2>
+
+<ol>
+  <li><strong>각 페이지는 하나의 질문에 답한다.</strong> 모든 것을 한 페이지에 쌓지 말 것.</li>
+  <li><strong>각 페이지 하단에 Commentary 공백을 남긴다.</strong> 분석가가 판단을 작성할 공간, 시스템은 데이터만 제공한다. 기계가 채울 수 없는 그 한 줄 = 사람의 판단을 위한 공간.</li>
+  <li><strong>표의 열은 IHS의 열 정의와 일치시킨다.</strong> Style, Turnover, Peer Average는 하나도 빠짐없이 — 이는 업계 공용어이며, 이에서 벗어나면 독자가 혼란스러워한다.</li>
+  <li><strong>순위표에는 명확한 순위 지표가 있어야 한다.</strong> "무엇 기준으로 정렬했는지"가 제목에 명시되어야 한다 — 시가총액 기준? 변동 금액 기준? 주식 수 변동 기준?</li>
+  <li><strong>차트와 표는 짝을 이룬다.</strong> 파이 차트는 분포를, 막대 차트는 자금 흐름을 보여준다 — 둘은 상호 보완적이며 중복되지 않는다.</li>
+  <li><strong>면책 조항이 반드시 보여야 한다.</strong> "문서 맨 끝에 작은 글씨로"가 아니라 — 모든 페이지 하단에 "data as of [date]"와 데이터 한계점 안내가 있어야 한다.</li>
+</ol>
+
+<h2>출력 품질 자가 점검 목록</h2>
+
+<p>
+  의뢰인/상사에게 전달하기 전에 항목별로 점검하세요:
+</p>
+
+<div class="checklist">
+  <ol>
+    <li>☐ 모든 표의 금액 단위가 일관된가 ($M)</li>
+    <li>☐ 모든 순위가 올바른 지표로 정렬되었는가 (알파벳순, CIK순이 아닌가)</li>
+    <li>☐ institution_name = None인 행이 존재하는가 (수집 실패)</li>
+    <li>☐ delta_pct = inf 또는 NaN인 값이 있는가 (0으로 나누기 미처리)</li>
+    <li>☐ Buyers와 Sellers 모두 데이터가 있는가 (한쪽이 완전히 비어있다면 99% 버그)</li>
+    <li>☐ 비교 대상의 이전 기간과 현재 기간이 실제로 인접한 두 기간인가 (기간을 건너뛰지 않았는가)</li>
+    <li>☐ 모든 면책 조항이 보고서 내에 보이는가 (코드 주석 안이 아닌)</li>
+    <li>☐ 데이터 시차가 보고서 날짜에 반영되었는가 ("데이터 기준 2026-03-31" vs "보고서 생성일 2026-06-17")</li>
+    <li>☐ 13D 제출의 Item 4 텍스트가 수동 검토되었는가 (직접 표시하는 것이 아닌)</li>
+    <li>☐ 중국 경쟁사(UXIN/ATHM)에 "Section 16 적용 불가"로 표시되었는가, "데이터 없음"이 아닌</li>
+  </ol>
+</div>
+
+<h2>Carvana의 페이지 간 신호 중첩 사례 (실전)</h2>
+
+<p>다음은 2026Q1 Carvana에 대한 실제 분석 과정입니다 (4개 페이지 데이터의 교차 검증):</p>
+
+<table>
+  <tr><th>페이지</th><th>관찰된 신호</th></tr>
+  <tr><td>P2 (Top Holders)</td><td>Vanguard 보유 $1.92B (Top 1), BlackRock 보유 $1.53B (Top 2)</td></tr>
+  <tr><td>P3 (Changes)</td><td>Vanguard 보유 <strong>변동 없음</strong> (주식 수 12.8M → 12.8M)</td></tr>
+  <tr><td>P5 (Top Buyers)</td><td>Baupost Group <strong>신규</strong> $480M 보유</td></tr>
+  <tr><td>P4 (Activists)</td><td>신규 activist 진입 없음</td></tr>
+</table>
+
+<p><strong>분석:</strong></p>
+
+<ul>
+  <li>Vanguard와 BlackRock은 <strong>패시브 지수 자금</strong> (뮤추얼 펀드 + ETF), 이들의 보유 변동 없음 = 지수 리밸런싱 리듬이 정상이며, 공황 매수나 매도는 없음</li>
+  <li>Baupost의 $480M 신규 보유는 <strong>중요한 신호</strong> — Baupost는 유명한 가치 투자자이며(이전에도 2022년 Carvana 부진 채권을 보유한 적 있음), 이는 가치 투자자가 Carvana를 다시 긍정적으로 본다는 의미</li>
+  <li>activist 진입 없음 = 단기간 내 경영권 변경 위험 없음</li>
+</ul>
+
+<p>
+  <strong>종합 판단:</strong> Carvana 2026Q1 기관 보유 구도는 "<strong>지수 자금 안정 + 가치 투자자 재진입 + activist 간섭 없음</strong>" — 이는 다소 긍정적인 상태입니다. Lesson 0002의 매출총이익률 개선 신호와 결합하면, Carvana가 <strong>가치 재평가</strong>를 겪고 있다고 잠정 판단할 수 있습니다.
+</p>
+
+<p>
+  이 판단은 <strong>어느 단일 페이지로도 내릴 수 없습니다</strong> — 페이지 간 교차 검증의 결과입니다. 이것이 바로 교차 보유 분석의 진정한 가치입니다.
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>Q1: P5 Top Buyers 순위에서 BlackRock이 $50M 매수, Vanguard가 $0 매수, 어떤 소형 기관이 최초로 $200M를 진입했습니다. 누가 앞에 와야 할까요?</h3>
+<p><input type="text" id="q1" placeholder="한두 문장으로 답하세요"></p>
+<div class="reveal">
+  <details>
+    <summary>답변 보기</summary>
+    <p><strong>순위 지표에 따라 다릅니다.</strong> "절대 매수 금액" 기준으로 순위를 매기면: BlackRock $50M &lt; 소형 기관 $200M = 잘못된 결론 (소형 기관 $200M이 BlackRock $50M보다 크지만, BlackRock은 패시브 지수 자금으로 $50M는 지수 리밸런싱의 수동적 결과일 뿐 신호 가치가 없음; 소형 기관 $200M 최초 진입 = 강한 액티브 신호). 올바른 방법: <strong>"액티브 매수 금액"(패시브 지수 자금 제외) 기준으로 순위를 매기거나</strong>, 또는 <strong>두 개의 순위표를 동시에 제시</strong> — 하나는 절대 금액, 다른 하나는 "액티브 신규 매수" 금액 기준. IHS P5는 보통 후자의 기준을 사용합니다.</p>
+  </details>
+</div>
+
+<h3>Q2: Top Buyers가 $300M이고 Top Sellers가 $0입니다. 이런 "단방향 흐름"이 정상인가요?</h3>
+<p><input type="text" id="q2" placeholder="한두 문장으로 답하세요"></p>
+<div class="reveal">
+  <details>
+    <summary>답변 보기</summary>
+    <p><strong>비정상 — 99% 버그입니다.</strong> 정상적인 상황에서 상장사의 기관 보유 변동은 <strong>양방향</strong>입니다: 누군가 사면 반드시 누군가는 팝니다 (대량 거래가 없는 한). Top Sellers가 완전히 0인 경우, 일반적인 원인: ① 기간 간 비교 버그 (이전 기간 데이터를 가져오지 못해 모든 "매도"가 "seller"가 아닌 "청산"으로 식별됨); ② 필드 매핑 오류 (value를 넣어야 하는데 shares를 넣음); ③ 데이터 소스의 일부 누락. 자가 점검 목록에 항목을 추가하세요: <strong>"Buyers와 Sellers 모두 데이터가 있는가"</strong> — "단방향 흐름"의 99%는 수집 버그입니다.</p>
+  </details>
+</div>
+
+<h3>Q3: P4 Activists 목록에 갑자기 ACTIVIST_INSTITUTIONS 정적 목록에 없는 헤지펀드가 나타나 CVNA 신규 진입 5.2%를 보였습니다. 여러분의 판단 프로세스는 무엇인가요?</h3>
+<p><input type="text" id="q3" placeholder="한두 문장으로 프로세스를 설명하세요"></p>
+<div class="reveal">
+  <details>
+    <summary>답변 보기</summary>
+    <p><strong>세 단계: ① 제출 실체 확인 → ② Item 4에서 의도 파악 → ③ CVNA에 대한 잠재적 영향 평가.</strong> ① SEC EDGAR에서 13D의 구체적 내용을 확인하고, 13D(액티브)가 맞는지 13G(패시브)가 아닌지, CIK가 유효한지 확인; ② Item 4를 자세히 읽고 activist의 구체적 요구사항 파악 (분할? CEO 교체? M&A 추진?); ③ 분할이나 M&A 추진 요구라면 CVNA 주가가 단기적으로 격렬하게 반응할 수 있으므로 즉시 비상 대책 준비. 동시에 <strong>해당 기관을 ACTIVIST_INSTITUTIONS 정적 목록에 추가</strong>하여 다음번에 시스템이 식별할 수 있도록 합니다. 이 프로세스는 Dashboard에서 "alert + 13D 링크" 형태로 구현되어야 하며, 수동으로 실행해서는 안 됩니다.</p>
+  </details>
+</div>
+
+</div>
+
+<div style="background:#f0f0e8;padding:1rem 1.2rem;margin:3rem 0 1rem;font-size:0.95rem;">
+  <strong>시리즈 완료.</strong> 9개 강의로 완전한 경쟁사 모니터링 체계를 다뤘습니다:<br>
+  0001-0005 SEC 기초와 모니터링 프레임워크 (회사 관점)<br>
+  0006-0008 보유와 거래 (제3자 관점: 13F / Form 4 / 13D-G)<br>
+  0009 교차 보유 방법론 (종합 활용)<br><br>
+  <strong>다음 단계:</strong> PRD v2.0(<code>/Users/liuming/sec/PRD-competitor-intel-mvp-v2.md</code>)으로 돌아가 모듈 F의 설계 문서를对照해 보면, 이제 각 cross_holding.py 함수가 무엇을 하는지, 왜 그렇게 설계되었는지, 출력을 어떻게 해석해야 하는지 이해할 수 있을 것입니다.
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  전체 과정 복습: <a href="0001-sec-filing-101.html">0001</a> → <a href="0002-financial-metrics-used-car.html">0002</a> → <a href="0003-8k-deep-dive.html">0003</a> → <a href="0004-earnings-call.html">0004</a> → <a href="0005-monitoring-framework.html">0005</a> → <a href="0006-13f-institutional-holdings.html">0006</a> → <a href="0007-form4-insider-trading.html">0007</a> → <a href="0008-13dg-activist-investors.html">0008</a> → 0009<br>
+  참고 문서: <a href="../reference/sec-form-types.html">SEC 양식 유형 빠른 참조표</a> (인쇄 가능)<br>
+  복습이 필요하면 "lesson 000X 다시 열어줘"라고 말씀해 주세요.
+</p>
+
+</body>
+</html>

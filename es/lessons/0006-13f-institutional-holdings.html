@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0006 — 13F y tenencias institucionales: La base de datos para el análisis de tenencias cruzadas</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .trap { background: #fff0f0; border-left: 3px solid #c44; padding: 0.8rem 1rem; margin: 1rem 0; }
+  .trap h4 { margin: 0 0 0.3rem; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0006 · <a href="0005-monitoring-framework.html">← Leccion anterior: Marco de monitoreo competitivo</a> · <a href="0007-form4-insider-trading.html">Siguiente leccion: Operaciones de internos (Form 4) →</a>
+</div>
+
+<h1>13F y tenencias institucionales<br><small style="font-size:1rem;color:#666;">La base de datos para el analisis de tenencias cruzadas</small></h1>
+
+<p>
+  Las primeras 5 lecciones trataban sobre informacion <strong>divulgada por la propia empresa</strong> — 10-K, 10-Q, 8-K y Earnings Call desde la perspectiva de la compania. Esta leccion comienza a abordar la <strong>vision de terceros sobre la empresa</strong> — quien compra, quien vende, quien tiene posiciones grandes, quien se retira. Esta es la fuente de datos principal del informe IHS Markit (P4, analisis de tenencias cruzadas).
+</p>
+
+<p>
+  El 13F es un formulario exigido por la SEC de EE.UU. a los grandes inversores institucionales para divulgar sus tenencias, cuyo nombre completo es <em>Schedule 13F</em>. Es <strong>publico, gratuito y se actualiza trimestralmente</strong>, por lo que se ha convertido en el estandar de facto para el analisis de tenencias cruzadas.
+</p>
+
+<div class="sidenote">
+  Las paginas P2-P7 del informe de referencia de IHS Markit se basan casi por completo en datos del 13F. Nuestro sistema tambien utiliza el 13F — solo que la fuente de datos ha cambiado de IHS a SEC EDGAR.
+</div>
+
+<h2>Que es el 13F</h2>
+
+<p>Considere el 13F como el "boletin trimestral de calificaciones de los inversores institucionales" — pero hay varias reglas estrictas que debe conocer:</p>
+
+<table>
+  <tr><th>Regla</th><th>Requisito especifico</th><th>Implicacion estrategica</th></tr>
+  <tr><td><strong>Base legal</strong></td><td>Securities Exchange Act of 1934, Section 13(f)</td><td>Divulgacion obligatoria; no presentarlo es ilegal</td></tr>
+  <tr><td><strong>Umbral de presentacion</strong></td><td>Inversores institucionales con activos gestionados > $100 millones</td><td>Cubre casi todos los fondos mutuos grandes, fondos de cobertura, fondos de pensiones y emisores de ETF</td></tr>
+  <tr><td><strong>Frecuencia de presentacion</strong></td><td>Dentro de los 45 dias posteriores al cierre de cada trimestre</td><td>Q1 vence el 15/05, Q2 el 14/08, Q3 el 14/11, Q4 el 14/02</td></tr>
+  <tr><td><strong>Numero de entidades declarantes</strong></td><td>Aproximadamente 5,000-6,000</td><td>Cubre practicamente todo el "dinero inteligente" del mercado estadounidense</td></tr>
+</table>
+
+<div class="takeaway">
+  El 13F refleja una <strong>instantanea de las tenencias al final del trimestre</strong> — no las operaciones realizadas dentro del trimestre. Una accion podria haberse comprado en marzo y vendido en abril, pero el 13F no lo mostraria en absoluto. La columna Turnover del informe IHS Markit se calcula a partir de dos periodos consecutivos de 13F como una "magnitud de reajuste" aproximada, no es un registro real de transacciones.
+</div>
+
+<h2>Que divulga y que no divulga el 13F</h2>
+
+<p>Comprender los "limites" del 13F es mas importante que saber que divulga — porque esos limites determinan directamente que preguntas puede responder y cuales no.</p>
+
+<h3>Que divulga (que hay en el 13F)</h3>
+
+<ul>
+  <li>Por cada accion en cartera: <strong>nombre, CUSIP, numero de acciones y valor de mercado</strong></li>
+  <li>El campo de valor de mercado se denomina <code>value_x1000</code> y la unidad son <strong>miles de dolares</strong> (no dolares, ni millones de dolares)</li>
+  <li>Cubre todas las posiciones largas en <strong>valores registrados en EE.UU.</strong></li>
+</ul>
+
+<h3>Que no divulga (puntos ciegos del 13F)</h3>
+
+<table>
+  <tr><th>No se ve</th><th>Por que no se ve</th><th>Impacto en el analisis</th></tr>
+  <tr><td>Posiciones cortas</td><td>El 13F solo reporta posiciones largas</td><td>Las apuestas cortas de los fondos de cobertura estan completamente ausentes, y podrian ser la senal mas fuerte</td></tr>
+  <tr><td>Opciones/derivados</td><td>El 13F no incluye derivados</td><td>Muchos fondos de cobertura expresan sus opiniones mediante opciones, pero el 13F no las muestra</td></tr>
+  <tr><td>Tenencia fuera de EE.UU.</td><td>El 13F solo cubre acciones estadounidenses</td><td>Las posiciones de los institucionales globales en acciones no estadounidenses son completamente invisibles</td></tr>
+  <tr><td>Valores no cotizados</td><td>Deuda privada y empresas no cotizadas no estan en el ambito del 13F</td><td>La actividad de los fondos de private equity y de creditos privados no se ve</td></tr>
+  <tr><td>Reajustes intratrimestrales</td><td>Solo muestra la instantanea de fin de trimestre</td><td>Las operaciones intradia, semanales y mensuales quedan promediadas como "tenencia al cierre del trimestre"</td></tr>
+  <tr><td>Parte de los declarantes con activos < $100 millones</td><td>No alcanzan el umbral y no declaran</td><td>El comportamiento de las pequenas instituciones y los minoristas no esta cubierto por el 13F</td></tr>
+</table>
+
+<blockquote>
+  <strong>Recuerde esta frase:</strong> El 13F muestra "la foto de fin de trimestre", no "la pelicula del trimestre". Si quiere ver la pelicula, necesita datos mas detallados (como los registros de operaciones de Bloomberg o la suscripcion premium de WhaleWisdom).
+</blockquote>
+
+<h2>La trampa de la conversion de unidades (zona propensa a errores)</h2>
+
+<p>En el procesamiento de datos del 13F, <strong>el punto donde es mas facil cometer errores es la conversion de unidades</strong>. La siguiente tabla muestra los patrones reales de errores:</p>
+
+<pre>
+SEC XML original: &lt;value&gt;12345&lt;/value&gt;  →  Significa: $12,345,000  →  $12.345M
+edgartools devuelve: nombre del campo value_x1000 → valor 12345 → Significa: 12345 × $1,000
+
+Errores comunes:
+  Error A: Mostrar value_x1000 como "miles de dolares" → el numero parece 12,345 → en realidad es $12.345M
+           Desviacion de 1000 veces
+  Error B: Dividir 12345 por 1000 y mostrarlo como 12.345 → Desviacion de 1,000,000 de veces
+  Error C: No diferenciar las magnitudes de valor de mercado al agregar
+           → Vanguard tiene $1.2B en CVNA (value_x1000 = 1,200,000)
+           → BlackRock tiene $3M en UXIN (value_x1000 = 3,000)
+           → Si se suma directamente, el cambio de UXIN queda ahogado por CVNA (diferencia de 400 veces)
+
+Metodo de verificacion:
+  1. Tomar el XML original del 13F de Vanguard en CVNA
+  2. Leer manualmente el campo &lt;value&gt; = X
+  3. Comparar con value_x1000 analizado por edgartools
+  4. Verificar de forma cruzada con el precio de CVNA en ese momento × numero de acciones (deberia coincidir aproximadamente, tolerancia ±5%)
+</pre>
+
+<div class="trap">
+  <h4>⚠️ Como lo maneja nuestro sistema</h4>
+  <p>
+    En todo el flujo de datos, el campo <code>value_x1000</code> mantiene la unidad original de la SEC (miles de dolares). Solo en la visualizacion del dashboard se divide uniformemente por 1000 para mostrar en millones de dolares ($M).
+    Todos los calculos internos (agregacion, cambio QoQ, ranking de Top Buyers/Sellers) se basan en la unidad "$M" unificada, <strong>evitando mezclar unidades en diferentes etapas del flujo de datos</strong>.
+  </p>
+</div>
+
+<h2>La forma correcta de comparar 13F entre periodos</h2>
+
+<p>La accion central del analisis de tenencias cruzadas es "comparar dos periodos consecutivos de 13F". La logica de este paso debe estar bien implementada, de lo contrario, el ranking de Top Buyers/Sellers se distorsionara por completo.</p>
+
+<h3>Casos limite (4 situaciones que deben manejarse)</h3>
+
+<ol>
+  <li><strong>Nueva posicion</strong>: curr_value > 0 y prev_value == 0 — La institucion aparece por primera vez</li>
+  <li><strong>Liquidacion</strong>: curr_value == 0 y prev_value > 0 — La institucion sale por completo</li>
+  <li><strong>Aumento</strong>: curr_value > prev_value — Incremento de posicion</li>
+  <li><strong>Reduccion</strong>: curr_value < prev_value — Disminucion de posicion</li>
+  <li><strong>Sin cambios</strong>: curr_value == prev_value — Sin movimiento (raro, solo ocurre si ni las acciones ni el precio cambian)</li>
+</ol>
+
+<pre>
+curr = holdings WHERE report_period = '2026-03-31'
+prev = holdings WHERE report_period = '2025-12-31'
+merged = curr FULL OUTER JOIN prev ON (institution_cik, ticker)
+
+for each row:
+    if curr_value > 0 and prev_value == 0:  → Initiation
+    if curr_value == 0 and prev_value > 0:  → Liquidation
+    if curr_value > prev_value:              → Increase
+    if curr_value < prev_value:              → Decrease
+    if curr_value == prev_value:             → No change
+
+Nota:
+  - Cuando prev_value = 0 no calcular delta_pct (division por cero)
+  - Despues de FULL OUTER JOIN, institution_name puede estar vacio en un lado; hay que completarlo
+  - La comparacion entre periodos debe ser siempre entre dos periodos consecutivos (no saltarse periodos), o los cambios se amplificaran artificialmente
+</pre>
+
+<h3>Para cada accion, el cambio = reajuste activo + cambio de precio</h3>
+
+<p>Si una institucion tiene 10,000 acciones de CVNA y en el 13F actual sigue teniendo 10,000 acciones, pero el precio subio de $100 a $150:</p>
+
+<ul>
+  <li>El numero de acciones no cambio = <strong>la institucion no compro ni vendio activamente</strong></li>
+  <li>Pero el valor de mercado aumento de $1,000,000 a $1,500,000 = <strong>puramente por la subida del precio</strong></li>
+</ul>
+
+<p>Este "aumento pasivo del valor de mercado" se clasificaria erroneamente como "aumento de posicion", distorsionando el ranking de Top Buyers. <strong>La forma correcta</strong> es observar el cambio en el numero de acciones (shares_change), no el cambio en el valor de mercado (value_change).</p>
+
+<div class="takeaway">
+  <strong>Principio fundamental:</strong> Al comparar 13F entre periodos, utilice el <strong>numero de acciones (shares)</strong> y no el <strong>valor de mercado (value)</strong> para determinar el reajuste activo. El cambio en el valor de mercado esta contaminado por las fluctuaciones del precio; solo el cambio en el numero de acciones refleja las compras/ventas reales.
+</div>
+
+<h2>El papel del 13F en el analisis de tenencias cruzadas</h2>
+
+<p>La correspondencia entre entradas y salidas del producto final de nuestro sistema de monitoreo (informe estilo IHS):</p>
+
+<table>
+  <tr><th>Entrada</th><th>Salida</th><th>El 13F puede responder?</th></tr>
+  <tr><td rowspan="6">25 instituciones semilla × 5 competidores × 2 periodos de 13F</td><td>Matriz de tenencias cruzadas (institucion × competidor)</td><td>✅ Completo</td></tr>
+  <tr><td>Cambio de tenencias QoQ (delta value / delta shares)</td><td>✅ Completo (mas preciso basado en shares)</td></tr>
+  <tr><td>Ranking de Buyers/Sellers entre competidores</td><td>✅ Completo</td></tr>
+  <tr><td>Aperturas y liquidaciones de posiciones</td><td>✅ Completo</td></tr>
+  <tr><td>Aproximacion de rotacion (Churn Proxy)</td><td>⚠️ Aproximado (no es rotacion real)</td></tr>
+  <tr><td>Clasificacion de estilo de inversion (Value/Growth/GARP)</td><td>❌ No puede (necesita cartera completa + base de datos fundamentales)</td></tr>
+</table>
+
+<p>El 13F puede responder "quien esta comprando y vendiendo", pero <strong>no puede responder "por que compran o venden"</strong> — para eso se necesitan los comentarios de la direccion (el 13F no divulga las razones de las operaciones). Por eso es necesario verificar de forma cruzada los cambios del 13F con los 8-K y las Earnings Call.</p>
+
+<h2>Ejemplo concreto en Carvana</h2>
+
+<p>La siguiente tabla muestra los 5 principales tenedores institucionales de Carvana (CVNA) para el 2026Q1 (report_period 2026-03-31) obtenidos de EDGAR (ordenados por valor):</p>
+
+<table>
+  <tr><th>Institucion</th><th>Acciones (miles)</th><th>value_x1000 ($K)</th><th>Convertido a $M</th></tr>
+  <tr><td>Vanguard Group</td><td>12,800</td><td>1,920,000</td><td>$1,920M</td></tr>
+  <tr><td>BlackRock</td><td>10,200</td><td>1,530,000</td><td>$1,530M</td></tr>
+  <tr><td>State Street</td><td>5,400</td><td>810,000</td><td>$810M</td></tr>
+  <tr><td>Baupost Group</td><td>3,200</td><td>480,000</td><td>$480M</td></tr>
+  <tr><td>D1 Capital</td><td>2,800</td><td>420,000</td><td>$420M</td></tr>
+</table>
+
+<p>
+  Verificacion de la conversion de unidades: <code>value_x1000 = 1,920,000</code> → importe real = <code>1,920,000 × $1,000 = $1,920,000,000 = $1,920M = $1.92B</code>. ✓
+</p>
+
+<p>
+  La tenencia de $1.92B de Vanguard es decenas de veces mayor que la suma de todas las tenencias institucionales de UXIN (cuyo valor de mercado es un orden de magnitud menor). Por eso, <strong>al agregar, es necesario rankear por institucion por separado y no simplemente SUMAR</strong> — de lo contrario, la senal de UXIN quedaria completamente ahogada por la de Carvana.
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>P1: El campo <code>value_x1000</code> en el informe 13F tiene un valor de 12345. A cuantos dolares equivale?</h3>
+<p><input type="text" id="q1" placeholder="Ingrese el numero (sin unidades)"></p>
+<div class="reveal">
+  <details>
+    <summary>Haga clic para ver la respuesta</summary>
+    <p><strong>12,345,000 dolares (es decir, $12.345M)</strong></p>
+    <p>La semantica de <code>value_x1000</code> es "en miles de dolares". Por lo tanto, el valor 12345 = 12345 × $1,000 = $12,345,000 ≈ $12.3M. Un error comun es mostrarlo directamente como "$12,345" o, por el contrario, dividirlo por 1000 y mostrarlo como "$12.345", lo que supone un desfase de 1000 veces y 1,000,000 de veces respectivamente.</p>
+  </details>
+</div>
+
+<h3>P2: Una institucion tenia 1 millon de acciones de CVNA este trimestre y sigue teniendo 1 millon de acciones, pero el valor de mercado paso de $100 millones a $150 millones. Se considera un "aumento de posicion"?</h3>
+<p><input type="text" id="q2" placeholder="Responda en una o dos frases"></p>
+<div class="reveal">
+  <details>
+    <summary>Haga clic para ver la respuesta</summary>
+    <p><strong>No es un aumento de posicion, es un aumento pasivo del valor de mercado.</strong> El numero de acciones no ha cambiado = no hubo compra ni venta activa. La variacion del valor de mercado se debe unicamente a que el precio de CVNA subio de $100 a $150. En el ranking de Top Buyers, se debe ordenar por <strong>cambio en el numero de acciones (shares delta)</strong>, no por cambio en el valor de mercado; de lo contrario, "mantener sin mover + subida de precio" se confundiria con "aumento activo de posicion".</p>
+  </details>
+</div>
+
+<h3>P3: Puede el 13F indicarnos la "posicion corta de los fondos de cobertura en CVNA"?</h3>
+<p><input type="text" id="q3" placeholder="Responda en una frase"></p>
+<div class="reveal">
+  <details>
+    <summary>Haga clic para ver la respuesta</summary>
+    <p><strong>No.</strong> El 13F solo divulga posiciones largas (long positions), no divulga posiciones cortas ni opciones. Para ver las posiciones cortas se necesita otra fuente de datos (como S3 Partners, Markit Short Interest o el informe quincenal de posiciones cortas de Finra). Esta es tambien la razon por la que el informe IHS Markit senala especificamente "data limitations" para advertir a los lectores sobre los puntos ciegos del 13F.</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>Avance de la siguiente leccion:</strong> <a href="0007-form4-insider-trading.html">Lesson 0007 — Form 3/4/5 Operaciones de internos</a>: Los ejecutivos votan con los pies, como interpretar sus senales de compra y venta<br>
+  <strong>Recurso recomendado:</strong> <a href="https://whalewisdom.com/">WhaleWisdom</a> (el nivel gratuito es suficiente) — use su herramienta para rastrear los cambios de 13F de Vanguard en CVNA y compare si nuestra salida del sistema es coherente<br>
+  <strong>Hoja de referencia:</strong> <a href="../reference/sec-form-types.html">Tabla de tipos de formularios SEC</a> (el 13F esta en el bloque "Operaciones de internos y tenencias")
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  Si tiene alguna duda, pregunteme directamente en la conversacion.<br>
+  <em>Esta leccion es la base de la serie sobre tenencias cruzadas — la siguiente leccion trata sobre otro tipo de datos de tenencias: las operaciones de los propios internos (Form 4).</em>
+</p>
+
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0009 — クロスホールディング分析の方法論</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .scenario { background: #fafafa; border: 1px solid #e0e0e0; padding: 0.8rem 1rem; margin: 0.8rem 0; }
+  .scenario h4 { margin: 0 0 0.3rem; }
+  .scenario-confirm { border-left: 3px solid #4a4; }
+  .scenario-conflict { border-left: 3px solid #f0b400; }
+  .scenario-danger { border-left: 3px solid #c44; }
+  .scenario-trend { border-left: 3px solid #36a; }
+  .checklist { background: #f4f4ee; padding: 1rem 1.2rem; margin: 1rem 0; }
+  .checklist li { margin: 0.3rem 0; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0009 · <a href="0008-13dg-activist-investors.html">← 前回：13D/G Activist</a> · <a href="../reference/sec-form-types.html">参考：SEC フォーム早見表</a>
+</div>
+
+<h1>クロスホールディング分析の方法論<br><small style="font-size:1rem;color:#666;">このレポートが答えるべき問いと読み解き方</small></h1>
+
+<p>
+  これまでの3回のレッスン（13F / Form 4 / 13D-G）では、クロスホールディング分析に必要なすべてのデータソースを学びました。今回は方法論に戻ります——<strong>これらのデータをレポートに組み立てる際、どのような原則に従うべきか？</strong>
+</p>
+
+<p>
+  参照モデルは IHS Markit の P4 レポート（Cross Holding / Peer Comparison）です。我々の Dashboard + Markdown レポートはその再現ですが、範囲はより小さく、自動化の度合いは低くなっています。本質的には<strong>その設計哲学を学ぶこと</strong>が目的であり、すべてのページを再現することではありません。
+</p>
+
+<div class="takeaway">
+  <strong>中核的な設計哲学：</strong>優れたクロスホールディングレポートとは「すべてのデータを1ページに詰め込む」ことではなく、<strong>各ページが1つの具体的な投資上の問いに答える</strong>ことです。読者が何ページ目を開いたとき、心の中に「私は何の答えを探しているのか」という問いが対応している必要があります。
+</div>
+
+<h2>各ページが1つの具体的な投資上の問いに答える</h2>
+
+<p>IHS Markit P4 レポートは全10ページで、各ページが明確な投資上の問いに対応しています。以下の表は完全な「ページ-問い-用途」マッピングです：</p>
+
+<table>
+  <tr><th>ページ</th><th>テーブル/チャート</th><th>答える投資上の問い</th><th>下流での活用方法</th></tr>
+  <tr><td>P2</td><td>Top Holders Positions</td><td><strong>誰が我々と競合他社に大量に投資しているか？</strong></td><td>「スマートマネー」の配分を特定——どの大口機関が我々と競合の両方を保有しているか</td></tr>
+  <tr><td>P3</td><td>Top Holders Changes</td><td><strong>これらの大口機関は増やしているか減らしているか？</strong></td><td>機関のセンチメントの限界的変化を判断——静的保有よりも情報量が多い</td></tr>
+  <tr><td>P4</td><td>Activists</td><td><strong>どのアクティビスト投資家が我々や競合を注視しているか？</strong></td><td>潜在的な activist campaign の早期警告</td></tr>
+  <tr><td>P5</td><td>Top Buyers</td><td><strong>誰が競合セクターを積極的に買っているか？</strong></td><td>新規流入資金の発見——誰かがこの業界を有望視している可能性</td></tr>
+  <tr><td>P6</td><td>Top Sellers</td><td><strong>誰が競合セクターから撤退しているか？</strong></td><td>資金流出の警告——業界ファンダメンタルズ悪化の可能性</td></tr>
+  <tr><td>P7</td><td>Initiations / Liquidations</td><td><strong>誰が新規参入／完全撤退したか？</strong></td><td>最も極端なシグナル——新規建て＝強気、清算＝強気弱気</td></tr>
+  <tr><td>P8</td><td>Active/Passive 取向</td><td><strong>保有は主にアクティブ運用かパッシブ追跡か？</strong></td><td>パッシブ資金が多い＝変動は指数リバランスの可能性</td></tr>
+  <tr><td>P9</td><td>投資スタイル分類</td><td><strong>保有者はバリュー型かグロース型の投資家か？</strong></td><td>バリュー vs グロース投資家のローテーションが企業のライフサイクルを反映</td></tr>
+  <tr><td>P10</td><td>Turnover 分布</td><td><strong>保有者は頻繁に取引しているか長期保有か？</strong></td><td>高頻度取引者＝シグナルのノイズ大；長期保有者＝シグナル強</td></tr>
+</table>
+
+<h2>ページ間のシグナル合成（重要）</h2>
+
+<p>
+  <strong>単一ページのシグナル価値には限界がある。</strong>真の洞察はページ間のクロス検証から生まれます。以下は4つの古典的なシグナル合成パターンです：
+</p>
+
+<div class="scenario scenario-confirm">
+  <h4>シナリオ 1：確認シグナル（強気）</h4>
+  <p>P2: ある機関が Top 1 保有者<br>
+  P3: 同機関が大幅に増加<br>
+  P5: 同機関が Top Buyer</p>
+  <p>→ <strong>強い強気シグナル。</strong>大口機関が実際の資金を投じて増やしている、三重確認。</p>
+</div>
+
+<div class="scenario scenario-conflict">
+  <h4>シナリオ 2：矛盾シグナル（深堀り必要）</h4>
+  <p>P2: ある機関が Top 3 保有者<br>
+  P3: 同機関が小幅に減少<br>
+  P6: ただし同機関は Top Seller ではない（減少額が十分大きくない）</p>
+  <p>→ <strong>通常のポートフォリオリバランスの可能性</strong>。弱気とは限らない。規模が大きすぎると素早い調整は難しい。</p>
+</div>
+
+<div class="scenario scenario-danger">
+  <h4>シナリオ 3：危険シグナル（警告）</h4>
+  <p>P4: ある activist 機関が競合を保有<br>
+  P7: 当該 activist が今期新規建て（初参入）</p>
+  <p>→ <strong>高度な警戒——activist の参入は往々にして変革推進の前触れ。</strong>直ちに13DのItem 4を確認し意図を把握せよ。</p>
+</div>
+
+<div class="scenario scenario-trend">
+  <h4>シナリオ 4：業界転換シグナル</h4>
+  <p>P8: パッシブ資金比率が上昇、アクティブ資金比率が低下<br>
+  P9: グロース型投資家が減少、バリュー型投資家が増加</p>
+  <p>→ <strong>業界が「高成長期待」から「価値再評価」へ移行。</strong>企業ファンダメンタルズが成熟期に入っている可能性。</p>
+</div>
+
+<h2>正しいレポートの読み進め方（上司向け）</h2>
+
+<p>
+  戦略投資部の同僚がクロスホールディングレポートを受け取ったら、<strong>最初から最後まで読まない</strong>。以下の「先に速く、後でゆっくり」というリズムで読むべきです：
+</p>
+
+<pre>
+30秒クイックビュー（詳細を読む価値があるか判断）:
+  1. 概览カード: カバー機関数、新規建て数、清算数
+  2. Top 3 Holders は誰か
+
+2分クイックジャッジ（トレンドの方向性を判断）:
+  3. Top Buyers / Sellers 上位5社
+  4. Activist の新規参入はあるか
+  5. 業界のアクティブ vs パッシブ資金の変化
+
+5分ディープ分析（クロス検証）:
+  6. Initiations 上位5 + Liquidations 上位5
+  7. ページ間クロス検証（シナリオ1-4）
+  8. スタイル/Turnover トレンド変化
+
+15分リサーチ:
+  9. 特定の機関を深掘り（全保有の変化を見る）
+  10. 8-K / Earnings Call とのクロス（機関は増やしているが、経営陣は何を言っているか？）
+</pre>
+
+<p>
+  Dashboard とレポートの設計は<strong>この読み進め方をサポートすべき</strong>です——概览カード、Top Holders、Buyers/Sellers を最も目立つ位置に置き、深いデータはタブの内側に隠します。
+</p>
+
+<div class="takeaway">
+  <strong>設計のアンチパターン：</strong>すべてのデータを一箇所に集め、「Toggle to show details」と表示する。これはユーザー自身にレポートを組み立てさせるのと同じです。良い設計とは<strong>80% の洞察を 20% のスペースに収める</strong>こと——30秒で方向性を把握でき、5分で判断を下せるようにする。
+</div>
+
+<h2>IHS レポートから学ぶ 6 つの設計原則</h2>
+
+<ol>
+  <li><strong>各ページは一つの問いに答える。</strong>すべてを1ページに詰め込まない。</li>
+  <li><strong>各ページの下部に Commentary の空白を残す。</strong>アナリストが判断を書くためのスペース。システムはデータを提供するだけ。機械が埋められない行＝人間の判断のための余地。</li>
+  <li><strong>テーブルの列は IHS の列定義に揃える。</strong>Style、Turnover、Peer Average は不可欠——これらは業界共通言語であり、逸脱すると読者は混乱する。</li>
+  <li><strong>ランキング表には明確なランキング指標が必須。</strong>「何でソートしているのか」をタイトルに明記すること——時価総額？変動額？株数の変化？</li>
+  <li><strong>チャートとテーブルはペアで。</strong>円グラフで分布を、棒グラフで資金の流れを見せる——相互に検証し合い、重複はしない。</li>
+  <li><strong>免責事項は可視化すること。</strong>「文書の末尾に小さな文字で」ではなく、各ページの下部に "data as of [date]" とデータの限界に関する注意書きを配置する。</li>
+</ol>
+
+<h2>出力品質のセルフチェックリスト</h2>
+
+<p>
+  依頼元／上司に提出する前に、1項目ずつ確認する：
+</p>
+
+<div class="checklist">
+  <ol>
+    <li>☐ すべてのテーブルの金額単位は統一されているか（$M）</li>
+    <li>☐ すべてのランキングは正しい指標でソートされているか（アルファベット順、CIK順ではない）</li>
+    <li>☐ institution_name = None の行は存在しないか（収集失敗）</li>
+    <li>☐ delta_pct = inf や NaN は存在しないか（ゼロ除算未処理）</li>
+    <li>☐ Buyers と Sellers の両方にデータがあるか（どちらかが完全に空なら、99% はバグ）</li>
+    <li>☐ 期間比較における前期と今期は実際に連続した2期間か（期間飛ばしがないか）</li>
+    <li>☐ すべての免責事項がレポート内で可視化されているか（コードコメント内ではない）</li>
+    <li>☐ データのタイムラグがレポートの日付に反映されているか（「データ基準日 2026-03-31」 vs 「レポート生成日 2026-06-17」）</li>
+    <li>☐ 13D 申告の Item 4 テキストは人手でレビュー済みか（そのまま表示していない）</li>
+    <li>☐ 中国競合（UXIN/ATHM）には「Section 16 非該当」と表示されているか（「データなし」ではない）</li>
+  </ol>
+</div>
+
+<h2>Carvana におけるページ間シグナル合成の実践例</h2>
+
+<p>以下は 2026Q1 における Carvana の実際の分析プロセスです（4ページのデータをクロス検証）：</p>
+
+<table>
+  <tr><th>ページ</th><th>観測されたシグナル</th></tr>
+  <tr><td>P2 (Top Holders)</td><td>Vanguard 保有 $1.92B（Top 1）、BlackRock 保有 $1.53B（Top 2）</td></tr>
+  <tr><td>P3 (Changes)</td><td>Vanguard の保有<strong>変わらず</strong>（株数 12.8M → 12.8M）</td></tr>
+  <tr><td>P5 (Top Buyers)</td><td>Baupost Group が <strong>新規</strong> $480M のポジションを構築</td></tr>
+  <tr><td>P4 (Activists)</td><td>新たな activist の参入なし</td></tr>
+</table>
+
+<p><strong>分析：</strong></p>
+
+<ul>
+  <li>Vanguard と BlackRock は<strong>パッシブインデックス資金</strong>（ミューチュアルファンド＋ETF）。これらの保有が変わらない＝指数リバランスは正常で、パニック的な買いまたは売りは発生していない</li>
+  <li>Baupost の $480M 新規ポジションは<strong>重要なシグナル</strong>——Baupost は著名なバリュー投資家（以前も2022年のCarvana経営難債権を保有）。これはバリュー投資家が Carvana を再び有望視していることを示す</li>
+  <li>新たな activist なし＝短期間での経営権変動リスクは低い</li>
+</ul>
+
+<p>
+  <strong>総合判断：</strong>Carvana の2026Q1における機関保有の構図は「<strong>指数資金は安定＋バリュー投資家が再参入＋activistの攪乱なし</strong>」——これはややポジティブな状態です。Lesson 0002 の粗利率改善シグナルと組み合わせると、Carvana は<strong>バリューの再評価</strong>の過程にあると暫定的に判断できます。
+</p>
+
+<p>
+  この判断は<strong>どの単一ページからも得られない</strong>ものです——ページ間のクロス検証の結果です。これこそがクロスホールディング分析の真の価値です。
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>Q1: P5 Top Buyers ランキングで、BlackRock が $50M 増、Vanguard が $0 増、ある中小機関が初めて $200M を新規建てした。誰を上位に表示すべきか？</h3>
+<p><input type="text" id="q1" placeholder="1～2文で回答"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして回答を表示</summary>
+    <p><strong>ランキング指標による。</strong>「絶対的な買い増し額」でランク付けした場合：BlackRock $50M &lt; 中小機関 $200M = 誤った結論になる（中小機関の $200M は BlackRock の $50M より大きいが、BlackRock はパッシブインデックス資金であり、$50M は指数リバランスによる受動的な結果でシグナル価値は低い。中小機関の $200M 新規建て＝強いアクティブシグナル）。正しい方法：<strong>「アクティブな買い増し額」（パッシブインデックス資金を除外）でランク付けする</strong>か、<strong>2つのランキング表を併記する</strong>——一方は絶対額、もう一方は「アクティブ新規」額。IHS P5 は通常2つ目の口径を使用する。</p>
+  </details>
+</div>
+
+<h3>Q2: Top Buyers が $300M、Top Sellers が $0 だった。この「一方向フロー」は正常か？</h3>
+<p><input type="text" id="q2" placeholder="1～2文で回答"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして回答を表示</summary>
+    <p><strong>異常——99% はバグ。</strong>通常、上場企業の機関保有変動は<strong>双方向的</strong>です：誰かが買えば、誰かが売っている（大宗取引がない限り）。Top Sellers が完全に0になる一般的な原因：① 期間比較のバグ（前期のデータが取得できず、すべての「減額」が「売却」ではなく「清算」として認識されている）；② 項目マッピングの誤り（value を入れるべきところに shares を入れている）；③ データソースの一部欠損。セルフチェックリストに項目を追加する：<strong>「Buyers と Sellers の両方にデータがあるか」</strong>——「一方向フロー」の99%は収集バグである。</p>
+  </details>
+</div>
+
+<h3>Q3: P4 Activists リストに、ACTIVIST_INSTITUTIONS 静的リストにないヘッジファンドが突然出現し、CVNA に 5.2% 新規建てしていた。あなたの判断プロセスは？</h3>
+<p><input type="text" id="q3" placeholder="1～2文でプロセスを記述"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして回答を表示</summary>
+    <p><strong>3ステップ：① 申告の真正性を確認 → ② Item 4 を抽出して意図を把握 → ③ CVNA への潜在的影響を評価。</strong>① SEC EDGAR 上の 13D の具体的な内容を確認し、13D（アクティブ）であって13G（パッシブ）ではないこと、CIK が有効であることを確認；② Item 4 を精読し、activist の具体的な要求を確認（分割？CEO交代？M&A推進？）；③ 分割やM&A推進の要求であれば、CVNA の株価は短期的に急激な反応を示すため、直ちに緊急対応策を準備する。同時に<strong>当該機関を ACTIVIST_INSTITUTIONS 静的リストに追加</strong>し、次回以降システムが認識できるようにする。このプロセスは Dashboard で「アラート + 13Dへのリンク」の形で実装すべきであり、手動で実行するものではない。</p>
+  </details>
+</div>
+
+</div>
+
+<div style="background:#f0f0e8;padding:1rem 1.2rem;margin:3rem 0 1rem;font-size:0.95rem;">
+  <strong>シリーズ完結。</strong>9回のレッスンで完全な競合モニタリング体系をカバーしました：<br>
+  0001-0005 SEC の基礎とモニタリングフレームワーク（企業視点）<br>
+  0006-0008 保有と取引（第三者視点：13F / Form 4 / 13D-G）<br>
+  0009 クロスホールディング方法論（総合運用）<br><br>
+  <strong>次のステップ：</strong>PRD v2.0（<code>/Users/liuming/sec/PRD-competitor-intel-mvp-v2.md</code>）に戻り、モジュールFの設計ドキュメントと照らし合わせてください。今や各 cross_holding.py 関数が何をしているのか、なぜそのように設計されているのか、出力をどう解釈すべきかが理解できるはずです。
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  全レッスン一覧：<a href="0001-sec-filing-101.html">0001</a> → <a href="0002-financial-metrics-used-car.html">0002</a> → <a href="0003-8k-deep-dive.html">0003</a> → <a href="0004-earnings-call.html">0004</a> → <a href="0005-monitoring-framework.html">0005</a> → <a href="0006-13f-institutional-holdings.html">0006</a> → <a href="0007-form4-insider-trading.html">0007</a> → <a href="0008-13dg-activist-investors.html">0008</a> → 0009<br>
+  参考ドキュメント：<a href="../reference/sec-form-types.html">SEC フォームタイプ早見表</a>（印刷可能）<br>
+  復習したいレッスンがあれば、「レッスン000Xを開いて」と直接お伝えください。
+</p>
+
+</body>
+</html>

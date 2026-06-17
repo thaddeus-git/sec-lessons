@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0004 — Earnings Call の戦略的価値</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  p { margin: 0.7rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  .example { background: #f5f5f0; padding: 1rem 1.2rem; margin: 1rem 0; font-size: 0.9rem; }
+  .example h4 { margin-top: 0; }
+  .signal { background: #fff0f0; border-left: 3px solid #c44; padding: 0.5rem 1rem; margin: 0.8rem 0; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0004 · <a href="0003-8k-deep-dive.html">← 前回：8-K イベント解説</a> · <a href="0005-monitoring-framework.html">次回：競合モニタリングフレームワーク →</a>
+</div>
+
+<h1>Earnings Call の戦略的価値<br><small style="font-size:1rem;color:#666;">経営陣の表現は数字以上に問題を示す</small></h1>
+
+<p>
+  10-K と 10-Q は「何が起きたか」を教え、Earnings Call は<strong>「経営陣がどう考えているか」</strong>を教える——そして後者は往々にして前者よりも将来の戦略的方向性を予測できる。
+</p>
+
+<h2>Earnings Call の構成</h2>
+
+<table>
+  <tr><th>パート</th><th>時間</th><th>内容</th><th>情報密度</th></tr>
+  <tr><td><strong>Safe Harbor</strong></td><td>1 分</td><td>「以下の記述には将来予測に関する記述が含まれる……」という法的免責条項</td><td>0 — スキップ</td></tr>
+  <tr><td><strong>Prepared Remarks</strong><br>経営陣による説明</td><td>15-30 分</td><td>CEO、CFO が順番に原稿を朗読：業績サマリー、主要指標、「我々は好調です」</td><td>⭐⭐ — 広報原稿だが、数字とガイダンスは新しい</td></tr>
+  <tr><td><strong>Q&A Session</strong><br>アナリスト質疑応答</td><td>30-45 分</td><td>売り方アナリストが順番に質問し、経営陣が即興で回答</td><td>⭐⭐⭐⭐⭐ — 本当の金脈はここにある</td></tr>
+</table>
+
+<div class="takeaway">
+  Prepared Remarks はリハーサルされたパフォーマンスであり、Q&A こそが台本のない本音の対話である。競合モニタリングの重点は Q&A に置くべき。
+</div>
+
+<h2>Q&A で聞くべきこと（4種類のシグナル）</h2>
+
+<h3>シグナル 1：Guidance（ガイダンス）の変化</h3>
+
+<p>経営陣の来四半期・来年度の見通しは、Earnings Call で最も重要な数字情報である。</p>
+
+<div class="example">
+  <h4>例：</h4>
+  <p>アナリスト：「下半期の売上総利益率についてどのようにお考えですか？」</p>
+  <p>昨年 Q3 の経営陣：「当社は売上総利益率の改善に自信を持っており、年末までに 18% を見込んでいます。」</p>
+  <p>今回 Q1 の経営陣：「マクロ経済の不確実性を考慮し、売上総利益率については慎重な姿勢をとっています。」</p>
+  <div class="signal">
+    <strong>シグナル：</strong>表現が「自信がある」＋「具体的な数字」から「慎重」＋「数字なし」に変わった。まだ数字を下方修正していないが、<strong>トーンはすでに変化している</strong>——これは実際の数字修正に先立って 1〜2 四半期先行することが多い。
+  </div>
+</div>
+
+<h3>シグナル 2：微妙な表現の変化</h3>
+
+<table>
+  <tr><th>ポジティブな表現</th><th>ネガティブな表現</th><th>シグナル</th></tr>
+  <tr><td>「当社は成長に自信を持っています」</td><td>「当社は困難な環境の中でも好調を維持しています」</td><td>後者＝環境は良くないが持ちこたえている → 環境がさらに悪化する可能性</td></tr>
+  <tr><td>具体的な数字のガイダンスを示す</td><td>ガイダンスの撤回・曖昧化</td><td>視界喪失＝経営陣自身も次の四半期が読めていない</td></tr>
+  <tr><td>「力強い需要を確認しています」</td><td>「需要は一部の要因の影響を受けています」</td><td>後者＝需要が減速しているが、明確には言及していない</td></tr>
+  <tr><td>回答が具体的一貫している</td><td>回答が質問を回避し「マクロ環境」と言う</td><td>回避＝回答はおそらくネガティブ</td></tr>
+</table>
+
+<h3>シグナル 3：アナリストの質問内容</h3>
+
+<p>アナリストの質問を見れば、経営陣の回答よりも市場が何を懸念しているかが分かる。</p>
+
+<ul>
+  <li><strong>全員が同じ質問をする</strong>（例：「在庫状況について教えてください」）→ これが市場が最も懸念するリスクポイント</li>
+  <li><strong>これまで頻繁に質問していたアナリストが今回は沈黙</strong> → すでに非公開で評価を調整している可能性</li>
+  <li><strong>アナリストが同じ質問を2〜3回繰り返す</strong> → 経営陣の最初の回答に納得しておらず、何か裏がある</li>
+</ul>
+
+<h3>シグナル 4：競合他社への言及</h3>
+
+<p>Q&A で経営陣が競合他社の名前に言及したときは、耳を傾けるべきだ。</p>
+
+<div class="example">
+  <p>「Carvana が最近 XXX 市場で投下を拡大していることは認識しています……」← 経営陣が競合圧力を認めている。</p>
+  <p>「XXX（あなたの会社や製品）は脅威とは考えていません。なぜなら……」← 経営陣が防御姿勢に入っている。本当に気にしていない競合他社は Earnings Call で言及しない。</p>
+</div>
+
+<h2>実践：EC 議事録の読み方</h2>
+
+<p>これは競合モニタリングシステムが生成する EC 議事録の標準テンプレートである（戦略投資部門のメンバーが受け取った後の標準的な読む順序でもある）：</p>
+
+<div class="example">
+  <p><strong>読む順序（5 分）：</strong></p>
+  <ol>
+    <li><strong>財務ハイライト</strong>（30 秒）—— 数字は前四半期と同程度か？突出したものはあるか？</li>
+    <li><strong>ガイダンスの変化</strong>（1 分）—— 見通しの修正はあったか？上方修正か下方修正か？</li>
+    <li><strong>Q&A の重要質疑応答</strong>（2 分）—— アナリストは何を追及しているか？経営陣はどう答えたか？</li>
+    <li><strong>リスク警告</strong>（1 分）—— 前四半期のリスク警告と何が違うか？新しいリスクは追加されたか？</li>
+    <li><strong>判断</strong>（30 秒）—— 「今回の EC の全体的なトーンは、楽観的か、慎重か、不安か？」</li>
+  </ol>
+</div>
+
+<blockquote>
+  <strong>「全体的なトーン」は最も過小評価されている判断材料である。</strong>同じペンで二種類の字は書けない。CEO の口調、間合い、言葉の繰り返し頻度——数字には表れないこれらの要素こそが、最も早期のシグナルである。数字に問題がないのに「どこか変だ」と感じたら——直感を信じるべきだ。
+</blockquote>
+
+<div class="takeaway">
+  数字は過去形であり、表現は未来形である。Earnings Call の戦略的価値は「過去一四半期の総括」にあるのではない——10-Q がすでにそれをやっている——<strong>「今後 2〜4 四半期の方向性」を判断することにある。</strong>
+</div>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>Q1: Earnings Call で最も情報量の多いパートはどこか？なぜか？</h3>
+<p><input type="text" id="q1" placeholder="1〜2文で回答" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして答えを表示</summary>
+    <p><strong>Q&A セッション。</strong>Prepared Remarks は経営陣が入念にリハーサルした広報原稿であり、伝えられるのは「経営陣が聞かせたい情報」である。Q&A セッションではアナリストが即興で質問し、経営陣が即興で回答する——リハーサルはなく、追及によって本音が引き出されやすい。またアナリストの質問は市場が最も関心を持ち（最も懸念する）方向性を示している。</p>
+  </details>
+</div>
+
+<h3>Q2: 経営陣が具体的な数字のガイダンスを提供せず、「マクロ環境の影響により、現時点ではガイダンスを提供しない」とした場合、なぜこれは悪い数字そのものよりも懸念すべきなのか？</h3>
+<p><input type="text" id="q2" placeholder="1〜2文で回答" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして答えを表示</summary>
+    <p><strong>ガイダンスの撤回（guidance withdrawal）は、経営陣自身も将来が見えていないことを意味する。</strong>悪い数字であっても、少なくとも経営陣に visibility（将来の可視性）があることを示している。ガイダンスの撤回は visibility が消失したことを意味する。企業内の予測システムは通常、マクロ環境の変化から 1〜2 四半期後にようやく予測能力を再構築する——この期間中の不確実性は「既知の悪いニュース」よりもはるかに大きい。</p>
+  </details>
+</div>
+
+<h3>Q3: 英語や財務に不慣れな中国人メンバーにとって、EC 議事録と録音の直接聴取、どちらの情報量が多いか？</h3>
+<p><input type="text" id="q3" placeholder="1〜2文で回答" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして答えを表示</summary>
+    <p><strong>構造化された中国語の EC 議事録の情報量は、録音を直接聴くよりもはるかに多い。</strong>その理由：① 議事録は Safe Harbor、繰り返しの広報表現、業界の雑談（これらは時間の 30〜40% を占める）をフィルタリングできる；② 議事録は四半期をまたぐ表現の変化をマークできる（「昨年は自信があると言ったが、今年は慎重だ」）——これは人手での聴取では発見しにくい；③ 議事録は母国語で提示でき、言語障壁を排除できる。<strong>ただしこれは録音に価値がないということではない——議事録の判断に疑問があれば、元の音声を確認するのが最善の検証方法である。</strong></p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>次回（最終課）：</strong> <a href="0005-monitoring-framework.html">Lesson 0005 — 競合モニタリングフレームワーク</a>：なぜこの5社を選んだか、各社の重点監視項目<br>
+  <strong>推奨リソース：</strong> <a href="https://www.fool.com/earnings-call-transcripts/">Fool.com Earnings Call Transcripts</a> — 自分がよく知っている企業を1社選び、完全なトランスクリプトを読んで、Prepared Remarks と Q&A の違いを体感してみよう
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  次回はシリーズ全体のまとめ——「なぜこのシステムを構築するのか」に立ち返る。
+</p>
+
+</body>
+</html>

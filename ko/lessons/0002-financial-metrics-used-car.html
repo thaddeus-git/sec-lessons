@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0002 — 중고차 업계 핵심 재무 지표</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  p { margin: 0.7rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; }
+  .quiz details { margin-top: 0.4rem; }
+  .sidenote { float: right; clear: right; width: 180px; margin-right: -210px; font-size: 0.82rem; color: #555; line-height: 1.4; }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  .real-data { background: #f0f7f0; border-left: 3px solid #4a4; padding: 0.8rem 1rem; margin: 1rem 0; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0002 · <a href="0001-sec-filing-101.html">← 上一课：SEC Filing 101</a> · <a href="0003-8k-deep-dive.html">下一课：8-K 事件解读 →</a>
+</div>
+
+<h1>중고차 업계 핵심 재무 지표<br><small style="font-size:1rem;color:#666;">10-K/10-Q에서 무엇을, 왜 봐야 하는가</small></h1>
+
+<p>
+  10-K 한 건에는 수백 개의 재무 지표가 있지만, 경쟁사 모니터링(competitor monitoring)에 모든 것을 볼 필요는 없다. 중고차 업계에서는 실제로 중요한 것은 열 개 남짓에 불과하다. <strong>핵심은 각 지표가 중고차 업계에서 무엇을 의미하는지 아는 것</strong>이다 — 이는 어떤 재무 교과서에도 나와 있지 않다.
+</p>
+
+<h2>최우선 순위: 수익 구조</h2>
+
+<div class="sidenote">
+  Carvana 2026Q1: Retail 수익 $5.86B, Wholesale 수익 $470M, Other $92M
+</div>
+
+<p>
+  중고차 회사의 수익은 "차 한 대 팔면 돈이 들어온다"처럼 단순하지 않다. 핵심 질문은: <strong>어디서 돈을 버는가?</strong>
+</p>
+
+<table>
+  <tr><th>수익 유형</th><th>의미</th><th>전략적 중요성</th></tr>
+  <tr><td><strong>소매 수익</strong> (Retail Revenue)</td><td>개인 소비자에게 차량 판매</td><td>핵심 사업, 성장률과 ASP(평균 판매 가격) 확인</td></tr>
+  <tr><td><strong>도매 수익</strong> (Wholesale Revenue)</td><td>B2B 경매/딜러 대상 도매 판매</td><td>팔리지 않은 차량을 도매로 처분 — 도매 비중 증가는 소매 측 재고 문제 신호</td></tr>
+  <tr><td><strong>금융 수익</strong> (Finance/Other Revenue)</td><td>대출 수수료, 보험, 연장 보증 등</td><td>수익성의 숨겨진 원천; 급성장이 반드시 호재는 아님 (대출 질 하락 가능성)</td></tr>
+</table>
+
+<div class="takeaway">
+  수익은 총액만 보지 말고 구조를 봐야 한다. 도매 수익 비중이 갑자기 증가하면 소매 판매가 안 되고 있다는 신호다.
+</div>
+
+<h2>두 번째 우선순위: 수익성 — 중고차 업계는 두 가지만 보면 된다</h2>
+
+<h3>매출총이익률(Gross Margin)이 가장 중요하다</h3>
+
+<p>
+  <strong>중고차는 마진이 낮은 사업이다.</strong> SaaS 기업의 70%+ 매출총이익률과 달리, 중고차 회사의 매출총이익률은 보통 15-20% 수준이다. 왜 매출총이익률을 가장 주목해야 할까?
+</p>
+
+<ul>
+  <li><strong>매출총이익률은 차량 한 대당 매매 차익을 반영한다</strong>(GPU = Gross Profit Per Unit, 대당 총이익)</li>
+  <li>매출총이익률의 변동은 순이익보다 더 많은 정보를 준다 — 순이익은 일회성 비용으로 왜곡될 수 있다</li>
+  <li><strong>매출총이익률 지속 하락</strong> = 매입 원가 상승 + 판매 가격 하락 압박 + 재고 누적으로 인한 할인 판매 악순환</li>
+</ul>
+
+<div class="real-data">
+  <strong>실제 데이터:</strong> Carvana 2026Q1 Gross Profit = $1.27B, Revenue = $6.43B<br>
+  → Gross Margin = 1.27 ÷ 6.43 = <strong>19.8%</strong><br>
+  비교: 전통 딜러 Carmax의 매출총이익률은 보통 12-14% (Carmax는 "원가 고정, 흥정 없음"을 지향하므로 마진은 낮지만 회전율이 더 빠름)
+</div>
+
+<h3>SG&A 대비 수익 비율</h3>
+
+<p>
+  SG&A(판매관리비)는 중고차 회사에서 가장 큰 비용 항목이다. 왜 SG&A/수익 비율이 순이익률보다 더 유용한 정보를 제공할까?
+</p>
+
+<ul>
+  <li>SG&A에는 광고비, 매장 운영비, 인건비가 포함된다</li>
+  <li><strong>SG&A/수익 비율 하락</strong> = 규모의 경제 효과가 작용 중, 차량 판매당 고정 비용이 분산됨</li>
+  <li><strong>SG&A/수익 비율 상승 + 수익 성장</strong> = 회사가 성장을 위해 공격적으로 지출 중, "이 성장이 지속 가능한가"라는 질문을 던져야 함</li>
+</ul>
+
+<div class="real-data">
+  <strong>실제 데이터:</strong> Carvana 2026Q1 SG&A = $690M, Revenue = $6.43B<br>
+  → SG&A/Revenue = <strong>10.7%</strong><br>
+  이 비율은 2024년에 ~12%였으며, Carvana의 운영 효율성이 개선되고 있음을 시사한다.
+</div>
+
+<h2>세 번째 우선순위: 대차대조표 — 중고차 업체가 가장 두려워하는 것</h2>
+
+<p>
+  중고차 회사의 핵심은 손익계산서가 아니라 대차대조표에 있다.
+</p>
+
+<table>
+  <tr><th>지표</th><th>중요한 이유</th><th>위험 신호</th></tr>
+  <tr><td><strong>현금</strong> (Cash)</td><td>중고차는 자본 집약적 사업, 차량 매입에 대규모 현금 필요</td><td>현금 / 분기 수익 < 0.5 → 유동성 위험</td></tr>
+  <tr><td><strong>장기 부채</strong> (Long Term Debt)</td><td>중고차 업체는 재고 매입을 위해 차입에 의존</td><td>부채 증가율이 수익 증가율을 초과 → 차환(借換) 의존</td></tr>
+  <tr><td><strong>재고</strong> (Inventory)</td><td>재고는 곧 차량 — 오래 방치하면 감가상각됨 (iPhone과 다르다!)</td><td>재고 보유 일수 급증 → 차량 판매 부진, 곧 할인 판매 불가피</td></tr>
+</table>
+
+<blockquote>
+  <strong>중고차 업계 철칙:</strong> 차량이 재고에 하루 더 머무를 때마다 가치가 조금씩 하락한다. 이것이 Carmax가 낮은 마진을 감수하면서도 높은 회전율을 추구하는 이유다 — 재고 회전 속도가 대당 이익보다 더 중요하다.
+</blockquote>
+
+<div class="real-data">
+  <strong>실제 데이터:</strong> Carvana 2026Q1 Cash = $2.41B, Total Assets = $13.77B, Long Term Debt = $4.92B (FY2025 기준)<br>
+  현금/분기 수익 = 2.41 ÷ 6.43 = <strong>0.37</strong> → 이 비율은 위험 수준이 아니다 (차량 매입 대금 지급 시점과 판매 시점이 완전히 일치하지 않음), 하지만 지속적 모니터링이 필요하다.
+</div>
+
+<h2>간결한 지표 카드 (앞으로 이 표만 봐도 충분하다)</h2>
+
+<p>10-Q가 나올 때마다 이 표를 빠르게 확인하라:</p>
+
+<table>
+  <tr><th>지표</th><th>확인 사항</th><th>판단 기준</th></tr>
+  <tr><td>수익</td><td>전년 대비(YoY) 성장률</td><td>성장 가속 = 양호; 둔화 = 원인 분석 필요</td></tr>
+  <tr><td>매출총이익률</td><td>절대값 + 추세</td><td>중고차 업계 15-20% 정상; 연속 하락 = ⚠️</td></tr>
+  <tr><td>SG&A/수익</td><td>추세</td><td>하락 = 운영 효율성 개선; 상승 = 과도한 지출 또는 확장</td></tr>
+  <tr><td>순이익</td><td>흑자/적자 여부</td><td>흑자 = 양호; 단, 일회성 손익은 제외하고 판단</td></tr>
+  <tr><td>현금/분기 수익</td><td>비율</td><td>< 0.3 = 위험; > 0.5 = 안전</td></tr>
+  <tr><td>부채 YoY</td><td>증가율</td><td>부채 증가율 < 수익 증가율 = 양호</td></tr>
+</table>
+
+<hr>
+
+<h2>퀴즈</h2>
+
+<div class="quiz">
+
+<h3>Q1: 중고차 업계에서 매출총이익률(Gross Margin)이 순이익보다 더 중요한 이유는 무엇인가?</h3>
+<p><input type="text" id="q1" placeholder="한두 문장으로 답변" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>정답 보기</summary>
+    <p><strong>매출총이익률은 차량 한 대당 매매 차익(핵심 사업 역량)을 반영하며, 일회성 비용, 자본 구조, 세금 등의 영향을 받지 않는다.</strong> 순이익은 부채 재조정 이익 등으로 "괜찮아 보일" 수 있지만 핵심 사업이 악화되고 있다면 매출총이익률은 속이지 않는다. 마진이 낮은 중고차 업계에서는 매출총이익률이 1-2%포인트만 변동해도 회의를 열어야 할 사안이다.</p>
+  </details>
+</div>
+
+<h3>Q2: 한 중고차 업체의 도매 수익(Wholesale) 비중이 갑자기 5%에서 15%로 상승했다. 어떤 신호일 수 있는가?</h3>
+<p><input type="text" id="q2" placeholder="한두 문장으로 답변" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>정답 보기</summary>
+    <p><strong>소매 측에 문제가 생겼을 가능성이 높다 — 차량이 팔리지 않아 도매로 처분하고 있다.</strong> 도매 가격은 소매 가격보다 훨씬 낮다. 도매 비중 증가는: ① 재고 관리 문제(잘 팔리지 않는 차량을 너무 많이 매입); ② 시장 수요 약화; ③ 회사가 할인 재고 정리를 진행 중이며, 이는 이후 매출총이익률 추가 하락으로 이어질 수 있다. 한마디로: <strong>도매 수익 비중 상승은 호재가 아니다.</strong></p>
+  </details>
+</div>
+
+<h3>Q3: 중고차 업체에게 "재고 회전율(inventory turnover)"이 일반 소매 업체보다 더 중요한 이유는 무엇인가?</h3>
+<p><input type="text" id="q3" placeholder="한두 문장으로 답변" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>정답 보기</summary>
+    <p><strong>중고차는 가치가 하락하기 때문이다.</strong> 차량이 재고에 60일 머물 때와 30일 머물 때의 가치는 다르다 — 코카콜라가 창고에 있어도 상하지 않는 것과는 다르다. 게다가 중고차 가격은 시장 수급에 매우 민감하며, 재고 누적 + 시장 냉각 = 대폭 할인 = 매출총이익률 급락으로 이어진다. Carmax의 비즈니스 모델(고정 가격 + 빠른 회전)은 바로 이 구조적 모순을 해결하기 위한 것이다.</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>다음 강의 미리보기:</strong> <a href="0003-8k-deep-dive.html">Lesson 0003 — 8-K 事件深度解读</a>：어떤 이벤트가 "보고할 가치"가 있고, 어떤 것은 그저 노이즈에 불과한지<br>
+  <strong>추천 자료:</strong> Carvana 최신 10-Q (<a href="https://investors.carvana.com/financial-reports/quarterly-results">Carvana IR 페이지</a>)를 찾아 위 지표 카드와 대조하며 직접 계산해볼 것
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  궁금한 점이 있으면 언제든 물어보세요.<em>다음 강의는 전체 시리즈에서 가장 중요합니다 — 8-K 이벤트 판단력은 "알림을 받았을 때 무시할지, 보고할지"를 결정합니다.</em>
+</p>
+
+</body>
+</html>

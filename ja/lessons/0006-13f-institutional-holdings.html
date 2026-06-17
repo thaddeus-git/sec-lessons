@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0006 — 13Fと機関保有：クロスホールディング分析のデータ基盤</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .trap { background: #fff0f0; border-left: 3px solid #c44; padding: 0.8rem 1rem; margin: 1rem 0; }
+  .trap h4 { margin: 0 0 0.3rem; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0006 · <a href="0005-monitoring-framework.html">← 前回：競合モニタリングフレームワーク</a> · <a href="0007-form4-insider-trading.html">次回：Form 4 インサイダー取引 →</a>
+</div>
+
+<h1>13Fと機関保有<br><small style="font-size:1rem;color:#666;">クロスホールディング分析のデータ基盤</small></h1>
+
+<p>
+  これまでの5つのレッスンでは<strong>企業自身が開示する情報</strong>——10-K、10-Q、8-K、Earnings Call を企業目線で見てきました。このレッスンからは<strong>第三者による企業への見方</strong>——誰が買い、誰が売り、誰が大量保有し、誰が撤退しているかを扱います。これは IHS Markit レポート（P4 クロスホールディング分析）のコアデータソースです。
+</p>
+
+<p>
+  13F は米国 SEC が大手機関投資家に義務付ける保有状況報告書で、正式名称は <em>Schedule 13F</em> です。<strong>公開、無料、四半期ごとに更新</strong>されるため、クロスホールディング分析の事実上の標準となっています。
+</p>
+
+<div class="sidenote">
+  IHS Markit の参考レポート P2-P7 はほぼ全て 13F データに基づいています。当システムも 13F を使用しています——ただしデータソースを IHS から SEC EDGAR に切り替えています。
+</div>
+
+<h2>13Fとは</h2>
+
+<p>13F を「機関投資家の四半期成績表」と考えてください——ただし知っておくべきいくつかのハードルールがあります。</p>
+
+<table>
+  <tr><th>ルール</th><th>具体要件</th><th>戦略的意味</th></tr>
+  <tr><td><strong>法的根拠</strong></td><td>Securities Exchange Act of 1934, Section 13(f)</td><td>法定開示、提出しないと違法</td></tr>
+  <tr><td><strong>報告基準</strong></td><td>運用資産 > $1億の機関投資家</td><td>ほぼ全ての大手ミューチュアルファンド、ヘッジファンド、年金基金、ETF発行体をカバー</td></tr>
+  <tr><td><strong>報告頻度</strong></td><td>四半期終了後45日以内</td><td>Q1 締切 5/15、Q2 締切 8/14、Q3 締切 11/14、Q4 締切 2/14</td></tr>
+  <tr><td><strong>報告機関数</strong></td><td>約5,000～6,000</td><td>米国市場の「スマートマネー」をほぼカバー</td></tr>
+</table>
+
+<div class="takeaway">
+  13F が示すのは<strong>四半期末の保有スナップショット</strong>——四半期内の取引ではありません。ある銘柄が3月に買われ、4月に売られても、13F には全く現れません。IHS Markit レポートの Turnover 列は、隣接する2期の 13F から推計した「ポジション調整の度合い」であり、実際の取引フローではありません。
+</div>
+
+<h2>13Fが開示するものとしないもの</h2>
+
+<p>13F の「境界」を理解することは、その内容を知ること以上に重要です——これらの境界が、どのような質問に答えられ、どれに答えられないかを直接決定するからです。</p>
+
+<h3>開示される内容（13Fに含まれるもの）</h3>
+
+<ul>
+  <li>各保有銘柄：<strong>名称、CUSIP、株数、時価総額</strong></li>
+  <li>時価総額フィールドは <code>value_x1000</code>、単位は<strong>千米ドル</strong>（ドルでも百万ドルでもありません）</li>
+  <li>全ての<strong>米国登録証券</strong>のロングポジションをカバー</li>
+</ul>
+
+<h3>開示されない内容（13Fの盲点）</h3>
+
+<table>
+  <tr><th>見えないもの</th><th>なぜ見えないか</th><th>分析への影響</th></tr>
+  <tr><td>ショートポジション</td><td>13F はロングのみ報告</td><td>ヘッジファンドの空売り賭けが完全に欠落——これが最も強いシグナルである可能性も</td></tr>
+  <tr><td>オプション/デリバティブ</td><td>13F はデリバティブを含まない</td><td>多くのヘッジファンドはオプションで見解を表明するが、13F では確認不可</td></tr>
+  <tr><td>米国以外の保有</td><td>13F は米国株のみ</td><td>世界の機関が非米国株で持つポジションは全く見えない</td></tr>
+  <tr><td>非上場証券</td><td>私募債、未上場企業は 13F の対象外</td><td>PEファンド、private credit ファンドの活動は見えない</td></tr>
+  <tr><td>四半期内の売買</td><td>期末のスナップショットのみ表示</td><td>日内、週内、月内の取引はすべて「期末保有」に平均化される</td></tr>
+  <tr><td>報告機関の $1億未満の部分</td><td>基準未満は報告不要</td><td>小規模機関や個人投資家の行動は 13F の対象外</td></tr>
+</table>
+
+<blockquote>
+  <strong>覚えておくべき一句话：</strong>13F が見せるのは「期末の一枚の写真」であり、「四半期の動画」ではありません。動画を見るには、より詳細なデータ（Bloomberg の取引フロー、WhaleWisdom の有料サブスクリプションなど）が必要です。
+</blockquote>
+
+<h2>単位変換の落とし穴（バグ多発ゾーン）</h2>
+
+<p>13F データ処理で<strong>最も間違いやすいのは単位変換</strong>です。以下の表は実際のバグパターンです。</p>
+
+<pre>
+SEC 原始 XML: &lt;value&gt;12345&lt;/value&gt;  →  意味: $12,345,000  →  $12.345M
+edgartools 返却: フィールド名 value_x1000 → 数値 12345 → 意味: 12345 × $1,000
+
+よくある間違い:
+  間違い A: value_x1000 を「千ドル」として表示 → 数値が 12,345 に見える → 実際は $12.345M
+            1000倍のズレ
+  間違い B: 12345 をさらに 1000 で割って 12.345 と表示 → 1,000,000倍のズレ
+  間違い C: 集計時に時価総額の規模を区別しない
+            → Vanguard の CVNA 保有 $1.2B（value_x1000 = 1,200,000）
+            → BlackRock の UXIN 保有 $3M（value_x1000 = 3,000）
+            → 単純に SUM すると UXIN の変動が CVNA に埋もれる（差は400倍）
+
+検証方法:
+  1. Vanguard の CVNA に関する 13F の元 XML を取得
+  2. &lt;value&gt; フィールドを手動で読み取る = X
+  3. edgartools で解析後の value_x1000 と比較
+  4. CVNA の当時の株価 × 株数でクロス検証（概ね一致、±5%の誤差を許容）
+</pre>
+
+<div class="trap">
+  <h4>⚠️ 当システムの対応方法</h4>
+  <p>
+    データフロー全体で <code>value_x1000</code> フィールドは SEC の元の単位（千ドル）を維持し、dashboard 表示時のみ一律に 1000 で割って百万ドル（$M）で表示します。
+    内部計算（集計、QoQ 変動、Top Buyers/Sellers 順位）は全て統一された「$M」単位で行い、<strong>データフローの異なる箇所で単位を混在させない</strong>ようにします。
+  </p>
+</div>
+
+<h2>13F の期間比較の正しい方法</h2>
+
+<p>クロスホールディング分析の中核は「隣接する2期の 13F を比較すること」です。このロジックを正しく実装しないと、Top Buyers/Sellers の順位が完全に歪みます。</p>
+
+<h3>境界条件（必ず処理すべき4つのケース）</h3>
+
+<ol>
+  <li><strong>新規保有</strong>：curr_value > 0 かつ prev_value == 0 — ある機関が初めて出現</li>
+  <li><strong>清算</strong>：curr_value == 0 かつ prev_value > 0 — ある機関が完全に撤退</li>
+  <li><strong>増加</strong>：curr_value > prev_value — 保有増</li>
+  <li><strong>減少</strong>：curr_value < prev_value — 保有減</li>
+  <li><strong>不変</strong>：curr_value == prev_value — 変動なし（稀、株数不変かつ株価不変の場合のみ）</li>
+</ol>
+
+<pre>
+curr = holdings WHERE report_period = '2026-03-31'
+prev = holdings WHERE report_period = '2025-12-31'
+merged = curr FULL OUTER JOIN prev ON (institution_cik, ticker)
+
+for each row:
+    if curr_value > 0 and prev_value == 0:  → Initiation
+    if curr_value == 0 and prev_value > 0:  → Liquidation
+    if curr_value > prev_value:              → Increase
+    if curr_value < prev_value:              → Decrease
+    if curr_value == prev_value:             → No change
+
+注意:
+  - prev_value = 0 の場合は delta_pct を計算しない（ゼロ除算）
+  - FULL OUTER JOIN 後、institution_name がいずれかの側で NULL になる可能性があるため補完が必要
+  - 期間比較は必ず隣接する2期で行う（飛ばし期間は不可）、さもなければ変動が人為的に拡大される
+</pre>
+
+<h3>銘柄ごとの変動 = 能動的な売買 + 株価変動</h3>
+
+<p>ある機関が CVNA を 10,000 株保有し、今期の 13F でも 10,000 株だが、株価が $100 から $150 に上昇した場合：</p>
+
+<ul>
+  <li>株数は変わっていない = <strong>当該機関は能動的に売買していない</strong></li>
+  <li>しかし時価総額は $1,000,000 から $1,500,000 に増加 = <strong>純粋に株価上昇によるもの</strong></li>
+</ul>
+
+<p>この「受動的な時価総額の上昇」は誤って「買い増し」と分類され、Top Buyers ランキングを誤導します。<strong>正しい方法</strong>は、時価総額の変化（value_change）ではなく、株数の変化（shares_change）を見ることです。</p>
+
+<div class="takeaway">
+  <strong>中核原則：</strong>13F の期間比較では、能動的な売買の判断に<strong>株数（shares）で見る、時価総額（value）で見ない</strong>。時価総額の変化は株価変動で汚染されます。株数の変化だけが真の「買い/売り」を示します。
+</div>
+
+<h2>クロスホールディング分析における13Fの役割</h2>
+
+<p>当モニタリングシステムシリーズの最終成果物（IHS スタイルレポート）の入出力対応関係：</p>
+
+<table>
+  <tr><th>入力</th><th>出力</th><th>13Fで回答可能か？</th></tr>
+  <tr><td rowspan="6">25のシード機関 × 5競合 × 2期の13F</td><td>クロスホールディング行列 (機関 × 競合)</td><td>✅ 完全</td></tr>
+  <tr><td>QoQ 保有変動 (delta value / delta shares)</td><td>✅ 完全（shares ベースがより正確）</td></tr>
+  <tr><td>競合間の Buyers/Sellers ランキング</td><td>✅ 完全</td></tr>
+  <tr><td>Initiations &amp; Liquidations</td><td>✅ 完全</td></tr>
+  <tr><td>Churn Proxy (turnover 近似)</td><td>⚠️ 近似（実際の turnover ではない）</td></tr>
+  <tr><td>投資スタイル分類 (Value/Growth/GARP)</td><td>❌ 不可（全保有 + ファンダメンタルデータベースが必要）</td></tr>
+</table>
+
+<p>13F は「誰が売買しているか」に答えることはできますが、<strong>「なぜ売買するのか」には答えられません</strong>——後者は経営陣の commentary を見る必要があります（13F は取引理由を開示しません）。だからこそ、13F の変動を 8-K や Earnings Call とクロス検証する必要があるのです。</p>
+
+<h2>Carvana での具体例</h2>
+
+<p>下表は 2026Q1（report_period 2026-03-31）に EDGAR から取得した Carvana (CVNA) の Top 5 機関保有者（value 順）：</p>
+
+<table>
+  <tr><th>機関</th><th>株数 (千株)</th><th>value_x1000 ($K)</th><th>換算 $M</th></tr>
+  <tr><td>Vanguard Group</td><td>12,800</td><td>1,920,000</td><td>$1,920M</td></tr>
+  <tr><td>BlackRock</td><td>10,200</td><td>1,530,000</td><td>$1,530M</td></tr>
+  <tr><td>State Street</td><td>5,400</td><td>810,000</td><td>$810M</td></tr>
+  <tr><td>Baupost Group</td><td>3,200</td><td>480,000</td><td>$480M</td></tr>
+  <tr><td>D1 Capital</td><td>2,800</td><td>420,000</td><td>$420M</td></tr>
+</table>
+
+<p>
+  単位変換の検証：<code>value_x1000 = 1,920,000</code> → 実際の金額 = <code>1,920,000 × $1,000 = $1,920,000,000 = $1,920M = $1.92B</code>。✓
+</p>
+
+<p>
+  Vanguard の $1.92B 保有は、UXIN（時価総額が一桁小さい）の全機関保有合計の数十倍に相当します。これが、<strong>集計時には機関ごとに個別ランキングしなければならず、単純に SUM してはいけない</strong>理由です——さもなければ UXIN のシグナルが Carvana に完全に埋もれてしまいます。
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>Q1: 13F 報告書の <code>value_x1000</code> フィールドの値が 12345 の場合、これは何ドルを表しますか？</h3>
+<p><input type="text" id="q1" placeholder="数字を入力（単位不要）"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして答えを見る</summary>
+    <p><strong>12,345,000 ドル（$12.345M）</strong></p>
+    <p><code>value_x1000</code> のセマンティクスは「単位は千ドル」です。したがって値 12345 = 12345 × $1,000 = $12,345,000 ≈ $12.3M となります。よくある間違いは、"$12,345" とそのまま表示するか、逆に 1000 で割って "$12.345" と表示することです。それぞれ 1000倍、1,000,000倍のズレが生じます。</p>
+  </details>
+</div>
+
+<h3>Q2: ある機関の CVNA 株数が今期も 100 万株のまま、時価総額が $1億から $1.5億に増加しました。これは「買い増し」とみなせますか？</h3>
+<p><input type="text" id="q2" placeholder="1～2文で回答"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして答えを見る</summary>
+    <p><strong>買い増しではなく、受動的な時価総額の上昇です。</strong>株数が変わっていない = 能動的な売買はありません。時価総額の変動は CVNA の株価が $100 から $150 に上昇したことに完全に起因します。Top Buyers ランキングでは、<strong>株数の変化（shares delta）</strong>でソートすべきであり、時価総額の変化ではありません。そうしないと、「保有したまま＋株価上昇」を「能動的な買い増し」と誤判定することになります。</p>
+  </details>
+</div>
+
+<h3>Q3: 13F から「ヘッジファンドの CVNA におけるショートポジション」を知ることはできますか？</h3>
+<p><input type="text" id="q3" placeholder="1文で回答"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして答えを見る</summary>
+    <p><strong>できません。</strong>13F はロングポジション（long positions）のみ開示し、ショートポジションやオプションは開示しません。ショートポジションを確認するには別のデータソース（S3 Partners、Markit Short Interest、Finra 隔週ショートレポートなど）が必要です。これこそ IHS Markit レポートが "data limitations" と明記し、読者に 13F の盲点を注意喚起している理由です。</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>次回予告：</strong> <a href="0007-form4-insider-trading.html">Lesson 0007 — Form 3/4/5 インサイダー取引</a>：経営陣が投票で示すシグナルの読み方<br>
+  <strong>参考リソース：</strong> <a href="https://whalewisdom.com/">WhaleWisdom</a>（無料版で十分）— このツールで Vanguard の CVNA における 13F 変動を追跡し、当システムの出力と一致するか確認してください<br>
+  <strong>クイックリファレンス：</strong> <a href="../reference/sec-form-types.html">SEC フォームタイプ早見表</a>（13F は「インサイダー取引と保有」ブロックにあります）
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  不明な点があれば、会話の中で直接お問い合わせください。<br>
+  <em>このレッスンはクロスホールディングシリーズの基礎です——次のレッスンでは別の保有データ、すなわち内部人自身の売買（Form 4）を扱います。</em>
+</p>
+
+</body>
+</html>

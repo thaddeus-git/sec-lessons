@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0007 — Form 3/4/5 y operaciones de internos</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .warn { background: #fff0f0; border-left: 3px solid #c44; padding: 0.6rem 1rem; margin: 1rem 0; }
+  .warn h4 { margin: 0 0 0.3rem; }
+  .china { background: #f0f4ff; border-left: 3px solid #36a; padding: 0.8rem 1rem; margin: 1rem 0; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0007 · <a href="0006-13f-institutional-holdings.html">← Leccion anterior: Tenencias institucionales 13F</a> · <a href="0008-13dg-activist-investors.html">Siguiente leccion: Inversores activistas 13D/G →</a>
+</div>
+
+<h1>Form 3/4/5 y operaciones de internos<br><small style="font-size:1rem;color:#666;">Los ejecutivos votan con los pies, como interpretar sus senales</small></h1>
+
+<p>
+  La Lesson 0006 trato sobre lo que <strong>las instituciones externas</strong> (Vanguard, BlackRock, etc.) compran y venden. Esta leccion trata sobre lo que <strong>los internos de la empresa</strong> (CEO, CFO, directores) compran y venden por su cuenta.
+</p>
+
+<p>
+  Los datos de operaciones de internos tienen la <strong>relacion senal-ruido mas alta</strong> dentro del sistema de divulgacion de la SEC — porque los internos conocen la empresa mucho mejor que los inversores externos, y sus compras o ventas suelen tener mas valor informativo que los cambios en las tenencias institucionales. Pero la condicion es <strong>saber interpretarlos</strong>; de lo contrario, se corre el riesgo de malinterpretar las senales.
+</p>
+
+<div class="takeaway">
+  Las operaciones de internos no son un "evento" — son un <strong>flujo de datos continuo</strong>. Una operacion individual no dice nada, pero el sentimiento agregado ponderado (indicador InsiderSentiment) puede decirle "como piensan los altos ejecutivos de esta empresa sobre el futuro".
+</div>
+
+<h2>Que es la Section 16 y a quien cubre</h2>
+
+<p>
+  La Section 16 es el articulo 16 de la Securities Exchange Act de 1934, que regula especificamente la divulgacion de tenencias y operaciones de <strong>los internos de la empresa</strong>. Tres limites clave:
+</p>
+
+<table>
+  <tr><th>Sujeto obligado</th><th>Significado</th><th>Ejemplo concreto</th></tr>
+  <tr><td><strong>Officer</strong> (alto cargo)</td><td>Altos cargos de la empresa, normalmente VP o superior</td><td>CEO, CFO, COO, SVP/EVP</td></tr>
+  <tr><td><strong>Director</strong> (consejero)</td><td>Miembros del consejo de administracion</td><td>Consejeros independientes, consejeros designados por la matriz</td></tr>
+  <tr><td><strong>10% Owner</strong> (accionista con mas del 10%)</td><td>Accionistas que poseen mas del 10% de las acciones de la empresa</td><td>Fundadores, matriz, grandes accionistas pasivos</td></tr>
+</table>
+
+<div class="warn">
+  <h4>⚠️ Punto ciego de las ADR chinas</h4>
+  <p>
+    La Section 16 solo se aplica a internos que poseen <strong>valores registrados en EE.UU.</strong> Los altos cargos de las empresas ADR chinas (Uxin, AutoHome) suelen mantener sus participaciones a traves de <strong>estructuras de Islas Caiman/VIE</strong> — estas participaciones no estan sujetas a la Section 16 de la SEC.
+  </p>
+  <p>Resultado: <strong>UXIN/ATHM apenas tienen datos de Form 4</strong>. Esto no significa que "no haya operaciones de internos", sino que "las operaciones de internos no estan en el ambito de divulgacion de la SEC". Nuestro sistema marca <code>has_section16 = False</code> en config.py, y el Dashboard muestra "No aplica" en lugar de "Sin datos".</p>
+</div>
+
+<h2>Diferencias entre los tres formularios de internos</h2>
+
+<p>
+  La divulgacion de operaciones de internos consta de tres formularios, con distinta frecuencia y contenido. Distincion simple:
+</p>
+
+<table>
+  <tr><th>Formulario</th><th>Nombre completo</th><th>Cuando se presenta</th><th>Contenido</th></tr>
+  <tr><td><strong>Form 3</strong></td><td>Initial Statement</td><td>Dentro de los 10 dias de convertirse en interno</td><td>Declaracion inicial de tenencias (unica vez)</td></tr>
+  <tr><td><strong>Form 4</strong></td><td>Statement of Changes</td><td><strong>Dentro de los 2 dias habiles posteriores a la operacion</strong></td><td>Cada compra o venta debe declararse</td></tr>
+  <tr><td><strong>Form 5</strong></td><td>Annual Statement</td><td>Dentro de los 45 dias posteriores al cierre del ano fiscal</td><td>Resumen anual (operaciones exentas)</td></tr>
+</table>
+
+<p>
+  <strong>El Form 4 es el mas importante</strong> — tiene la mayor oportunidad (2 dias habiles) y cubre todas las operaciones. El Form 3 y el Form 5 son principalmente de "registro complementario".
+</p>
+
+<h2>Estructura del Form 4: Table I vs Table II</h2>
+
+<p>
+  El Form 4 consta de dos tablas, con una diferencia clave:
+</p>
+
+<pre>
+Table I — Non-Derivative Securities (compra/venta de acciones directas)
+  Campos:
+    - Title of Security          Nombre del valor
+    - Transaction Date           Fecha de la operacion
+    - Transaction Code           P=Compra, S=Venta, G=Donacion, A=Concesion, F=Venta por impuestos
+    - Amount                     Numero de acciones
+    - Price                      Precio unitario
+    - Amount After               Acciones poseidas tras la operacion
+
+Table II — Derivative Securities (cambios en opciones/derivados)
+  Campos similares, pero la unidad es "numero de opciones" en lugar de "numero de acciones"
+  Codigos habituales: M=Ejercicio, A=Concesion (opciones), C=Conversion
+</pre>
+
+<h3>Codigos de operacion habituales (Transaction Code)</h3>
+
+<table>
+  <tr><th>Codigo</th><th>Significado</th><th>Tiene senal?</th></tr>
+  <tr><td><strong>P</strong></td><td>Compra activa (Purchase)</td><td>✅✅✅ Fuerte senal positiva — el interno pone dinero de su bolsillo</td></tr>
+  <tr><td><strong>S</strong></td><td>Venta activa (Sale)</td><td>✅ Senal negativa debil — podria ser diversificacion de cartera, no necesariamente pesimista</td></tr>
+  <tr><td><strong>F</strong></td><td>Venta por impuestos (Tax withholding)</td><td>❌ Casi ninguna senal — la retencion fiscal al ejercitar opciones es una operacion estandar</td></tr>
+  <tr><td><strong>G</strong></td><td>Donacion (Gift)</td><td>❌ Senal debil — comun en donaciones beneficas/fideicomisos familiares</td></tr>
+  <tr><td><strong>A</strong></td><td>Concesion/Ejercicio (Award/Exercise)</td><td>❌ Sin senal — parte de la remuneracion, no es una operacion activa</td></tr>
+  <tr><td><strong>M</strong></td><td>Ejercicio de opciones</td><td>Depende de la venta posterior al ejercicio (Codigo F/S pareado)</td></tr>
+</table>
+
+<div class="warn">
+  <h4>La confusion mas frecuente</h4>
+  <p>Interpretar un "Code F de venta por impuestos en gran volumen" como "el interno es pesimista". Este es el mayor error. Cuando los altos cargos ejercitan opciones en bloque bajo un plan 10b5-1, se generan simultaneamente numerosas operaciones con Codigo F (retencion fiscal) y Codigo S (venta).</p>
+  <p>El enfoque correcto: <strong>observar el importe del Codigo P (compra activa)</strong> y <strong>las ventas netas del Codigo S, descontando las ventas vinculadas al ejercicio de opciones</strong>. Sumar directamente todos los codigos de venta ahogaria la senal en el ruido.</p>
+</div>
+
+<h2>Algoritmo correcto del indicador de sentimiento de internos</h2>
+
+<p>
+  Simplemente contar el numero de operaciones de compra y venta no tiene sentido (los planes 10b5-1 generan muchas operaciones pareadas). El enfoque correcto es una <strong>puntuacion ponderada</strong>:
+</p>
+
+<pre>
+InsiderSentiment = Σ(importe_compra_i × peso_rol_i × peso_codigo_operacion_i)
+                  - Σ(importe_venta_j × peso_rol_j × peso_codigo_operacion_j)
+
+Peso por rol:
+  CEO / CFO                   2.0    Maximo nivel de decision
+  10% Owner                   1.5    Gran accionista
+  Director                    1.0    Consejo de administracion
+  EVP / SVP / VP              0.8    Nivel ejecutivo
+
+Peso por codigo de operacion:
+  P (compra activa)           1.0
+  S (venta activa)            1.0
+  F (venta por impuestos)     0.2
+  G (donacion)                0.3
+  A (concesion de opciones)   0.0
+  M (ejercicio de opciones)   0.0   (solo mirar las ventas posteriores al ejercicio)
+
+Normalizado a [-100, +100]:
+  &gt; +30  → Senal alcista
+  -30 ~ +30 → Neutral
+  &lt; -30  → Senal bajista
+</pre>
+
+<p>
+  Notese que el <strong>peso de F es 0.2, no 0</strong> — se conserva una minima senal (una gran cantidad de ventas por impuestos puede reflejar un ejercicio masivo de opciones = concentracion de liquidez), pero no domina la conclusion.
+</p>
+
+<div class="takeaway">
+  <strong>Evite un error comun:</strong> En el mes anterior a la publicacion del 10-K, suele haber muchas ventas de internos (predeterminadas por el plan 10b5-1). Esto no significa necesariamente que "los internos no confian en el informe anual" — podria ser una diversificacion planificada en el marco del plan 10b5-1. Hay que fijarse en la fecha de presentacion del plan 10b5-1 (generalmente en el Item 8.01 del 8-K o en el DEF 14A), no en la operacion en si.
+</div>
+
+<h2>Form 144 — el "avance" de las desinversiones</h2>
+
+<p>
+  El Form 144 es otro tipo de senal de internos — es una <strong>notificacion previa</strong>, no una divulgacion posterior.
+</p>
+
+<table>
+  <tr><th>Datos clave del Form 144</th></tr>
+  <tr><td>Condicion de activacion: el interno planea vender <strong>≥5,000 acciones o ≥$50,000</strong></td></tr>
+  <tr><td>Momento de presentacion: <strong>1-3 dias habiles antes de la venta prevista</strong></td></tr>
+  <tr><td>Validez: la venta planificada debe completarse en los <strong>90 dias</strong> siguientes a la presentacion del Form 144</td></tr>
+  <tr><td>Valor de mercado agregado: <strong>estimacion</strong> basada en el precio de la accion en la fecha de presentacion (no es el precio de venta real)</td></tr>
+</table>
+
+<p>
+  Interpretacion clave:
+</p>
+
+<ul>
+  <li>El Form 144 <strong>no equivale a "ya se ha vendido"</strong> — solo indica que se "prepara para vender". El plan podria no ejecutarse</li>
+  <li>Pero <strong>multiples Form 144 presentados de forma consecutiva</strong> = senal de desinversion continua, hay que estar alerta</li>
+  <li>Al utilizar el Form 144 para anticipar presion de venta, hay que fijarse en la "<strong>tasa de ejecucion real</strong>" (el sitio OpenInsider tiene este dato)</li>
+</ul>
+
+<h2>Tratamiento especial para competidores chinos (reglas practicas)</h2>
+
+<p>
+  De nuestras 5 empresas competidoras, <strong>Uxin (UXIN) y AutoHome (ATHM) son ADR chinas</strong>. No tienen datos de Form 4 / Form 144, pero tienen <strong>divulgaciones a nivel de la matriz en Hong Kong / Acciones A</strong>.
+</p>
+
+<div class="china">
+  <h4>Reglas de tratamiento del sistema</h4>
+  <p>
+    <strong>1. Marcado en config.py</strong>: <code>has_section16 = False</code><br>
+    <strong>2. Visualizacion en Dashboard</strong>:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- No "Sin datos", sino "No aplica" (para evitar que se malinterprete como un fallo de captura)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- Al lado se indica: "Los internos poseen participaciones a nivel de VIE, no sujetas a la divulgacion de la SEC"<br>
+    <strong>3. Alerta de anomalia</strong>:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- Si una ADR china presenta repentinamente un Form 4 → Alerta roja<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- Se trata de un <strong>evento poco frecuente</strong>, que indica que los internos han trasladado expresamente sus participaciones de las Islas Caiman al nivel estadounidense para operar<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- Historicamente, esto es extremadamente raro, pero cuando ocurre, casi siempre hay algo importante detras
+  </p>
+</div>
+
+<h2>Operaciones de internos de Carvana en los ultimos 5 meses</h2>
+
+<p>La siguiente tabla muestra los datos de Form 4 de Carvana obtenidos de EDGAR de enero a junio de 2026 (simplificado):</p>
+
+<table>
+  <tr><th>Fecha</th><th>Interno</th><th>Rol</th><th>Codigo</th><th>Acciones</th><th>Importe ($K)</th><th>Ponderado</th></tr>
+  <tr><td>2026-06-11</td><td>Ernest C. Garcia III</td><td>10% Owner (2.0)</td><td>S</td><td>50,000</td><td>15,000</td><td>-30,000</td></tr>
+  <tr><td>2026-06-11</td><td>Mark Jenkins</td><td>CFO (2.0)</td><td>F</td><td>8,000</td><td>2,400</td><td>-960</td></tr>
+  <tr><td>2026-05-22</td><td>Paul Keister</td><td>VP (0.8)</td><td>P</td><td>2,000</td><td>600</td><td>+480</td></tr>
+  <tr><td>2026-03-15</td><td>Ernest C. Garcia III</td><td>10% Owner</td><td>S</td><td>120,000</td><td>30,000</td><td>-90,000</td></tr>
+</table>
+
+<p>
+  El InsiderSentiment de estas 4 operaciones = (-30,000 - 960 + 480 - 90,000) / 60,000 = <strong>-200% → normalizado a aproximadamente -100 (extremadamente bajista)</strong>.
+</p>
+
+<p>
+  Pero notese: Ernest C. Garcia III es un 10% Owner, y sus grandes ventas suelen corresponder a una <strong>diversificacion activa de cartera</strong> bajo un plan 10b5-1, no a una vision pesimista del negocio. <strong>Es necesario revisar el plan 10b5-1 que haya divulgado en el 8-K o DEF 14A</strong> para determinar la naturaleza de la operacion.
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>P1: Un alto cargo ejercita opciones en bloque bajo un plan 10b5-1, generando 100 operaciones con Codigo F (venta por impuestos). Como debe interpretarlo su sistema?</h3>
+<p><input type="text" id="q1" placeholder="Responda en una o dos frases"></p>
+<div class="reveal">
+  <details>
+    <summary>Haga clic para ver la respuesta</summary>
+    <p><strong>Casi no se interpreta como una senal negativa: es la operacion estandar de un plan 10b5-1.</strong> El peso del Codigo F es 0.2, 100 operaciones × 0.2 = 20 unidades de contribucion al ruido. Si solo se mirara el numero de operaciones, se llegaria a la conclusion erronea de que "los internos estan desinvirtiendo masivamente"; si se aplica el algoritmo ponderado, la conclusion probablemente seria neutral o ligeramente negativa. Para juzgar, hay que ver cuando se presento el plan 10b5-1 (normalmente en el Item 8.01 del 8-K o en el DEF 14A); si la fecha de presentacion fue hace 3-6 meses, basicamente se trata de una operacion programada.</p>
+  </details>
+</div>
+
+<h3>P2: El Dashboard de Uxin (UXIN) muestra "Operaciones de internos: No aplica". Como se distingue esto de un fallo en la captura de datos?</h3>
+<p><input type="text" id="q2" placeholder="Responda en una o dos frases"></p>
+<div class="reveal">
+  <details>
+    <summary>Haga clic para ver la respuesta</summary>
+    <p><strong>Ambos deben distinguirse claramente, porque su significado es completamente diferente.</strong> "No aplica" = la estructura de la empresa determina que no se aplica la divulgacion de la Section 16 (los internos de las ADR chinas poseen participaciones a nivel de VIE); el sistema marca has_section16 = False en config.py. "Sin datos" = fallo de captura o no hubo Form 4 en el periodo (raro, porque el Form 4 es de divulgacion obligatoria en 2 dias habiles). El diseno de la interfaz del Dashboard debe utilizar colores y textos diferentes ("No aplica" en gris, con nota explicativa; "Sin datos" en rojo, posible indicacion de fallo en la API).</p>
+  </details>
+</div>
+
+<h3>P3: Ve que el CFO de Carvana vendio $5M en acciones bajo un plan 10b5-1, pero al mismo tiempo un VP compro activamente $1M. Como puntua su sistema?</h3>
+<p><input type="text" id="q2" placeholder="Responda en una o dos frases"></p>
+<div class="reveal">
+  <details>
+    <summary>Haga clic para ver la respuesta</summary>
+    <p><strong>Depende del Codigo especifico de esa venta de $5M.</strong> Si es Codigo F (venta por impuestos) + Codigo S asociado (venta bajo plan 10b5-1), entonces peso = 0.2 + 1.0 × peso del rol 2.0 = 2.2 unidades de contribucion negativa. Pero la compra activa del VP (Codigo P) = 1.0 × 0.8 = 0.8 unidades de contribucion positiva. Si la diferencia de importe es de 5:1, el resultado es neto negativo de ~-3,400 unidades, <strong>pero normalizado probablemente caeria en el rango -30 ~ 0, con una conclusion de "prudencia"</strong>, no "bajista". Por lo tanto, aunque el importe sea grande, al tratarse de una venta programada bajo un plan 10b5-1, la conclusion debe matizarse.</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>Avance de la siguiente leccion:</strong> <a href="0008-13dg-activist-investors.html">Lesson 0008 — Schedule 13D/G e inversores activistas</a>: Quienes intentan cambiar la empresa, como identificarlos<br>
+  <strong>Recurso recomendado:</strong> <a href="http://openinsider.com/">OpenInsider</a> (gratuito) — busque directamente CVNA para ver como son los datos reales de Form 4, y comprenda la diferencia entre Table I/II con los datos delante<br>
+  <strong>Hoja de referencia:</strong> <a href="../reference/sec-form-types.html">Tabla de tipos de formularios SEC</a> (Form 3/4/5/144 en el bloque "Operaciones de internos y tenencias")
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  Si tiene alguna duda, pregunteme directamente en la conversacion.<br>
+  <em>Esta leccion es la segunda pieza del rompecabezas de la serie sobre tenencias cruzadas. La siguiente leccion trata sobre 13D/G — con menor frecuencia que el Form 4, pero con una senal de mayor intensidad: la declaracion de "inversores activistas".</em>
+</p>
+
+</body>
+</html>

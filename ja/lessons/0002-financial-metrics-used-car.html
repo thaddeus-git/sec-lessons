@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0002 — 中古車業界の核心財務指標</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  p { margin: 0.7rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; }
+  .quiz details { margin-top: 0.4rem; }
+  .sidenote { float: right; clear: right; width: 180px; margin-right: -210px; font-size: 0.82rem; color: #555; line-height: 1.4; }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  .real-data { background: #f0f7f0; border-left: 3px solid #4a4; padding: 0.8rem 1rem; margin: 1rem 0; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0002 · <a href="0001-sec-filing-101.html">← 前回：SEC Filing 101</a> · <a href="0003-8k-deep-dive.html">次回：8-K イベント解説 →</a>
+</div>
+
+<h1>中古車業界の核心財務指標<br><small style="font-size:1rem;color:#666;">10-K/10-Q から何を、なぜ見るのか</small></h1>
+
+<p>
+  10-K には数百の財務指標が含まれているが、競合モニタリングにすべてを見る必要はない。中古車業界において本当に重要なのは十数個だけだ。<strong>肝心なのは、各指標が中古車業界で何を意味するかを理解すること</strong>——これはどの財務教科書にも書いていない。
+</p>
+
+<h2>第一優先順位：収益構造</h2>
+
+<div class="sidenote">
+  Carvana 2026Q1: Retail 収益 $5.86B、Wholesale 収益 $470M、その他 $92M
+</div>
+
+<p>
+  中古車会社の収益は「車を1台売って1回お金を受け取る」ほど単純ではない。重要な問いは、<strong>どこからお金を稼いでいるのか？</strong>である。
+</p>
+
+<table>
+  <tr><th>収益タイプ</th><th>意味</th><th>戦略的意義</th></tr>
+  <tr><td><strong>小売収益</strong> (Retail Revenue)</td><td>C 端：個人消費者への販売</td><td>中核事業。成長率と ASP（平均販売価格）を注視</td></tr>
+  <tr><td><strong>卸売収益</strong> (Wholesale Revenue)</td><td>B 端：オークション/ディーラーへの卸売</td><td>売れ残り車の卸売——卸売比率上昇は小売在庫問題の兆候</td></tr>
+  <tr><td><strong>金融収益</strong> (Finance/Other Revenue)</td><td>ローン手数料、保険、延長保証など</td><td>利益率の隠れた源泉。急成長は必ずしも良い兆候ではない（融資品質低下の可能性）</td></tr>
+</table>
+
+<div class="takeaway">
+  収益は総額だけでなく、構造を見るべき。卸売収益の比率が突然上昇したら、小売が売れなくなっている証拠。
+</div>
+
+<h2>第二優先順位：収益性——中古車業界は2つで十分</h2>
+
+<h3>売上総利益率（Gross Margin）は聖杯</h3>
+
+<p>
+  <strong>中古車は低利益率のビジネス。</strong>SaaS 企業の 70% 超の売上総利益率とは異なり、中古車会社の売上総利益率は通常 15〜20%。なぜ売上総利益率を最も注視すべきか？
+</p>
+
+<ul>
+  <li><strong>売上総利益率は1台あたりの売買差益を反映</strong>（GPU = Gross Profit Per Unit、1台あたり粗利）</li>
+  <li>売上総利益率の変動は純利益よりも問題を明確に示す——純利益は一時的な費用で歪む可能性がある</li>
+  <li><strong>売上総利益率の継続的な低下</strong> = 仕入原価の上昇 + 販売価格の据え置き不能 + 在庫滞留による値下げの悪循環</li>
+</ul>
+
+<div class="real-data">
+  <strong>実データ：</strong>Carvana 2026Q1 Gross Profit = $1.27B、Revenue = $6.43B<br>
+  → Gross Margin = 1.27 ÷ 6.43 = <strong>19.8%</strong><br>
+  比較：従来型ディーラー Carmax の売上総利益率は通常 12〜14%（Carmax は「価格交渉なしの一律価格」が基本で、利益幅は狭いが回転率は高い）
+</div>
+
+<h3>SG&A 対収益比率</h3>
+
+<p>
+  SG&A（販売費・一般管理費）は中古車会社の最大の費用項目。なぜ SG&A/収益比率が純利益率よりも情報量が多いのか？
+</p>
+
+<ul>
+  <li>SG&A には広告宣伝費、店舗運営費、人件費が含まれる</li>
+  <li><strong>SG&A/収益比率の低下</strong> = 規模の経済が機能し、1台あたりの固定費が逓減</li>
+  <li><strong>SG&A/収益比率の上昇 + 収益成長</strong> = 企業が成長のために積極的に資金を投下——「この成長は持続可能か」と問う必要がある</li>
+</ul>
+
+<div class="real-data">
+  <strong>実データ：</strong>Carvana 2026Q1 SG&A = $690M、Revenue = $6.43B<br>
+  → SG&A/Revenue = <strong>10.7%</strong><br>
+  この比率は 2024 年には約 12% であり、Carvana の運営効率が改善していることを示している。
+</div>
+
+<h2>第三優先順位：貸借対照表——中古車会社が最も恐れるもの</h2>
+
+<p>
+  中古車会社の命運は損益計算書ではなく、貸借対照表にある。
+</p>
+
+<table>
+  <tr><th>指標</th><th>なぜ重要か</th><th>危険信号</th></tr>
+  <tr><td><strong>現金</strong> (Cash)</td><td>中古車は資金集約型ビジネス。車の仕入に多額の現金が必要</td><td>現金 / 四半期収益 < 0.5 → 流動性懸念</td></tr>
+  <tr><td><strong>長期負債</strong> (Long Term Debt)</td><td>中古車会社は在庫仕入を借入に依存</td><td>負債の伸びが収益の伸びを上回る → 借り換えに依存</td></tr>
+  <tr><td><strong>在庫</strong> (Inventory)</td><td>在庫＝車——長期保管すると価値が下がる（iPhone とは違う！）</td><td>在庫日数の急増 → 車が売れず、値引き販売が不可避に</td></tr>
+</table>
+
+<blockquote>
+  <strong>中古車業界の鉄則：</strong>車は在庫に1日置かれるごとに少しずつ減価する。Carmax が低利益率でも高回転を追求する理由はここにある——在庫回転率は1台あたりの利益よりも重要である。
+</blockquote>
+
+<div class="real-data">
+  <strong>実データ：</strong>Carvana 2026Q1 Cash = $2.41B、Total Assets = $13.77B、Long Term Debt = $4.92B（FY2025データ）<br>
+  現金/四半期収益 = 2.41 ÷ 6.43 = <strong>0.37</strong> → この比率は危険ではない（車両仕入の支払いタイミングと販売タイミングは完全には一致しない）が、継続的な注視が必要。
+</div>
+
+<h2>簡潔な指標カード（今後はこの表を見れば十分）</h2>
+
+<p>10-Q が出るたびに、この表を素早く確認：</p>
+
+<table>
+  <tr><th>指標</th><th>見るべき点</th><th>判定</th></tr>
+  <tr><td>収益</td><td>YoY 成長率</td><td>成長加速 = 良好；減速 = 原因を深掘り</td></tr>
+  <tr><td>売上総利益率</td><td>絶対値 + トレンド</td><td>中古車業界 15-20% 正常；継続的低下 = ⚠️</td></tr>
+  <tr><td>SG&A/収益</td><td>トレンド</td><td>低下 = 運営効率向上；上昇 = 資金消費または拡大</td></tr>
+  <tr><td>純利益</td><td>損益状況</td><td>黒字 = 健全；ただし一時的な損益は除外</td></tr>
+  <tr><td>現金/四半期収益</td><td>比率</td><td>< 0.3 = 危険；> 0.5 = 安全</td></tr>
+  <tr><td>負債 YoY</td><td>伸び率</td><td>負債の伸び < 収益の伸び = 健全</td></tr>
+</table>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>Q1: 中古車業界において、売上総利益率（Gross Margin）が純利益よりも重要な理由は？</h3>
+<p><input type="text" id="q1" placeholder="1〜2文で回答" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして答えを表示</summary>
+    <p><strong>売上総利益率は1台あたりの売買差益（中核事業能力）を反映し、一時的な費用、資本構成、税制などの要因に影響されない。</strong>純利益は債務再編益などで「一見良好」に見えても中核事業が悪化している可能性があるが、売上総利益率はごまかせない。中古車のような低利益率業界では、売上総利益率の1〜2%の変動が会議を開く価値がある。</p>
+  </details>
+</div>
+
+<h3>Q2: ある中古車会社の卸売収益（Wholesale）比率が突然5%から15%に上昇した場合、何を示唆するか？</h3>
+<p><input type="text" id="q2" placeholder="1〜2文で回答" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして答えを表示</summary>
+    <p><strong>小売側に問題が発生している可能性——車が売れず、卸売で在庫処理せざるを得ない。</strong>卸売価格は小売価格を大幅に下回るため、卸売比率の上昇は次のことを示す：① 在庫管理に問題（売れにくい車を仕入れすぎた）；② 市場需要の低迷；③ 値引き在庫処分の可能性があり、結果的に売上総利益率のさらなる低下を招く。一言で言えば、<strong>卸売収益比率の上昇は良いニュースではない。</strong></p>
+  </details>
+</div>
+
+<h3>Q3: なぜ中古車会社にとって「在庫回転率」は一般の小売企業よりも重要なのか？</h3>
+<p><input type="text" id="q3" placeholder="1〜2文で回答" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして答えを表示</summary>
+    <p><strong>中古車は減価するからだ。</strong>在庫に60日置かれた車と30日置かれた車では価値が異なる——コカコーラが倉庫で劣化しないのとはわけが違う。さらに中古車価格は市場の需給に非常に敏感で、在庫滞留＋市場冷え込み＝大幅値下げ＝売上総利益率の急落となる。Carmax のビジネスモデル（一律価格＋迅速な在庫回転）は、この構造的な矛盾を解決するためにある。</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>次回予告：</strong> <a href="0003-8k-deep-dive.html">Lesson 0003 — 8-K イベント深掘り解説</a>：どのイベントが「報告すべき」もので、どれが単なるノイズか<br>
+  <strong>推奨演習：</strong>Carvana 最新の 10-Q（<a href="https://investors.carvana.com/financial-reports/quarterly-results">Carvana IR ページ</a>）を入手し、上記の指標カードと照らし合わせて自分で計算してみよう
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  不明な点があればいつでも質問してほしい。<em>次回はシリーズ全体で最も重要——8-K イベントの判断力が、「プッシュ通知を受け取ったときに、無視するか上司に報告するか」の分かれ目になる。</em>
+</p>
+
+</body>
+</html>

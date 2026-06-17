@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0007 — Form 3/4/5 とインサイダー取引</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .warn { background: #fff0f0; border-left: 3px solid #c44; padding: 0.6rem 1rem; margin: 1rem 0; }
+  .warn h4 { margin: 0 0 0.3rem; }
+  .china { background: #f0f4ff; border-left: 3px solid #36a; padding: 0.8rem 1rem; margin: 1rem 0; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0007 · <a href="0006-13f-institutional-holdings.html">← 前回：13F 機関保有</a> · <a href="0008-13dg-activist-investors.html">次回：13D/G Activist 投資家 →</a>
+</div>
+
+<h1>Form 3/4/5 とインサイダー取引<br><small style="font-size:1rem;color:#666;">経営陣が投票で示すシグナルの読み方</small></h1>
+
+<p>
+  Lesson 0006 では<strong>外部機関</strong>（Vanguard、BlackRock など）が何を買い、何を売っているかを学びました。このレッスンでは<strong>会社の内部者</strong>（CEO、CFO、取締役）自身が何を買い、何を売っているかを扱います。
+</p>
+
+<p>
+  インサイダー取引データは SEC 開示制度の中で<strong>シグナル対ノイズ比が最も高い</strong>データの一つです——内部者は外部投資家よりも会社に関する理解がはるかに深いため、彼らの買いや売りは通常、機関保有の変動よりも情報量が豊かです。ただし、その前提として<strong>正しく読み解く</strong>ことが必要であり、そうしなければ誤った判断や誤解を招く恐れがあります。
+</p>
+
+<div class="takeaway">
+  インサイダー取引は「イベント」ではなく、<strong>継続的なデータフロー</strong>です。単発の取引は意味を持ちませんが、加重された総合的なセンチメント（InsiderSentiment 指標）は、「この会社の経営陣は将来についてどう考えているか」を教えてくれます。
+</div>
+
+<h2>Section 16 とは何か、誰を対象とするか</h2>
+
+<p>
+  Section 16 は 1934 年証券取引法の第16条で、<strong>会社内部者</strong>の株式保有と取引の開示を規定しています。3つの重要な境界があります。
+</p>
+
+<table>
+  <tr><th>対象者</th><th>意味</th><th>具体例</th></tr>
+  <tr><td><strong>Officer</strong>（役員）</td><td>会社の上級管理職、通常は VP 以上</td><td>CEO、CFO、COO、各 SVP/EVP</td></tr>
+  <tr><td><strong>Director</strong>（取締役）</td><td>取締役会メンバー</td><td>社外取締役、親会社から派遣された取締役</td></tr>
+  <tr><td><strong>10% Owner</strong>（10% 以上株主）</td><td>会社の >10% の株式を保有する株主</td><td>創業者、親会社、大型パッシブ株主</td></tr>
+</table>
+
+<div class="warn">
+  <h4>⚠️ 中国 ADR 企業の盲点</h4>
+  <p>
+    Section 16 は<strong>米国登録証券</strong>を保有する内部者のみに適用されます。中国 ADR 企業（Uxin、Autohome）の経営陣は通常、<strong>Cayman/VIE レベルの权益</strong>を保有しています——これらの权益は SEC Section 16 の管轄外です。
+  </p>
+  <p>結果として、<strong>UXIN/ATHM には Form 4 データがほぼ存在しません</strong>。これは「インサイダー取引がない」ということではなく、「インサイダー取引が SEC 開示の範囲外である」ことを意味します。当システムでは config.py で <code>has_section16 = False</code> とマークし、Dashboard には「データなし」ではなく「該当なし」と表示します。</p>
+</div>
+
+<h2>3種類のインサイダー開示フォームの違い</h2>
+
+<p>
+  インサイダー取引の開示には3つのフォームがあり、提出のタイミングと内容が異なります。簡単に区別すると以下の通りです。
+</p>
+
+<table>
+  <tr><th>フォーム</th><th>正式名称</th><th>いつ提出するか</th><th>内容</th></tr>
+  <tr><td><strong>Form 3</strong></td><td>Initial Statement</td><td>内部者となってから10日以内</td><td>初期保有状況の申告（1回限り）</td></tr>
+  <tr><td><strong>Form 4</strong></td><td>Statement of Changes</td><td><strong>取引後2営業日以内</strong></td><td>売買の都度報告</td></tr>
+  <tr><td><strong>Form 5</strong></td><td>Annual Statement</td><td>会計年度終了後45日以内</td><td>年次集計（除外取引）</td></tr>
+</table>
+
+<p>
+  <strong>Form 4 が最も重要</strong>——タイムリー性が最も高く（2営業日）、全ての取引をカバーします。Form 3 と Form 5 は主に「事後的補足」の性質を持ちます。
+</p>
+
+<h2>Form 4 の構造：Table I vs Table II</h2>
+
+<p>
+  Form 4 は2つのテーブルから構成されており、その違いは極めて重要です。
+</p>
+
+<pre>
+Table I — Non-Derivative Securities（直接保有株式の売買）
+  フィールド:
+    - Title of Security          銘柄名
+    - Transaction Date           取引日
+    - Transaction Code           P=買付, S=売却, G=贈与, A=付与, F=税金支払いのための売却
+    - Amount                     株数
+    - Price                      単価
+    - Amount After               取引後保有株数
+
+Table II — Derivative Securities（オプション/デリバティブの変動）
+  フィールドは類似しているが、単位は「株式数」ではなく「オプション数」
+  よくある Code: M=権利行使, A=付与（オプション）, C=転換
+</pre>
+
+<h3>よくある取引コード（Transaction Code）</h3>
+
+<table>
+  <tr><th>Code</th><th>意味</th><th>シグナルはあるか？</th></tr>
+  <tr><td><strong>P</strong></td><td>能動的買付 (Purchase)</td><td>✅✅✅ 強いポジティブシグナル——内部者が自腹を切っている</td></tr>
+  <tr><td><strong>S</strong></td><td>能動的売却 (Sale)</td><td>✅ 弱いネガティブシグナル——分散保有の可能性もあり、必ずしも弱気とは限らない</td></tr>
+  <tr><td><strong>F</strong></td><td>税金支払いのための売却 (Tax withholding)</td><td>❌ ほぼシグナルなし——オプション権利行使時の源泉徴収は標準的な処理</td></tr>
+  <tr><td><strong>G</strong></td><td>贈与 (Gift)</td><td>❌ 弱いシグナル——慈善・家族信託でよく見られる</td></tr>
+  <tr><td><strong>A</strong></td><td>付与/権利行使 (Award/Exercise)</td><td>❌ シグナルなし——報酬の一部であり、能動的な取引ではない</td></tr>
+  <tr><td><strong>M</strong></td><td>オプション権利行使</td><td>権利行使後の売却行動（Code F/S の組み合わせ）で判断</td></tr>
+</table>
+
+<div class="warn">
+  <h4>最もよくある誤判定</h4>
+  <p>「Code F の大量の税金支払い売却」を「内部者の弱気」と誤読すること。これが最大の落とし穴です——経営陣が 10b5-1 計画のもとでオプションを一括権利行使する際、大量の Code F 取引（源泉徴収）と Code S 取引（売却）が同時に発生します。</p>
+  <p>正しい方法は、<strong>Code P（能動的買付）の金額</strong>と、<strong>Code S から権利行使に伴う売却を差し引いた純売却額</strong>を見ることです。単純に全ての売却コードを SUM すると、シグナルがノイズに埋もれてしまいます。</p>
+</div>
+
+<h2>インサイダーセンチメント指標の正しいアルゴリズム</h2>
+
+<p>
+  単純に売買の件数を数えても意味がありません（10b5-1 計画は大量のペア取引を生み出します）。正しい方法は<strong>加重スコアリング</strong>です。
+</p>
+
+<pre>
+InsiderSentiment = Σ(買付金額_i × 役割重み_i × 取引コード重み_i)
+                  - Σ(売却金額_j × 役割重み_j × 取引コード重み_j)
+
+役割重み:
+  CEO / CFO                   2.0    最高経営層
+  10% Owner                   1.5    大株主
+  Director                    1.0    取締役会
+  EVP / SVP / VP              0.8    執行役員
+
+取引コード重み:
+  P (能動的買付)              1.0
+  S (能動的売却)              1.0
+  F (税金支払い売却)          0.2
+  G (贈与)                    0.3
+  A (オプション付与)          0.0
+  M (オプション権利行使)      0.0   (権利行使後の売却のみを対象とする)
+
+[-100, +100] に正規化:
+  &gt; +30  → 強気シグナル
+  -30 ~ +30 → 中立
+  &lt; -30  → 弱気シグナル
+</pre>
+
+<p>
+  <strong>F の重みを 0 ではなく 0.2</strong> としている点に注意——わずかなシグナルを残すためです（大量の税金支払い売却は大規模な権利行使＝集中換金を反映する可能性がありますが、結論を支配させるわけにはいきません）。
+</p>
+
+<div class="takeaway">
+  <strong>よくある間違いを避けるために：</strong>10-K の発表1ヶ月前には、大量のインサイダー売却（10b5-1 計画で事前設定されたもの）が発生します。これは必ずしも「経営陣が有価証券報告書に自信がない」ことを意味しません——計画に従って 10b5-1 フレームワークのもとで分散保有している可能性があります。重要なのは 10b5-1 計画の提出日（通常 8-K の Item 8.01 または DEF 14A に記載）であって、取引そのものではありません。
+</div>
+
+<h2>Form 144 — 売却の「予告編」</h2>
+
+<p>
+  Form 144 は別のタイプのインサイダーシグナルです——<strong>事前通知</strong>であり、事後開示ではありません。
+</p>
+
+<table>
+  <tr><th>Form 144 の重要事項</th></tr>
+  <tr><td>発動条件：内部者が <strong>≥5,000 株 または ≥$50,000</strong> の売却を計画</td></tr>
+  <tr><td>提出タイミング：<strong>売却予定の 1～3 営業日前</strong></td></tr>
+  <tr><td>有効期間：計画売却は Form 144 提出後 <strong>90 日以内</strong>に完了する必要あり</td></tr>
+  <tr><td>aggregate market value：提出日の株価に基づく<strong>見積額</strong>（実際の約定価格ではない）</td></tr>
+</table>
+
+<p>
+  重要な解釈：
+</p>
+
+<ul>
+  <li>Form 144 は<strong>「すでに売却した」こととイコールではない</strong>——あくまで「売却の準備」です。計画が実行されないこともあります</li>
+  <li>しかし、<strong>複数の Form 144 が継続的に提出される</strong> = 継続的な売却シグナルであり、警戒が必要です</li>
+  <li>Form 144 で売却圧力を予測する際は、「<strong>実際の執行率</strong>」（OpenInsider サイトにこのデータがあります）を確認します</li>
+</ul>
+
+<h2>中国競合の特別な扱い（実務ルール）</h2>
+
+<p>
+  当システムの5社の競合のうち、<strong>Uxin (UXIN) と Autohome (ATHM) は中国 ADR</strong> です。これらの企業には Form 4 / Form 144 データはありませんが、<strong>親会社レベルの香港株・A株開示</strong>は存在します。
+</p>
+
+<div class="china">
+  <h4>システム処理ルール</h4>
+  <p>
+    <strong>1. config.py でのマーク</strong>：<code>has_section16 = False</code><br>
+    <strong>2. Dashboard 表示</strong>：<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- 「データなし」ではなく「該当なし」（取得失敗と誤解されるのを防ぐ）<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- 横に注釈：「内部者は VIE レベルの权益を保有しており、SEC 開示の対象外」<br>
+    <strong>3. 異常アラート</strong>：<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- 中国 ADR に突如 Form 4 が出現した場合 → 赤色警告<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- これは<strong>稀なイベント</strong>であり、内部者が意図的に权益を Cayman から米国レベルに移して取引していることを示す<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- 歴史的にこのケースは極めて稀だが、発生した場合ほぼ常に大きな出来事が起きている
+  </p>
+</div>
+
+<h2>Carvana の直近5ヶ月のインサイダー取引</h2>
+
+<p>下表は 2026年1月～6月に EDGAR から取得した Carvana Form 4 データ（簡略版）です。</p>
+
+<table>
+  <tr><th>日付</th><th>内部者</th><th>役割</th><th>Code</th><th>株数</th><th>金額 ($K)</th><th>加重後</th></tr>
+  <tr><td>2026-06-11</td><td>Ernest C. Garcia III</td><td>10% Owner (2.0)</td><td>S</td><td>50,000</td><td>15,000</td><td>-30,000</td></tr>
+  <tr><td>2026-06-11</td><td>Mark Jenkins</td><td>CFO (2.0)</td><td>F</td><td>8,000</td><td>2,400</td><td>-960</td></tr>
+  <tr><td>2026-05-22</td><td>Paul Keister</td><td>VP (0.8)</td><td>P</td><td>2,000</td><td>600</td><td>+480</td></tr>
+  <tr><td>2026-03-15</td><td>Ernest C. Garcia III</td><td>10% Owner</td><td>S</td><td>120,000</td><td>30,000</td><td>-90,000</td></tr>
+</table>
+
+<p>
+  これら4件の取引の InsiderSentiment = (-30,000 - 960 + 480 - 90,000) / 60,000 = <strong>-200% → 正規化後 約 -100（極度の弱気）</strong>。
+</p>
+
+<p>
+  ただし注意点：Ernest C. Garcia III は 10% Owner であり、彼の大口売却は多くの場合、10b5-1 計画に基づく<strong>能動的な分散保有</strong>であり、事業への弱気を示すものではありません。<strong>彼が 8-K または DEF 14A で開示した 10b5-1 計画を確認</strong>して初めて、性質を判断できます。
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>Q1: 経営陣が 10b5-1 計画のもとでオプションを一括権利行使し、100件の Code F（税金支払い売却）取引が発生しました。あなたのシステムはどう解釈すべきですか？</h3>
+<p><input type="text" id="q1" placeholder="1～2文で回答"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして答えを見る</summary>
+    <p><strong>ほぼネガティブシグナルとは解釈しません——これは 10b5-1 計画の標準的な処理です。</strong>Code F の重みは 0.2 であり、100件 × 0.2 = 20 単位のノイズ寄与に過ぎません。件数だけで見ると「インサイダーが大規模に売却している」という誤った結論に至りますが、加重アルゴリズムを使えば、結論は中立かやや弱気になります。判断時には、当該 10b5-1 計画がいつ提出されたか（通常 8-K Item 8.01 または DEF 14A に記載）を確認する必要があります。提出が 3～6ヶ月前であれば、基本的に計画に沿った行動です。</p>
+  </details>
+</div>
+
+<h3>Q2: Uxin (UXIN) の Dashboard に「インサイダー取引：該当なし」と表示されています。これはデータ取得失敗とどう区別しますか？</h3>
+<p><input type="text" id="q2" placeholder="1～2文で回答"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして答えを見る</summary>
+    <p><strong>両者は明確に区別する必要があります。意味が全く異なるからです。</strong>「該当なし」= 会社の構造上、Section 16 開示が適用されない（中国 ADR の内部者は VIE レベルの权益を保有）、システムは config.py で has_section16 = False とマークしています。「データなし」= 取得失敗、またはその期間に Form 4 が存在しない（Form 4 は2営業日以内の強制開示であるため稀）。Dashboard の UI デザインでは、異なる色と文言を使うべきです（「該当なし」は灰色、理由を注釈；「データなし」は赤色、API 障害の可能性を示唆）。</p>
+  </details>
+</div>
+
+<h3>Q3: Carvana の CFO が 10b5-1 計画のもとで $5M の株式を売却し、同時に VP が能動的に $1M を買い付けました。あなたのシステムはどうスコアリングしますか？</h3>
+<p><input type="text" id="q2" placeholder="1～2文で回答"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして答えを見る</summary>
+    <p><strong>この $5M 売却の具体的な Code によります。</strong>Code F（税金支払い売却）+ 付随する Code S（10b5-1 計画下の売却）の場合、重み = 0.2 + 1.0 × 役割重み 2.0 = 2.2 単位のネガティブ寄与となります。一方、VP の能動的買付 (Code P) = 1.0 × 0.8 = 0.8 単位のポジティブ寄与です。金額差が 5:1 の場合、結果は純ネガティブで約 -3,400 単位となりますが、<strong>正規化後は -30 ～ 0 の範囲に収まる可能性が高く、結論は「慎重」</strong>であり、「弱気」ではありません。つまり金額が大きくても、10b5-1 計画に基づくプログラム売却であるため、結論は割り引いて評価すべきです。</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>次回予告：</strong> <a href="0008-13dg-activist-investors.html">Lesson 0008 — Schedule 13D/G と Activist 投資家</a>：誰が会社を変えようとしているのか、どう見分けるか<br>
+  <strong>参考リソース：</strong> <a href="http://openinsider.com/">OpenInsider</a>（無料）— CVNA を直接検索し、実際の Form 4 データがどのようなものか、データを見ながら Table I/II の違いを理解しましょう<br>
+  <strong>クイックリファレンス：</strong> <a href="../reference/sec-form-types.html">SEC フォームタイプ早見表</a>（Form 3/4/5/144 は「インサイダー取引と保有」ブロックにあります）
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  不明な点があれば、会話の中で直接お問い合わせください。<br>
+  <em>このレッスンはクロスホールディングシリーズの2つ目のピースです。次のレッスンでは 13D/G——Form 4 より頻度は低いが、シグナル強度の高い「アクティビスト投資家」の報告書を扱います。</em>
+</p>
+
+</body>
+</html>

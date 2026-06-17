@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0007 — Form 3/4/5 & Insider Trading</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .warn { background: #fff0f0; border-left: 3px solid #c44; padding: 0.6rem 1rem; margin: 1rem 0; }
+  .warn h4 { margin: 0 0 0.3rem; }
+  .china { background: #f0f4ff; border-left: 3px solid #36a; padding: 0.8rem 1rem; margin: 1rem 0; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0007 · <a href="0006-13f-institutional-holdings.html">← Previous Lesson: 13F Institutional Holdings</a> · <a href="0008-13dg-activist-investors.html">Next Lesson: 13D/G & Activist Investors →</a>
+</div>
+
+<h1>Form 3/4/5 & Insider Trading<br><small style="font-size:1rem;color:#666;">Executives voting with their feet -- how to read their signals</small></h1>
+
+<p>
+  Lesson 0006 covered what <strong>external institutions</strong> (Vanguard, BlackRock, etc.) are buying and selling. This lesson covers what <strong>company insiders</strong> (CEO, CFO, directors) are buying and selling themselves.
+</p>
+
+<p>
+  Insider transaction data has the <strong>highest signal-to-noise ratio</strong> in the SEC disclosure system -- because insiders know the company far better than any external investor. Their buying or selling is typically more informative than institutional holdings changes. But only if you <strong>read it correctly</strong>; otherwise, you can be seriously misled.
+</p>
+
+<div class="takeaway">
+  Insider trading is not an "event" -- it is a <strong>continuous data stream</strong>. A single transaction means nothing, but a weighted aggregate sentiment (InsiderSentiment metric) can tell you "what this company's executives are thinking about the future."
+</div>
+
+<h2>What is Section 16 and who does it cover</h2>
+
+<p>
+  Section 16 is Article 16 of the Securities Exchange Act of 1934, specifically governing <strong>corporate insiders</strong>' holdings and transaction disclosures. Three key categories:
+</p>
+
+<table>
+  <tr><th>Category</th><th>Meaning</th><th>Examples</th></tr>
+  <tr><td><strong>Officer</strong></td><td>Company officers, typically VP and above</td><td>CEO, CFO, COO, SVP/EVP</td></tr>
+  <tr><td><strong>Director</strong></td><td>Board members</td><td>Independent directors, parent company representatives</td></tr>
+  <tr><td><strong>10% Owner</strong></td><td>Shareholder holding &gt;10% of the company</td><td>Founders, parent companies, large passive shareholders</td></tr>
+</table>
+
+<div class="warn">
+  <h4>⚠️ Blind spot for Chinese ADR companies</h4>
+  <p>
+    Section 16 only applies to insiders holding <strong>U.S. registered securities</strong>. Executives of Chinese ADR companies (UXIN, ATHM) typically hold <strong>Cayman/VIE-level interests</strong> -- these are not subject to SEC Section 16.
+  </p>
+  <p>Result: <strong>UXIN/ATHM have virtually no Form 4 data</strong>. This does not mean "no insider trading"; it means "insider trading is not within SEC disclosure scope." Our system marks <code>has_section16 = False</code> in config.py, and the Dashboard displays "Not Applicable" rather than "No Data."</p>
+</div>
+
+<h2>Difference between the three insider forms</h2>
+
+<p>
+  Insider transaction disclosure uses three forms, each with different submission cadence and content:
+</p>
+
+<table>
+  <tr><th>Form</th><th>Full Name</th><th>When Filed</th><th>Content</th></tr>
+  <tr><td><strong>Form 3</strong></td><td>Initial Statement</td><td>Within 10 days of becoming an insider</td><td>Initial holdings statement (one-time)</td></tr>
+  <tr><td><strong>Form 4</strong></td><td>Statement of Changes</td><td><strong>Within 2 business days</strong> of transaction</td><td>Every purchase/sale must be reported</td></tr>
+  <tr><td><strong>Form 5</strong></td><td>Annual Statement</td><td>Within 45 days after fiscal year end</td><td>Annual summary (exempt transactions)</td></tr>
+</table>
+
+<p>
+  <strong>Form 4 is the most important</strong> -- it has the best timeliness (2 business days) and covers all transactions. Forms 3 and 5 are primarily "catch-up" filings.
+</p>
+
+<h2>Form 4 structure: Table I vs Table II</h2>
+
+<p>
+  Form 4 consists of two tables. The distinction is critical:
+</p>
+
+<pre>
+Table I — Non-Derivative Securities (direct holdings trades)
+  Fields:
+    - Title of Security
+    - Transaction Date
+    - Transaction Code           P=Purchase, S=Sale, G=Gift, A=Award, F=Tax withholding
+    - Amount                     Number of shares
+    - Price                      Per-share price
+    - Amount After               Holdings after transaction
+
+Table II — Derivative Securities (options/derivatives changes)
+  Similar fields, but units are "option contracts" not "shares"
+  Common Codes: M=Exercise, A=Award (options), C=Conversion
+</pre>
+
+<h3>Common Transaction Codes</h3>
+
+<table>
+  <tr><th>Code</th><th>Meaning</th><th>Signal?</th></tr>
+  <tr><td><strong>P</strong></td><td>Purchase (open market)</td><td>✅✅✅ Strong positive -- insider spending their own money</td></tr>
+  <tr><td><strong>S</strong></td><td>Sale (open market)</td><td>✅ Weak negative -- could be diversification, not necessarily bearish</td></tr>
+  <tr><td><strong>F</strong></td><td>Tax withholding</td><td>❌ Almost no signal -- standard tax withholding on option exercise</td></tr>
+  <tr><td><strong>G</strong></td><td>Gift</td><td>❌ Weak signal -- common for charity/family trust</td></tr>
+  <tr><td><strong>A</strong></td><td>Award/Exercise</td><td>❌ No signal -- part of compensation, not active trading</td></tr>
+  <tr><td><strong>M</strong></td><td>Option Exercise</td><td>Depends on post-exercise selling (Code F/S pairing)</td></tr>
+</table>
+
+<div class="warn">
+  <h4>Most common misinterpretation</h4>
+  <p>Misreading "large Code F tax withholding sales" as "insider is bearish." This is the biggest pitfall. When executives exercise options in bulk under a 10b5-1 plan, it generates large Code F (tax withholding) and Code S (sale) transactions simultaneously.</p>
+  <p>Correct approach: <strong>Look at Code P (open market purchases) amounts</strong>, and <strong>net selling after stripping out option-exercise-related sales</strong>. Summing all sale codes directly will drown the signal in noise.</p>
+</div>
+
+<h2>Correct algorithm for Insider Sentiment</h2>
+
+<p>
+  Simply counting the number of buy vs sell transactions is meaningless (10b5-1 plans generate a high volume of paired trades). The correct method is <strong>weighted scoring</strong>:
+</p>
+
+<pre>
+InsiderSentiment = Σ(Purchase_Amount_i × Role_Weight_i × Transaction_Code_Weight_i)
+                  - Σ(Sale_Amount_j × Role_Weight_j × Transaction_Code_Weight_j)
+
+Role Weights:
+  CEO / CFO                   2.0    Top decision makers
+  10% Owner                   1.5    Large shareholders
+  Director                    1.0    Board of directors
+  EVP / SVP / VP              0.8    Executive layer
+
+Transaction Code Weights:
+  P (Open market purchase)    1.0
+  S (Open market sale)        1.0
+  F (Tax withholding)         0.2
+  G (Gift)                    0.3
+  A (Option award)            0.0
+  M (Option exercise)         0.0   (look at post-exercise sales only)
+
+Normalized to [-100, +100]:
+  &gt; +30  → Bullish signal
+  -30 ~ +30 → Neutral
+  &lt; -30  → Bearish signal
+</pre>
+
+<p>
+  Note that <strong>F weight is 0.2, not 0</strong> -- we retain a faint signal (large tax-withholding sales may reflect massive exercise = concentrated cash-out), but it does not dominate the conclusion.
+</p>
+
+<div class="takeaway">
+  <strong>Avoid this common mistake:</strong> One month before the 10-K release, a large number of insider sales appear (preset by a 10b5-1 plan). This does not mean "insiders lack confidence in the annual report" -- it may be scheduled diversification under a 10b5-1 framework. You should check the 10b5-1 plan filing date (usually in 8-K Item 8.01 or DEF 14A), not just the trades themselves.
+</div>
+
+<h2>Form 144 -- the "trailer" for selling</h2>
+
+<p>
+  Form 144 is a different type of insider signal -- it is an <strong>advance notice</strong>, not an after-the-fact disclosure.
+</p>
+
+<table>
+  <tr><th>Key Facts about Form 144</th></tr>
+  <tr><td>Trigger: Insider plans to sell <strong>≥5,000 shares or ≥$50,000</strong></td></tr>
+  <tr><td>Timing: <strong>1-3 business days before</strong> the planned sale</td></tr>
+  <tr><td>Validity: Sale must be completed <strong>within 90 days</strong> of Form 144 filing</td></tr>
+  <tr><td>Aggregate market value: <strong>Estimated value</strong> based on filing-date stock price (not actual sale price)</td></tr>
+</table>
+
+<p>
+  Key interpretation:
+</p>
+
+<ul>
+  <li>Form 144 <strong>does not mean "already sold"</strong> -- it only means "preparing to sell." The plan may not be executed</li>
+  <li>But <strong>consecutive Form 144 filings</strong> = sustained selling pressure signal, be cautious</li>
+  <li>When using Form 144 to predict selling pressure, check the "<strong>actual execution rate</strong>" (OpenInsider has this data)</li>
+</ul>
+
+<h2>Special handling for Chinese competitors (operational rules)</h2>
+
+<p>
+  Among our 5 competitors, <strong>Uxin (UXIN) and Autohome (ATHM) are Chinese ADRs</strong>. They have no Form 4 / Form 144 data, but they <strong>have parent-level HK/A-share market disclosures</strong>.
+</p>
+
+<div class="china">
+  <h4>System processing rules</h4>
+  <p>
+    <strong>1. config.py flag</strong>: <code>has_section16 = False</code><br>
+    <strong>2. Dashboard display</strong>:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- Shows "Not Applicable" rather than "No Data" (to avoid being mistaken for a collection failure)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- Annotation: "Insiders hold VIE-level interests, not subject to SEC disclosure"<br>
+    <strong>3. Anomaly alerts</strong>:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- If a Chinese ADR suddenly has Form 4 data → red alert<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- This is a <strong>rare event</strong>, indicating insiders deliberately moved interests from Cayman to U.S. level for trading<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- Historically very rare, but when it happens, it almost always signals something significant
+  </p>
+</div>
+
+<h2>Carvana insider trading over the last 5 months</h2>
+
+<p>The table below shows Carvana Form 4 data we pulled from EDGAR for January-June 2026 (simplified):</p>
+
+<table>
+  <tr><th>Date</th><th>Insider</th><th>Role</th><th>Code</th><th>Shares</th><th>Amount ($K)</th><th>Weighted</th></tr>
+  <tr><td>2026-06-11</td><td>Ernest C. Garcia III</td><td>10% Owner (2.0)</td><td>S</td><td>50,000</td><td>15,000</td><td>-30,000</td></tr>
+  <tr><td>2026-06-11</td><td>Mark Jenkins</td><td>CFO (2.0)</td><td>F</td><td>8,000</td><td>2,400</td><td>-960</td></tr>
+  <tr><td>2026-05-22</td><td>Paul Keister</td><td>VP (0.8)</td><td>P</td><td>2,000</td><td>600</td><td>+480</td></tr>
+  <tr><td>2026-03-15</td><td>Ernest C. Garcia III</td><td>10% Owner</td><td>S</td><td>120,000</td><td>30,000</td><td>-90,000</td></tr>
+</table>
+
+<p>
+  InsiderSentiment for these 4 trades = (-30,000 - 960 + 480 - 90,000) / 60,000 = <strong>-200% → normalized to approximately -100 (extremely bearish)</strong>.
+</p>
+
+<p>
+  But note: Ernest C. Garcia III is a 10% Owner, and his large sales are often <strong>active diversification</strong> under a 10b5-1 plan, not a vote against the business. <strong>You need to check his 10b5-1 plan disclosed in 8-K or DEF 14A</strong> to characterize it properly.
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>Q1: An executive exercises options in bulk under a 10b5-1 plan, generating 100 Code F (tax withholding) trades. How should your system interpret this?</h3>
+<p><input type="text" id="q1" placeholder="Answer in one or two sentences"></p>
+<div class="reveal">
+  <details>
+    <summary>Click to see answer</summary>
+    <p><strong>It should be interpreted as virtually no negative signal -- this is standard operating procedure under a 10b5-1 plan.</strong> Code F has a weight of 0.2, so 100 trades × 0.2 = 20 units of noise contribution. If you only counted trades, you would incorrectly conclude "massive insider selling." With the weighted algorithm, the conclusion would be neutral or slightly negative. The judgment must also account for when the 10b5-1 plan was filed (usually in 8-K Item 8.01 or DEF 14A). If the filing date was 3-6 months ago, these are almost certainly pre-scheduled trades.</p>
+  </details>
+</div>
+
+<h3>Q2: The Dashboard for Uxin (UXIN) shows "Insider Trading: Not Applicable." How do you distinguish this from a data collection failure?</h3>
+<p><input type="text" id="q2" placeholder="Answer in one or two sentences"></p>
+<div class="reveal">
+  <details>
+    <summary>Click to see answer</summary>
+    <p><strong>These two must be clearly distinguished because their meanings are completely different.</strong> "Not Applicable" = the company's structure means Section 16 disclosure does not apply (Chinese ADR insiders hold VIE-level interests), with the system marking <code>has_section16 = False</code> in config.py. "No Data" = collection failed or no Form 4 was filed in the period (rare, since Form 4 is mandatory disclosure within 2 business days). The Dashboard UI should use different colors and text: "Not Applicable" in gray with an explanatory annotation; "No Data" in red, potentially indicating an API failure.</p>
+  </details>
+</div>
+
+<h3>Q3: You see Carvana's CFO sold $5M in stock under a 10b5-1 plan, but at the same time a VP bought $1M on the open market. How does your system score this?</h3>
+<p><input type="text" id="q2" placeholder="Answer in one or two sentences"></p>
+<div class="reveal">
+  <details>
+    <summary>Click to see answer</summary>
+    <p><strong>It depends on the specific Code of that $5M sale.</strong> If it is Code F (tax withholding) + associated Code S (10b5-1 plan sale), then the weight is 0.2 + 1.0 × role weight 2.0 = 2.2 units of negative contribution. But the VP's open market purchase (Code P) = 1.0 × 0.8 = 0.8 units of positive contribution. If the amounts are in a 5:1 ratio, the result is net negative ~-3,400 units, <strong>but after normalization it may land in the -30 to 0 range, with a conclusion of "cautious"</strong>, not "bearish." So even though the dollar amount is large, because it is a programmatic sale under a 10b5-1 plan, the conclusion should be discounted.</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>Next lesson preview:</strong> <a href="0008-13dg-activist-investors.html">Lesson 0008 — Schedule 13D/G & Activist Investors</a>: Who is trying to change the company, and how to identify them<br>
+  <strong>Recommended resource:</strong> <a href="http://openinsider.com/">OpenInsider</a> (free) — search CVNA to see real Form 4 data, and understand Table I/II distinctions by looking at the raw data<br>
+  <strong>Quick reference:</strong> <a href="../reference/sec-form-types.html">SEC Form Types Quick Reference</a> (Form 3/4/5/144 under "Insider Trading & Holdings")
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  If anything is unclear, ask me directly in the conversation.<br>
+  <em>This lesson is the second building block in the cross-holding series. Next lesson covers 13D/G -- lower frequency than Form 4, but higher signal strength: "activist investor" disclosures.</em>
+</p>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aide-memoire des types de formulaires SEC</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 780px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.6rem; margin: 1.5rem 0 0.5rem; }
+  h2 { font-size: 1.2rem; margin: 2rem 0 0.4rem; border-bottom: 1px solid #ddd; padding-bottom: 0.2rem; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.88rem; }
+  th, td { padding: 0.45rem 0.55rem; text-align: left; border-bottom: 1px solid #e8e8e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; font-size: 0.8rem; text-transform: uppercase; color: #555; }
+  .critical { background: #fff3f3; }
+  .important { background: #fffdf3; }
+  .meta { color: #888; font-size: 0.85rem; margin-bottom: 2rem; }
+  a { color: #a33; text-decoration: none; }
+  .print-hint { background: #f0f0e8; padding: 0.5rem 0.8rem; font-size: 0.8rem; color: #666; margin-bottom: 1.5rem; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Document de reference · Derniere mise a jour 2026-06-16 · <a href="../lessons/0001-sec-filing-101.html">← Retour a la Lecon 0001</a>
+</div>
+
+<div class="print-hint">🖨️ Cette page est optimisee pour l'impression — imprimez-la et affichez-la pres de votre bureau.</div>
+
+<h1>Aide-memoire des types de formulaires SEC</h1>
+
+<h2>Depots principaux (indispensables pour la veille concurrentielle)</h2>
+<table>
+  <tr><th style="width:70px">Form</th><th style="width:100px">Nom en francais</th><th>Contenu</th><th style="width:100px">Frequence</th><th>Points cles pour la veille</th></tr>
+  <tr class="critical">
+    <td><strong>10-K</strong></td><td>Rapport annuel</td><td>Rapport annuel audite complet : description des activites, facteurs de risque, discussion de la direction, trois etats financiers</td><td>Annuel</td><td>Source d'information la plus complete, point de depart pour connaitre une entreprise</td>
+  </tr>
+  <tr class="critical">
+    <td><strong>10-Q</strong></td><td>Rapport trimestriel</td><td>Donnees financieres trimestrielles non auditees + mise a jour periodique</td><td>Trimestriel</td><td>Suivre les tendances de performance, comparer avec l'annee precedente pour reperer les points d'inflexion</td>
+  </tr>
+  <tr class="critical">
+    <td><strong>8-K</strong></td><td>Rapport d'evenement majeur</td><td>Tout evenement important : publication de resultats (2.02), changement de dirigeants (5.02), acquisition (2.01), contrat (1.01), etc.</td><td>Iregulier</td><td>Obtenir le plus rapidement les mouvements strategiques des concurrents ; le numero Item determine l'importance</td>
+  </tr>
+</table>
+
+<h2>Numeros Item courants du 8-K</h2>
+<table>
+  <tr><th style="width:80px">Item</th><th>Evenement</th><th>Importance</th><th>Interpretation pour la veille concurrentielle</th></tr>
+  <tr class="critical"><td>1.01</td><td>Signature d'un contrat majeur</td><td>🔴</td><td>Nouveau client, nouveau fournisseur, partenariat strategique — peut changer le paysage concurrentiel</td></tr>
+  <tr class="critical"><td>1.02</td><td>Resiliation d'un contrat majeur</td><td>🔴</td><td>Perte d'un gros client ? Probleme fournisseur ?</td></tr>
+  <tr class="critical"><td>2.01</td><td>Acquisition/cession d'actifs majeurs</td><td>🔴</td><td>Achat d'entreprise, vente d'activite — changement de direction strategique</td></tr>
+  <tr class="critical"><td>2.02</td><td>Publication de resultats</td><td>🔴</td><td>Voir les chiffres financiers cles avant le 10-Q ; avertissements sur resultats</td></tr>
+  <tr><td>2.03</td><td>Obligation financiere majeure</td><td>🟡</td><td>Emprunt important, garantie accordee</td></tr>
+  <tr class="important"><td>2.05</td><td>Depreciation/frais de restructuration</td><td>🟡</td><td>Depreciation d'actifs, restructuration avec licenciements — possibles difficultes</td></tr>
+  <tr class="critical"><td>3.01</td><td>Avis de radiation/changement de cotation</td><td>🔴</td><td>Radiation imminente ? C'est un signal de risque majeur</td></tr>
+  <tr class="critical"><td>4.01</td><td>Changement d'auditeur</td><td>🔴</td><td>L'auditeur demissionne ou est remplace — souvent signe de problemes financiers</td></tr>
+  <tr class="critical"><td>5.02</td><td>Depart/nomination d'un dirigeant ou administrateur</td><td>🔴</td><td>Depart ou nomination du CEO/CFO/COO — bouleversement de personnel</td></tr>
+  <tr><td>5.03</td><td>Modification des statuts</td><td>🟡</td><td>Modification des statuts de l'entreprise — possible changement de gouvernance</td></tr>
+  <tr class="important"><td>5.07</td><td>Resultats du vote des actionnaires</td><td>🟡</td><td>Vote en assemblee generale — voir s'il y a des tensions entre actionnaires et conseil</td></tr>
+  <tr><td>7.01</td><td>Publication Regulation FD</td><td>🟢</td><td>L'entreprise divulgue volontairement des informations (generalement accompagne d'un communique de presse)</td></tr>
+  <tr><td>9.01</td><td>Etats financiers/annexes</td><td>🟢</td><td>Generalement documents accompagnant le 10-K/Q ou le 2.02, peu important</td></tr>
+</table>
+
+<h2>Transactions et participations des initiés (signaux auxiliaires)</h2>
+<table>
+  <tr><th style="width:70px">Form</th><th style="width:120px">Nom en francais</th><th>Contenu</th><th>Points cles pour la veille concurrentielle</th></tr>
+  <tr class="important">
+    <td><strong>Form 4</strong></td><td>Rapport de transaction d'initie</td><td>Dirigeants/administrateurs/gros actionnaires acheteurs/vendeurs de titres de la societe, divulgues <strong>sous 2 jours ouvrables</strong>. Comprend le Tableau I (participations directes) et le Tableau II (options/derives)</td><td>Regarder <strong>Code P (achat volontaire)</strong> et <strong>Code S (vente volontaire)</strong>. Le Code F (vente pour impot) a un poids faible (0.2), le Code A (attribution) n'est pas une transaction active. Attention aux ventes en bloc des plans 10b5-1</td>
+  </tr>
+  <tr>
+    <td><strong>Form 3</strong></td><td>Declaration initiale de participations</td><td>Premiere divulgation des participations par un nouveau dirigeant/administrateur/gros actionnaire, deposee dans les 10 jours suivant le statut d'initie</td><td>Comprendre la structure d'incitation de la direction (participation = allegement d'interets avec les actionnaires)</td>
+  </tr>
+  <tr>
+    <td><strong>Form 5</strong></td><td>Declaration annuelle de participations</td><td>Dans les 45 jours suivant la fin de l'exercice, divulgation complementaire des transactions dispensees (petites transactions non declarees sur Form 4)</td><td>Generalement peu important, mais peut contenir des "petites transactions oubliees" — une verification periodique peut reserver des surprises</td>
+  </tr>
+  <tr>
+    <td><strong>Form 144</strong></td><td>Avis de cession planifiee</td><td>Avis <strong>prealable</strong> de <strong>vente planifiee</strong> par un gros actionnaire/initie portant sur >= 5 000 actions ou >= 50 000 $, valable 90 jours</td><td>Connaitre a l'avance une possible pression vendeuse. ⚠️ Ce n'est pas "deja vendu", c'est "preparation a vendre". Plusieurs Form 144 consecutifs = signal de cession continue</td>
+  </tr>
+  <tr class="important">
+    <td><strong>SC 13D</strong></td><td>Gros portefeuille d'un investisseur actif</td><td>Investisseur "actif" detenant plus de <strong>5%</strong>, depose <strong>sous 10 jours</strong>. <strong>L'Item 4 enonce l'intention</strong> ("nous allons pousser a la scission", etc.)</td><td>⭐⭐⭐⭐⭐ Valeur tres elevee. Un activiste s'interesse a cette societe ? La formulation de l'Item 4 determine l'intensite du signal (actions concretes vs vague "sous-evalue")</td>
+  </tr>
+  <tr>
+    <td><strong>SC 13G</strong></td><td>Gros portefeuille d'un investisseur passif</td><td>Investisseur "passif" detenant plus de <strong>5%</strong> (pur investissement sans intervention), depose annuellement</td><td>Savoir qui detient des participations importantes (Vanguard/BlackRock, etc.). Faibles variations, signal faible</td>
+  </tr>
+  <tr class="important">
+    <td><strong>13F</strong></td><td>Rapport de portefeuille institutionnel</td><td>Institutions gerant <strong>>1 milliard $</strong> d'actifs divulguent <strong>trimestriellement</strong> leurs portefeuilles (dans les 45 jours suivant la fin du trimestre)</td><td>Source de donnees centrale pour l'analyse des participations croisees. Attention : le champ <code>value_x1000</code> signifie "en milliers de dollars" ; un decalage de 1000x est un bug classique. Pour les comparaisons interperiodes, <strong>regarder le nombre d'actions, pas la valeur de marche</strong></td>
+  </tr>
+</table>
+
+<h3>13D vs 13G : differences essentielles</h3>
+<table>
+  <tr><th>Dimension</th><th>Schedule 13D</th><th>Schedule 13G</th></tr>
+  <tr><td><strong>Condition de declenchement</strong></td><td>Participation >5% <strong>et intention d'influencer la gestion de l'entreprise</strong></td><td>Participation >5% <strong>sans intention d'influencer la gestion</strong></td></tr>
+  <tr><td><strong>Delai de depot</strong></td><td>Dans les 10 jours apres atteinte des 5%</td><td>Depot annuel</td></tr>
+  <tr><td><strong>Qui depose</strong></td><td>Activistes, hedge funds</td><td>Fonds indexes, fonds de pension</td></tr>
+  <tr><td><strong>Item 4 intention</strong></td><td><strong>Doit etre detaille</strong> (pousser a la scission ? changer le CEO ?)</td><td>Brève description</td></tr>
+  <tr><td><strong>Mises a jour ulterieures</strong></td><td>Mise a jour a chaque achat/vente >1%</td><td>Mise a jour annuelle</td></tr>
+  <tr><td><strong>Valeur pour la veille concurrentielle</strong></td><td>⭐⭐⭐⭐⭐ Tres elevee</td><td>⭐ Faible</td></tr>
+</table>
+
+<h3>Aide-memoire des codes de transaction Form 4 (voir Lecon 0007)</h3>
+<table>
+  <tr><th style="width:80px">Code</th><th>Signification</th><th>Intensite du signal</th></tr>
+  <tr><td><strong>P</strong></td><td>Achat volontaire</td><td>✅✅✅ Fort positif</td></tr>
+  <tr><td><strong>S</strong></td><td>Vente volontaire</td><td>✅ Faiblement negatif (peut etre diversification)</td></tr>
+  <tr><td><strong>F</strong></td><td>Vente pour impot (retenue a la source lors de l'exercice d'options)</td><td>❌ Presqu'aucun signal (standard 10b5-1)</td></tr>
+  <tr><td><strong>G</strong></td><td>Donation</td><td>❌ Signal faible (charite/famille/trust)</td></tr>
+  <tr><td><strong>A</strong></td><td>Attribution/Exercice</td><td>❌ Aucun signal (partie de la remuneration)</td></tr>
+  <tr><td><strong>M</strong></td><td>Exercice d'options</td><td>Depend du couple Code F/S apres exercice</td></tr>
+</table>
+
+<h3>Piege de conversion d'unite du 13F (voir Lecon 0006)</h3>
+<div style="background:#fff0f0;border-left:3px solid #c44;padding:0.6rem 1rem;margin:0.8rem 0;font-size:0.88rem;">
+  <strong>⚠️ Champ value_x1000</strong> : l'unite est le <strong>millier de dollars</strong>, pas le dollar ni le million de dollars.<br>
+  <code>value_x1000 = 1 920 000</code> → montant reel = <code>1 920 000 x 1 000 $ = 1,92 milliard $</code><br>
+  Methode de verification : <code>nombre d'actions x cours de l'action</code> doit correspondre approximativement a <code>value_x1000 x 1000</code> (tolérance +/-5%)<br>
+  Un facteur 1000 mal place = bug classique. <strong>Conserver les unites SEC originales pour les calculs internes, et diviser par 1000 pour l'affichage en $M</strong>.
+</div>
+
+<h2>Autres types courants (a connaitre de nom)</h2>
+<table>
+  <tr><th style="width:70px">Form</th><th>Utilisation</th></tr>
+  <tr><td><strong>S-1</strong></td><td>Document d'enregistrement IPO — depose lors de la premiere introduction en bourse. Si vous etudiez un concurrent sur le point d'entrer en bourse, c'est une lecture obligatoire.</td></tr>
+  <tr><td><strong>S-4</strong></td><td>Document d'enregistrement pour fusions-acquisitions — operations impliquant un echange d'actions.</td></tr>
+  <tr><td><strong>DEF 14A</strong></td><td>Declaration de procuration (Proxy Statement) — contient la remuneration des dirigeants, la composition du conseil d'administration et d'autres informations de gouvernance.</td></tr>
+  <tr><td><strong>20-F</strong></td><td>Rapport annuel des societes etrangeres (les societes etrangeres n'utilisent pas le 10-K mais le 20-F). Le 20-F d'Uxin est depose fin avril.</td></tr>
+  <tr><td><strong>6-K</strong></td><td>"Rapport intermediaire" des societes etrangeres — equivalent du 8-K, depose en cas d'evenement majeur dans le pays d'origine. Uxin et AutoHome deposent ce formulaire.</td></tr>
+</table>
+
+<div style="margin-top:2rem; font-size:0.85rem; color:#888;">
+  <strong>Attention particuliere aux societes etrangeres :</strong> Uxin (UXIN) et AutoHome (ATHM) ne sont pas des societes americaines ; elles utilisent le 20-F (rapport annuel) a la place du 10-K et le 6-K (rapport interimaire) a la place du 8-K.<br>
+  Notre systeme de veille concurrentielle gere automatiquement cette difference — vous n'avez pas besoin de faire la distinction manuellement.
+</div>
+
+</body>
+</html>

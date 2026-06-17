@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEC 양식 유형 퀵 레퍼런스</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 780px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.6rem; margin: 1.5rem 0 0.5rem; }
+  h2 { font-size: 1.2rem; margin: 2rem 0 0.4rem; border-bottom: 1px solid #ddd; padding-bottom: 0.2rem; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.88rem; }
+  th, td { padding: 0.45rem 0.55rem; text-align: left; border-bottom: 1px solid #e8e8e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; font-size: 0.8rem; text-transform: uppercase; color: #555; }
+  .critical { background: #fff3f3; }
+  .important { background: #fffdf3; }
+  .meta { color: #888; font-size: 0.85rem; margin-bottom: 2rem; }
+  a { color: #a33; text-decoration: none; }
+  .print-hint { background: #f0f0e8; padding: 0.5rem 0.8rem; font-size: 0.8rem; color: #666; margin-bottom: 1.5rem; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  참고 문서 · 마지막 업데이트 2026-06-16 · <a href="../lessons/0001-sec-filing-101.html">← Lesson 0001로 돌아가기</a>
+</div>
+
+<div class="print-hint">🖨️ 이 페이지는 인쇄 형식에 최적화되어 있습니다 — 책상 옆에 붙여두고 사용하세요.</div>
+
+<h1>SEC 양식 유형 퀵 레퍼런스</h1>
+
+<h2>핵심 공시 (경쟁사 모니터링 필수)</h2>
+<table>
+  <tr><th style="width:70px">양식</th><th style="width:100px">한글명</th><th>내용</th><th style="width:100px">빈도</th><th>경쟁사 모니터링 중점</th></tr>
+  <tr class="critical">
+    <td><strong>10-K</strong></td><td>연례 보고서</td><td>감사 완료된 전체 연례 보고서: 사업 설명, 위험 요소, 경영진 논의, 3대 재무제표</td><td>매년</td><td>가장 완전한 정보 출처, 기업 이해의 출발점</td>
+  </tr>
+  <tr class="critical">
+    <td><strong>10-Q</strong></td><td>분기 보고서</td><td>비감사 분기 재무 데이터 + 기간 업데이트</td><td>매분기</td><td>실적 추세 추적, 전년 동기 대비 변곡점 파악</td>
+  </tr>
+  <tr class="critical">
+    <td><strong>8-K</strong></td><td>중요 사건 보고서</td><td>모든 중요 사건: 실적 발표(2.02), 임원 변동(5.02), 인수(2.01), 계약(1.01) 등</td><td>비정기</td><td>경쟁사 전략적 움직임을 가장 빠르게 포착; Item 번호가 중요도 결정</td>
+  </tr>
+</table>
+
+<h2>8-K 주요 Item 번호</h2>
+<table>
+  <tr><th style="width:80px">Item</th><th>사건</th><th>중요도</th><th>경쟁사 모니터링 해석</th></tr>
+  <tr class="critical"><td>1.01</td><td>중요 계약 체결</td><td>🔴</td><td>신규 고객, 신규 공급업체, 전략적 제휴 — 경쟁 구도를 바꿀 수 있음</td></tr>
+  <tr class="critical"><td>1.02</td><td>중요 계약 종료</td><td>🔴</td><td>대형 고객 이탈? 공급업체 문제?</td></tr>
+  <tr class="critical"><td>2.01</td><td>중요 자산 취득/매각</td><td>🔴</td><td>회사 인수, 사업 매각 — 전략 방향 변화</td></tr>
+  <tr class="critical"><td>2.02</td><td>실적 발표</td><td>🔴</td><td>10-Q 이전에 핵심 재무 수치 확인; 실적 경고</td></tr>
+  <tr><td>2.03</td><td>중요 재무 의무</td><td>🟡</td><td>대규모 차입, 보증 제공</td></tr>
+  <tr class="important"><td>2.05</td><td>손상/구조조정 비용</td><td>🟡</td><td>자산 손상, 인력 구조조정 — 문제 가능성</td></tr>
+  <tr class="critical"><td>3.01</td><td>상장폐지/이전 통지</td><td>🔴</td><td>상장 폐지 위기? 중대한 위험 신호</td></tr>
+  <tr class="critical"><td>4.01</td><td>감사인 변경</td><td>🔴</td><td>감사인 사임 또는 교체 — 재무 문제 징후</td></tr>
+  <tr class="critical"><td>5.02</td><td>임원/이사 변동</td><td>🔴</td><td>CEO/CFO/COO 퇴임 또는 선임 — 인사 지각변동</td></tr>
+  <tr><td>5.03</td><td>정관 변경</td><td>🟡</td><td>회사 정관 개정 — 지배구조 변화 가능성</td></tr>
+  <tr class="important"><td>5.07</td><td>주주 투표 결과</td><td>🟡</td><td>주주총회 투표 — 주주와 이사회 간 갈등 확인</td></tr>
+  <tr><td>7.01</td><td>Regulation FD 공시</td><td>🟢</td><td>회사 자발적 정보 공개 (보통 보도자료 동반)</td></tr>
+  <tr><td>9.01</td><td>재무제표/첨부자료</td><td>🟢</td><td>일반적으로 10-K/Q 또는 2.02의 첨부 파일, 중요도 낮음</td></tr>
+</table>
+
+<h2>내부자 거래 및 보유 (보조 신호)</h2>
+<table>
+  <tr><th style="width:70px">양식</th><th style="width:120px">한글명</th><th>내용</th><th>경쟁사 모니터링 중점</th></tr>
+  <tr class="important">
+    <td><strong>Form 4</strong></td><td>내부자 거래 보고서</td><td>임원/이사/대주주의 자사주 매매, <strong>2 영업일 이내</strong> 공시. Table I (직접 보유) 및 Table II (옵션/파생상품) 포함</td><td><strong>Code P (적극 매수)</strong> 및 <strong>Code S (적극 매도)</strong> 확인. Code F (세금 납부 매도) 가중치 낮음(0.2), Code A (부여)는 적극 거래 아님. 10b5-1 계획의 대량 매도 주의</td>
+  </tr>
+  <tr>
+    <td><strong>Form 3</strong></td><td>최초 보유 신고</td><td>신규 임원/이사/대주주가 최초로 보유 지분 공시, 내부자 신분 취득 후 10일 이내 제출</td><td>경영진 인센티브 구조 파악 (보유 = 주주 이익과 연계)</td>
+  </tr>
+  <tr>
+    <td><strong>Form 5</strong></td><td>연간 보유 신고</td><td>회계연도 종료 후 45일 이내, 면제 거래 보충 공시 (Form 4에 보고되지 않은 소액 거래)</td><td>일반적으로 중요하지 않으나, "누락된 소액 거래" 발견 가능 — 정기적 스캔 시 유용</td>
+  </tr>
+  <tr>
+    <td><strong>Form 144</strong></td><td>매도 계획 통지</td><td>대주주/내부자가 ≥5,000주 또는 ≥$50,000 상당 주식을 <strong>매도할 계획</strong>의 <strong>사전 통지</strong>, 유효기간 90일</td><td>잠재적 매도 압력 사전 인지. ⚠️ "이미 판 것"이 아니라 "팔 준비 중". 다수의 Form 144 연속 제출 = 지속적 매도 신호</td>
+  </tr>
+  <tr class="important">
+    <td><strong>SC 13D</strong></td><td>적극적 투자자 대량 보유</td><td>지분 <strong>5%</strong> 초과 보유한 "적극적 투자자", <strong>10일 이내</strong> 제출.<strong>Item 4에 의도 명시</strong> ("분할 추진" 등)</td><td>⭐⭐⭐⭐⭐ 매우 높은 가치. 행동주의 투자자가 이 회사를 주목? Item 4 문구가 신호 강도 결정 (구체적 행동 vs 모호한 "저평가")</td>
+  </tr>
+  <tr>
+    <td><strong>SC 13G</strong></td><td>수동적 투자자 대량 보유</td><td>지분 <strong>5%</strong> 초과 보유한 "수동적 투자자" (순수 투자, 경영 불개입), 연간 제출</td><td>대량 보유자 파악 (Vanguard/BlackRock 등). 변동 적고 신호 약함</td>
+  </tr>
+  <tr class="important">
+    <td><strong>13F</strong></td><td>기관 보유 보고서</td><td>운용 자산 <strong>>$1억</strong>인 기관이 <strong>분기별</strong> 보유 지분 공시 (분기 말 45일 이내)</td><td>교차 보유 분석의 핵심 데이터 소스. 참고: <code>value_x1000</code> 필드명 = "천 달러 단위", 1000배 오류는 전형적인 버그. 시계열 비교 시 <strong>시가총액이 아닌 주식 수 기준</strong></td>
+  </tr>
+</table>
+
+<h3>13D vs 13G：핵심 차이</h3>
+<table>
+  <tr><th>차원</th><th>Schedule 13D</th><th>Schedule 13G</th></tr>
+  <tr><td><strong>발동 조건</strong></td><td>지분 >5% <strong>및 경영에 영향 의도 있음</strong></td><td>지분 >5% <strong>및 경영에 영향 의도 없음</strong></td></tr>
+  <tr><td><strong>제출 기한</strong></td><td>5% 도달 후 10일 이내</td><td>연간 제출</td></tr>
+  <tr><td><strong>제출 주체</strong></td><td>Activist, 헤지펀드</td><td>인덱스 펀드, 연기금</td></tr>
+  <tr><td><strong>Item 4 의도</strong></td><td><strong>반드시 상세 기재</strong> (분할 추진? CEO 교체?)</td><td>간략한 설명</td></tr>
+  <tr><td><strong>이후 업데이트</strong></td><td>매매 >1% 발생 시마다 업데이트</td><td>연간 업데이트</td></tr>
+  <tr><td><strong>경쟁사 모니터링 가치</strong></td><td>⭐⭐⭐⭐⭐ 매우 높음</td><td>⭐ 낮음</td></tr>
+</table>
+
+<h3>Form 4 거래 코드 퀵 레퍼런스 (자세한 내용은 Lesson 0007 참조)</h3>
+<table>
+  <tr><th style="width:80px">코드</th><th>의미</th><th>신호 강도</th></tr>
+  <tr><td><strong>P</strong></td><td>적극 매수</td><td>✅✅✅ 강한 긍정</td></tr>
+  <tr><td><strong>S</strong></td><td>적극 매도</td><td>✅ 약한 부정 (보유 분산 가능성)</td></tr>
+  <tr><td><strong>F</strong></td><td>세금 납부 매도 (스톡옵션 행사 시 원천징수세)</td><td>❌ 신호 거의 없음 (10b5-1 기본)</td></tr>
+  <tr><td><strong>G</strong></td><td>증여</td><td>❌ 약한 신호 (자선/가족 신탁)</td></tr>
+  <tr><td><strong>A</strong></td><td>부여/행사</td><td>❌ 신호 없음 (보상의 일부)</td></tr>
+  <tr><td><strong>M</strong></td><td>스톡옵션 행사</td><td>행사 후 Code F/S 매도와 연계하여 판단</td></tr>
+</table>
+
+<h3>13F 단위 변환 함정 (자세한 내용은 Lesson 0006 참조)</h3>
+<div style="background:#fff0f0;border-left:3px solid #c44;padding:0.6rem 1rem;margin:0.8rem 0;font-size:0.88rem;">
+  <strong>⚠️ value_x1000 필드</strong>：단위는 <strong>천 달러</strong>이며, 달러나 백만 달러가 아닙니다.<br>
+  <code>value_x1000 = 1,920,000</code> → 실제 금액 = <code>1,920,000 × $1,000 = $1.92B</code><br>
+  검증 방법：<code>주식 수 × 당시 주가</code>가 대략 <code>value_x1000 × 1000</code>과 일치해야 함 (±5% 오차 허용)<br>
+  1000배 오류 = 전형적인 버그。<strong>내부 계산은 SEC 원래 단위 유지, 표시 시 1000으로 나누어 $M으로 표시</strong>。
+</div>
+
+<h2>기타 일반 유형 (이름만 알아두면 됨)</h2>
+<table>
+  <tr><th style="width:70px">양식</th><th>용도</th></tr>
+  <tr><td><strong>S-1</strong></td><td>IPO 등록 파일 — 회사 최초 상장 시 제출. 상장 예정 경쟁사를 연구하려면 필독.</td></tr>
+  <tr><td><strong>S-4</strong></td><td>M&A 등록 파일 — 주식 교환이 포함된 합병 거래.</td></tr>
+  <tr><td><strong>DEF 14A</strong></td><td>주주총회 위임장 설명서 (Proxy Statement) — 임원 보수, 이사회 구성 등 지배구조 정보 포함.</td></tr>
+  <tr><td><strong>20-F</strong></td><td>외국 회사의 연례 보고서 (외국 회사는 10-K 대신 20-F 사용). UXIN의 20-F는 4월 말 제출.</td></tr>
+  <tr><td><strong>6-K</strong></td><td>외국 회사의 "중간 보고서" — 8-K에 해당하며, 모국에서 중대 사건 발생 시 제출. UXIN과 ATHM이 제출.</td></tr>
+</table>
+
+<div style="margin-top:2rem; font-size:0.85rem; color:#888;">
+  <strong>외국 회사 특별 주의사항：</strong>UXIN과 ATHM은 미국 현지 기업이 아닙니다. 이들은 10-K 대신 20-F (연례 보고서), 8-K 대신 6-K (임시 보고서)를 사용합니다。<br>
+  당사의 경쟁사 모니터링 시스템은 이 차이를 자동으로 처리합니다 — 수동으로 구분할 필요가 없습니다.
+</div>
+
+</body>
+</html>

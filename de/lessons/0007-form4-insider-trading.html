@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0007 — Form 3/4/5 und Insiderhandel</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .warn { background: #fff0f0; border-left: 3px solid #c44; padding: 0.6rem 1rem; margin: 1rem 0; }
+  .warn h4 { margin: 0 0 0.3rem; }
+  .china { background: #f0f4ff; border-left: 3px solid #36a; padding: 0.8rem 1rem; margin: 1rem 0; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0007 · <a href="0006-13f-institutional-holdings.html">← Vorherige Lektion: 13F institutionelle Bestände</a> · <a href="0008-13dg-activist-investors.html">Nächste Lektion: 13D/G Activist-Investoren →</a>
+</div>
+
+<h1>Form 3/4/5 und Insiderhandel<br><small style="font-size:1rem;color:#666;">Führungskräfte stimmen mit den Füssen ab – wie man ihre Signale interpretiert</small></h1>
+
+<p>
+  Lesson 0006 behandelte, was <strong>externe Institutionen</strong> (Vanguard, BlackRock usw.) kaufen und verkaufen. Diese Lektion behandelt, was <strong>Unternehmensinsider</strong> (CEO, CFO, Direktoren) selbst kaufen und verkaufen.
+</p>
+
+<p>
+  Insiderhandelsdaten haben das <strong>höchste Signal-Rausch-Verhältnis</strong> aller SEC-Offenlegungssysteme – denn Insider wissen weit mehr über das Unternehmen als externe Investoren. Ihre Käufe oder Verkäufe sind daher aussagekräftiger als Veränderungen institutioneller Bestände. Vorausgesetzt, man <strong>versteht sie richtig</strong>, sonst führen sie in die Irre.
+</p>
+
+<div class="takeaway">
+  Insiderhandel ist kein "Ereignis" – es ist ein <strong>kontinuierlicher Datenstrom</strong>. Eine einzelne Transaktion sagt wenig, aber die gewichtete Gesamtstimmung (InsiderSentiment-Kennzahl) verrät Ihnen, "wie das Management über die Zukunft denkt".
+</div>
+
+<h2>Was ist Section 16, wen deckt sie ab</h2>
+
+<p>
+  Section 16 ist Abschnitt 16 des Securities Exchange Act von 1934, der speziell die Aktienbestände und Transaktionsoffenlegung von <strong>Unternehmensinsidern</strong> regelt. Drei wichtige Grenzen:
+</p>
+
+<table>
+  <tr><th>Regulierungsobjekt</th><th>Bedeutung</th><th>Konkretes Beispiel</th></tr>
+  <tr><td><strong>Officer</strong> (Führungskraft)</td><td>Unternehmensführung, in der Regel VP und höher</td><td>CEO, CFO, COO, SVP/EVP</td></tr>
+  <tr><td><strong>Director</strong> (Aufsichtsrat/Vorstand)</td><td>Mitglieder des Verwaltungsrats</td><td>Unabhängige Direktoren, entsandte Direktoren der Muttergesellschaft</td></tr>
+  <tr><td><strong>10% Owner</strong> (Aktionär mit >10%)</td><td>Aktionär mit >10% der Unternehmensanteile</td><td>Gründer, Muttergesellschaft, grosse passive Aktionäre</td></tr>
+</table>
+
+<div class="warn">
+  <h4>⚠️ Blinder Fleck bei chinesischen ADR-Unternehmen</h4>
+  <p>
+    Section 16 gilt nur für Insider, die <strong>US-registrierte Wertpapiere</strong> halten. Die Führungskräfte chinesischer ADR-Unternehmen (Uxin, Autohome) halten in der Regel <strong>Anteile auf Cayman/VIE-Ebene</strong> – diese Anteile unterliegen nicht der SEC Section 16.
+  </p>
+  <p>Ergebnis: <strong>UXIN/ATHM haben fast keine Form 4-Daten</strong>. Das bedeutet nicht "es gibt keinen Insiderhandel", sondern "der Insiderhandel liegt ausserhalb des SEC-Offenlegungsbereichs". Unser System markiert in config.py <code>has_section16 = False</code>, das Dashboard zeigt "nicht zutreffend" statt "keine Daten".</p>
+</div>
+
+<h2>Unterschiede der drei Insiderformulare</h2>
+
+<p>
+  Die Offenlegung von Insiderhandel erfolgt über drei Formulare, die sich in Einreichungsfrequenz und Inhalt unterscheiden. Einfache Unterscheidung:
+</p>
+
+<table>
+  <tr><th>Formular</th><th>Vollständiger Name</th><th>Wann eingereicht?</th><th>Inhalt</th></tr>
+  <tr><td><strong>Form 3</strong></td><td>Initial Statement</td><td>Innerhalb von 10 Tagen nach Insider-Status</td><td>Erstmalige Bestandserklärung (einmalig)</td></tr>
+  <tr><td><strong>Form 4</strong></td><td>Statement of Changes</td><td><strong>Innerhalb von 2 Werktagen nach der Transaktion</strong></td><td>Jeder Kauf/Verkauf muss gemeldet werden</td></tr>
+  <tr><td><strong>Form 5</strong></td><td>Annual Statement</td><td>Innerhalb von 45 Tagen nach Geschäftsjahresende</td><td>Jahreszusammenfassung (ausgenommene Transaktionen)</td></tr>
+</table>
+
+<p>
+  <strong>Form 4 ist das wichtigste</strong> – höchste Aktualität (2 Werktage), deckt alle Transaktionen ab. Form 3 und Form 5 sind im Wesentlichen "Nachmeldungen".
+</p>
+
+<h2>Struktur von Form 4: Table I vs Table II</h2>
+
+<p>
+  Form 4 besteht aus zwei Tabellen, deren Unterschied entscheidend ist:
+</p>
+
+<pre>
+Table I — Non-Derivative Securities (Käufe/Verkäufe direkt gehaltener Aktien)
+  Felder:
+    - Title of Security          Aktienname
+    - Transaction Date           Handelstag
+    - Transaction Code           P=Kauf, S=Verkauf, G=Schenkung, A=Zuteilung, F=Steuerverkauf
+    - Amount                     Aktienanzahl
+    - Price                      Einzelpreis
+    - Amount After               Aktienbestand nach der Transaktion
+
+Table II — Derivative Securities (Veränderungen bei Optionen/Derivaten)
+  Ähnliche Felder, aber Einheit sind "Optionskontrakte" statt "Aktien"
+  Häufige Codes: M=Ausübung, A=Zuteilung (Optionen), C=Umtausch
+</pre>
+
+<h3>Häufige Transaktionscodes (Transaction Code)</h3>
+
+<table>
+  <tr><th>Code</th><th>Bedeutung</th><th>Signal?</th></tr>
+  <tr><td><strong>P</strong></td><td>Aktiver Kauf (Purchase)</td><td>✅✅✅ Stark positives Signal – Insider investiert eigenes Geld</td></tr>
+  <tr><td><strong>S</strong></td><td>Aktiver Verkauf (Sale)</td><td>✅ Schwach negatives Signal – könnte Diversifikation sein, nicht zwingend Pessimismus</td></tr>
+  <tr><td><strong>F</strong></td><td>Steuerverkauf (Tax withholding)</td><td>❌ Kaum Signal – Quellensteuer bei Optionsausübung ist Standard</td></tr>
+  <tr><td><strong>G</strong></td><td>Schenkung (Gift)</td><td>❌ Schwaches Signal – bei Wohltätigkeit/Familientreuhand üblich</td></tr>
+  <tr><td><strong>A</strong></td><td>Zuteilung/Ausübung (Award/Exercise)</td><td>❌ Kein Signal – Teil der Vergütung, keine aktive Transaktion</td></tr>
+  <tr><td><strong>M</strong></td><td>Optionsausübung</td><td>Verkaufsverhalten nach Ausübung beachten (Code F/S Paar)</td></tr>
+</table>
+
+<div class="warn">
+  <h4>Häufigster Fehler</h4>
+  <p>"Massive Code F Steuerverkäufe" als "Insider ist pessimistisch" zu interpretieren. Das ist die grösste Falle – wenn Führungskräfte in grossem Umfang Optionen im Rahmen von 10b5-1 Plänen ausüben, entstehen gleichzeitig viele Code F Transaktionen (Quellensteuer) und Code S Transaktionen (Verkäufe).</p>
+  <p>Richtiges Vorgehen: <strong>Auf Code P (aktive Käufe) achten</strong> sowie auf <strong>Code S abzüglich der Verkäufe im Zusammenhang mit Optionsausübungen</strong>. Die direkte Summe aller Verkaufscodes lässt das Signal im Rauschen untergehen.</p>
+</div>
+
+<h2>Der richtige Algorithmus für den Insider-Stimmungsindikator</h2>
+
+<p>
+  Einfach die Anzahl der Käufe und Verkäufe zu zählen ist sinnlos (10b5-1 Pläne erzeugen viele Paartransaktionen). Die korrekte Methode ist eine <strong>gewichtete Bewertung</strong>:
+</p>
+
+<pre>
+InsiderSentiment = Σ(Kaufbetrag_i × Rollengewicht_i × Transaktionscode-Gewicht_i)
+                  - Σ(Verkaufsbetrag_j × Rollengewicht_j × Transaktionscode-Gewicht_j)
+
+Rollengewichte:
+  CEO / CFO                   2,0    Höchste Entscheidungsebene
+  10% Owner                   1,5    Grossaktionär
+  Director                    1,0    Verwaltungsrat
+  EVP / SVP / VP              0,8    Führungsebene
+
+Transaktionscode-Gewichte:
+  P (aktiver Kauf)            1,0
+  S (aktiver Verkauf)         1,0
+  F (Steuerverkauf)           0,2
+  G (Schenkung)               0,3
+  A (Optionszuteilung)        0,0
+  M (Optionsausübung)         0,0   (nur Verkäufe nach Ausübung zählen)
+
+Normalisiert auf [-100, +100]:
+  &gt; +30  → Kaufsignal
+  -30 ~ +30 → Neutral
+  &lt; -30  → Verkaufssignal
+</pre>
+
+<p>
+  Beachten Sie: <strong>F-Gewicht ist 0,2, nicht 0</strong> – ein winziges Signal bleibt erhalten (massive Steuerverkäufe können auf konzertierte Ausübung = konzentrierte Auszahlung hinweisen), dominiert aber nicht das Ergebnis.
+</p>
+
+<div class="takeaway">
+  <strong>Vermeiden Sie einen häufigen Fehler:</strong> Einen Monat vor der 10-K-Veröffentlichung treten häufig massive Insiderverkäufe auf (vorab festgelegte 10b5-1 Pläne). Dies bedeutet nicht unbedingt "Insider haben kein Vertrauen in den Jahresbericht" – es könnte geplante Diversifikation im Rahmen des 10b5-1 Plans sein. Achten Sie auf das Einreichungsdatum des 10b5-1 Plans (normalerweise in 8-K Item 8.01 oder DEF 14A), nicht auf die Transaktionen selbst.
+</div>
+
+<h2>Form 144 — Der "Trailer" für Aktienverkäufe</h2>
+
+<p>
+  Form 144 ist eine andere Art von Insider-Signal – es ist eine <strong>Vorabmitteilung</strong>, keine nachträgliche Offenlegung.
+</p>
+
+<table>
+  <tr><th>Wichtige Fakten zu Form 144</th></tr>
+  <tr><td>Auslöser: Insider plant Verkauf von <strong>≥5.000 Aktien oder ≥$50.000</strong></td></tr>
+  <tr><td>Einreichungszeitpunkt: <strong>1-3 Werktage vor dem geplanten Verkauf</strong></td></tr>
+  <tr><td>Gültigkeit: Verkauf muss innerhalb von <strong>90 Tagen</strong> nach Einreichung von Form 144 erfolgen</td></tr>
+  <tr><td>Aggregate Market Value: <strong>Schätzwert</strong> basierend auf dem Kurs zum Einreichungsdatum (nicht der tatsächliche Transaktionspreis)</td></tr>
+</table>
+
+<p>
+  Entscheidende Interpretation:
+</p>
+
+<ul>
+  <li>Form 144 <strong>bedeutet nicht "bereits verkauft"</strong> – es bedeutet nur "Verkauf geplant". Der Plan muss nicht ausgeführt werden</li>
+  <li>Aber <strong>mehrere aufeinanderfolgende Form 144-Einreichungen</strong> = anhaltendes Verkaufssignal, Vorsicht geboten</li>
+  <li>Bei der Vorhersage von Verkaufsdruck mit Form 144 auf die "<strong>tatsächliche Ausführungsrate</strong>" achten (OpenInsider hat diese Daten)</li>
+</ul>
+
+<h2>Besondere Behandlung chinesischer Wettbewerber (Praxishinweise)</h2>
+
+<p>
+  Von unseren 5 Wettbewerbern sind <strong>Uxin (UXIN) und Autohome (ATHM) chinesische ADRs</strong>. Sie haben keine Form 4 / Form 144-Daten, aber möglicherweise <strong>Offenlegungen auf Muttergesellschaftsebene in Hongkong oder Festlandchina</strong>.
+</p>
+
+<div class="china">
+  <h4>Systemregeln</h4>
+  <p>
+    <strong>1. config.py Markierung</strong>: <code>has_section16 = False</code><br>
+    <strong>2. Dashboard-Anzeige</strong>:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- Nicht "keine Daten", sondern "nicht zutreffend" (um den Eindruck eines Erfassungsfehlers zu vermeiden)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- Daneben Hinweis: "Insider halten Anteile auf VIE-Ebene, unterliegen nicht der SEC-Offenlegungspflicht"<br>
+    <strong>3. Alarm bei Anomalien:</strong><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- Wenn bei chinesischen ADRs plötzlich ein Form 4 erscheint → roter Alarm<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- Dies ist ein <strong>seltenes Ereignis</strong>, das bedeutet, dass Insider ihre Anteile bewusst von der Cayman-Ebene auf die US-Ebene übertragen haben<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- Historisch extrem selten, aber wenn es vorkommt, fast immer ein bedeutendes Ereignis
+  </p>
+</div>
+
+<h2>Insiderhandel bei Carvana in den letzten 5 Monaten</h2>
+
+<p>Die folgende Tabelle zeigt Carvana Form 4-Daten von Januar bis Juni 2026 aus EDGAR (vereinfacht):</p>
+
+<table>
+  <tr><th>Datum</th><th>Insider</th><th>Rolle</th><th>Code</th><th>Aktien</th><th>Betrag ($K)</th><th>Gewichtet</th></tr>
+  <tr><td>2026-06-11</td><td>Ernest C. Garcia III</td><td>10% Owner (2,0)</td><td>S</td><td>50.000</td><td>15.000</td><td>-30.000</td></tr>
+  <tr><td>2026-06-11</td><td>Mark Jenkins</td><td>CFO (2,0)</td><td>F</td><td>8.000</td><td>2.400</td><td>-960</td></tr>
+  <tr><td>2026-05-22</td><td>Paul Keister</td><td>VP (0,8)</td><td>P</td><td>2.000</td><td>600</td><td>+480</td></tr>
+  <tr><td>2026-03-15</td><td>Ernest C. Garcia III</td><td>10% Owner</td><td>S</td><td>120.000</td><td>30.000</td><td>-90.000</td></tr>
+</table>
+
+<p>
+  InsiderSentiment dieser 4 Transaktionen = (-30.000 - 960 + 480 - 90.000) / 60.000 = <strong>-200% → nach Normalisierung etwa -100 (extrem pessimistisch)</strong>.
+</p>
+
+<p>
+  Aber beachten Sie: Ernest C. Garcia III ist 10% Owner. Seine grossen Verkäufe erfolgen oft im Rahmen von 10b5-1 Plänen zur <strong>aktiven Diversifikation</strong>, nicht aus Geschäftspessimismus. <strong>Man muss seinen 10b5-1 Plan in 8-K oder DEF 14A prüfen</strong>, um dies richtig einzuordnen.
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>F1: Eine Führungskraft übt konzertiert Optionen im Rahmen eines 10b5-1 Plans aus, was 100 Code F (Steuerverkauf) Transaktionen auslöst. Wie sollte Ihr System dies interpretieren?</h3>
+<p><input type="text" id="q1" placeholder="In ein bis zwei Sätzen antworten"></p>
+<div class="reveal">
+  <details>
+    <summary>Klicken für Antwort</summary>
+    <p><strong>Kaum als negatives Signal interpretieren – dies ist Standard bei 10b5-1 Plänen.</strong> Das Gewicht von Code F ist 0,2, 100 × 0,2 = 20 Einheiten Rauschen. Bei reiner Betrachtung der Anzahl würde man fälschlich auf "massive Insiderverkäufe" schliessen; mit dem gewichteten Algorithmus wäre das Ergebnis neutral oder leicht negativ. Entscheidend ist der Zeitpunkt der 10b5-1 Plan-Einreichung (normalerweise in 8-K Item 8.01 oder DEF 14A). Liegt diese 3-6 Monate zurück, handelt es sich im Wesentlichen um planmässiges Handeln.</p>
+  </details>
+</div>
+
+<h3>F2: Das Dashboard für Uxin (UXIN) zeigt "Insiderhandel: nicht zutreffend". Wie unterscheidet sich das von einem Datenerfassungsfehler?</h3>
+<p><input type="text" id="q2" placeholder="In ein bis zwei Sätzen antworten"></p>
+<div class="reveal">
+  <details>
+    <summary>Klicken für Antwort</summary>
+    <p><strong>Beides muss klar unterschieden werden, da die Bedeutung völlig unterschiedlich ist.</strong>"Nicht zutreffend" = die Unternehmensstruktur unterliegt nicht der Section 16-Offenlegung (chinesische ADR-Insider halten Anteile auf VIE-Ebene), das System hat in config.py has_section16 = False gesetzt. "Daten leer" = Erfassungsfehler oder in diesem Zeitraum gab es kein Form 4 (selten, da Form 4 innerhalb von 2 Werktagen Pflicht ist). Die Dashboard-UI sollte unterschiedliche Farben und Texte verwenden ("nicht zutreffend" in Grau mit Erläuterung, "Daten leer" in Rot mit möglichem API-Fehlerhinweis).</p>
+  </details>
+</div>
+
+<h3>F3: Der CFO von Carvana verkauft im Rahmen eines 10b5-1 Plans Aktien im Wert von $5 Mio., gleichzeitig kauft ein VP aktiv Aktien im Wert von $1 Mio. Wie bewertet Ihr System dies?</h3>
+<p><input type="text" id="q3" placeholder="In ein bis zwei Sätzen antworten"></p>
+<div class="reveal">
+  <details>
+    <summary>Klicken für Antwort</summary>
+    <p><strong>Es kommt auf den genauen Code des $5 Mio.-Verkaufs an.</strong> Handelt es sich um Code F (Steuerverkauf) + begleitenden Code S (Verkauf im Rahmen des 10b5-1 Plans), dann Gewicht = 0,2 + 1,0 × Rollengewicht 2,0 = 2,2 Einheiten negativer Beitrag. Der aktive Kauf des VP (Code P) = 1,0 × 0,8 = 0,8 Einheiten positiver Beitrag. Bei einem Betragsverhältnis von 5:1 ergibt sich ein Netto-Negativ von ~-3.400 Einheiten, <strong>aber nach Normalisierung könnte der Wert im Bereich -30 ~ 0 liegen, die Einschätzung ist "vorsichtig"</strong>, nicht "pessimistisch". Selbst bei grossen Beträgen ist das Ergebnis aufgrund der programmatischen Verkäufe im 10b5-1 Plan abzuschwächen.</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>Vorschau nächste Lektion:</strong> <a href="0008-13dg-activist-investors.html">Lesson 0008 — Schedule 13D/G und Activist-Investoren</a>: Wer versucht, Unternehmen zu verändern, und wie man sie erkennt<br>
+  <strong>Empfohlene Ressourcen:</strong> <a href="http://openinsider.com/">OpenInsider</a> (kostenlos) – Suchen Sie direkt nach CVNA, sehen Sie sich echte Form 4-Daten an und verstehen Sie den Unterschied zwischen Table I/II<br>
+  <strong>Übersichtstabelle:</strong> <a href="../reference/sec-form-types.html">SEC-Formular-Typen-Übersichtstabelle</a> (Form 3/4/5/144 im Block "Insiderhandel und Bestände")
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  Bei Unklarheiten fragen Sie mich direkt im Dialog.<br>
+  <em>Diese Lektion ist das zweite Puzzlestück der Cross-Holding-Serie. Die nächste Lektion behandelt 13D/G – weniger häufig als Form 4, aber mit stärkeren Signalen: "aktive Investoren"-Meldungen.</em>
+</p>
+
+</body>
+</html>

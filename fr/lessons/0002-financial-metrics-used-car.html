@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecon 0002 — Indicateurs financiers cles du secteur des vehicules d'occasion</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  p { margin: 0.7rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; }
+  .quiz details { margin-top: 0.4rem; }
+  .sidenote { float: right; clear: right; width: 180px; margin-right: -210px; font-size: 0.82rem; color: #555; line-height: 1.4; }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  .real-data { background: #f0f7f0; border-left: 3px solid #4a4; padding: 0.8rem 1rem; margin: 1rem 0; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lecon 0002 · <a href="0001-sec-filing-101.html">← Lecon precedente : SEC Filing 101</a> · <a href="0003-8k-deep-dive.html">Lecon suivante : Interpretation des 8-K →</a>
+</div>
+
+<h1>Indicateurs financiers cles du secteur des vehicules d'occasion<br><small style="font-size:1rem;color:#666;">Que regarder dans un 10-K/10-Q et pourquoi</small></h1>
+
+<p>
+  Un 10-K contient des centaines d'indicateurs financiers, mais la surveillance concurrentielle ne necessite pas de tout examiner. Pour le secteur des vehicules d'occasion, seuls une dizaine comptent vraiment. <strong>L'essentiel est de comprendre ce que chaque indicateur signifie dans ce secteur</strong> — ce qu'aucun manuel de finance traditionnel n'enseigne.
+</p>
+
+<h2>Premiere priorite : structure des revenus</h2>
+
+<div class="sidenote">
+  Carvana T1 2026 : Revenus Retail 5,86 G$, Revenus Wholesale 470 M$, Autres 92 M$
+</div>
+
+<p>
+  Le revenu d'une entreprise de vehicules d'occasion ne se limite pas a "vendre une voiture et encaisser". La question cle est : <strong>d'ou vient l'argent ?</strong>
+</p>
+
+<table>
+  <tr><th>Type de revenu</th><th>Definition</th><th>Importance strategique</th></tr>
+  <tr><td><strong>Revenu de detail</strong> (Retail Revenue)</td><td>Ventes aux consommateurs particuliers (C-end)</td><td>Activite principale, surveiller la croissance et le prix moyen (ASP)</td></tr>
+  <tr><td><strong>Revenu de gros</strong> (Wholesale Revenue)</td><td>Ventes aux encheres/revente aux concessionnaires (B-end)</td><td>Vehicules invendus revendus en gros — une hausse de la part du wholesale peut indiquer des problemes de stocks cote retail</td></tr>
+  <tr><td><strong>Revenu financier</strong> (Finance/Other Revenue)</td><td>Frais de service de pret, assurances, extensions de garantie, etc.</td><td>Source cachee de marge ; une croissance rapide n'est pas forcement bonne (peut signifier une deterioration de la qualite des prets)</td></tr>
+</table>
+
+<div class="takeaway">
+  Ne regardez pas seulement le chiffre d'affaires total, examinez sa structure. Une hausse soudaine de la part du revenu de gros signifie que les ventes au detail peinent.
+</div>
+
+<h2>Deuxieme priorite : rentabilite — deux indicateurs suffisent pour ce secteur</h2>
+
+<h3>La marge brute (Gross Margin) est le Saint-Graal</h3>
+
+<p>
+  <strong>Les vehicules d'occasion sont une activite a faible marge.</strong> Contrairement aux editeurs SaaS avec des marges de 70 %+, les marges brutes des concessionnaires d'occasion se situent generalement entre 15 % et 20 %. Pourquoi la marge brute merite-t-elle toute votre attention ?
+</p>
+
+<ul>
+  <li><strong>La marge brute reflete l'ecart entre le prix d'achat et le prix de vente de chaque vehicule</strong> (GPU = Gross Profit Per Unit, marge brute par unite)</li>
+  <li>Les variations de la marge brute sont plus revelatrices que le resultat net — ce dernier peut etre fausse par des elements exceptionnels</li>
+  <li><strong>Une baisse continue de la marge brute</strong> = hausse des couts d'approvisionnement + incapacite a augmenter les prix + cercle vicieux de depreciation des stocks</li>
+</ul>
+
+<div class="real-data">
+  <strong>Donnees reelles :</strong> Carvana T1 2026 Gross Profit = 1,27 G$, Revenue = 6,43 G$<br>
+  → Gross Margin = 1,27 / 6,43 = <strong>19,8 %</strong><br>
+  Comparaison : le concessionnaire traditionnel Carmax affiche generalement une marge brute de 12-14 % (Carmax mise sur le "prix fixe sans negociation", ce qui reduit la marge mais accelere la rotation)
+</div>
+
+<h3>Ratio SG&A/Revenu</h3>
+
+<p>
+  Les SG&A (frais de vente, frais generaux et administratifs) representent le poste de depenses le plus important pour les entreprises de vehicules d'occasion. Pourquoi le ratio SG&A/Revenu est-il plus instructif que la marge nette ?
+</p>
+
+<ul>
+  <li>Les SG&A incluent la publicite, l'exploitation des points de vente et les salaires</li>
+  <li><strong>Un ratio SG&A/Revenu en baisse</strong> = economie d'echelle, chaque vente supplementaire reduit les couts fixes unitaires</li>
+  <li><strong>Un ratio SG&A/Revenu en hausse + croissance du revenu</strong> = l'entreprise brule du cash pour croitre — il faut se demander si cette croissance est durable</li>
+</ul>
+
+<div class="real-data">
+  <strong>Donnees reelles :</strong> Carvana T1 2026 SG&A = 690 M$, Revenue = 6,43 G$<br>
+  → SG&A/Revenue = <strong>10,7 %</strong><br>
+  Ce ratio etait d'environ 12 % en 2024, ce qui montre une amelioration de l'efficacite operationnelle de Carvana.
+</div>
+
+<h2>Troisieme priorite : bilan — ce que les entreprises de vehicules d'occasion redoutent le plus</h2>
+
+<p>
+  Le talon d'Achille des entreprises de vehicules d'occasion se trouve dans le bilan, pas dans le compte de resultat.
+</p>
+
+<table>
+  <tr><th>Indicateur</th><th>Pourquoi c'est important</th><th>Signal d'alarme</th></tr>
+  <tr><td><strong>Tresorerie</strong> (Cash)</td><td>L'occasion est un secteur a forte intensite capitalistique, l'achat de vehicules necessite beaucoup de liquidites</td><td>Cash / Revenu trimestriel < 0,5 → tensions de liquidite</td></tr>
+  <tr><td><strong>Dette a long terme</strong> (Long Term Debt)</td><td>Les entreprises d'occasion empruntent pour financer leurs stocks</td><td>Croissance de la dette superieure a celle du revenu → remboursement par nouvel emprunt</td></tr>
+  <tr><td><strong>Stocks</strong> (Inventory)</td><td>Les stocks sont les vehicules — qui se deprecient avec le temps (contrairement a un iPhone !)</td><td>Hausse soudaine des jours de stock → les vehicules ne se vendent pas, des promotions suivront</td></tr>
+</table>
+
+<blockquote>
+  <strong>Regle d'or du secteur d'occasion :</strong> Chaque jour supplementaire qu'un vehicule passe en stock, il perd de la valeur. C'est pourquoi Carmax prefere une marge plus faible au profit d'une rotation elevee — la vitesse de rotation des stocks est plus importante que le profit unitaire.
+</blockquote>
+
+<div class="real-data">
+  <strong>Donnees reelles :</strong> Carvana T1 2026 Cash = 2,41 G$, Total Assets = 13,77 G$, Long Term Debt = 4,92 G$ (donnees FY2025)<br>
+  Cash/Revenu trimestriel = 2,41 / 6,43 = <strong>0,37</strong> → Ce ratio n'est pas dangereux (le rythme des achats de vehicules n'est pas parfaitement synchronise avec celui des ventes), mais merite une surveillance continue.
+</div>
+
+<h2>Une fiche de suivi concise (ce tableau vous suffira desormais)</h2>
+
+<p>A chaque publication d'un 10-Q, parcourez rapidement ce tableau :</p>
+
+<table>
+  <tr><th>Indicateur</th><th>Que regarder</th><th>Comment juger</th></tr>
+  <tr><td>Revenu</td><td>Croissance en glissement annuel (YoY)</td><td>Croissance accelerante = bon ; ralentissement = approfondir les causes</td></tr>
+  <tr><td>Marge brute</td><td>Valeur absolue + tendance</td><td>15-20 % est normal dans l'occasion ; baisse continue = ⚠️</td></tr>
+  <tr><td>SG&A/Revenu</td><td>Tendance</td><td>Baisse = amelioration de l'efficacite operationnelle ; hausse = depenses elevees ou expansion</td></tr>
+  <tr><td>Resultat net</td><td>Situation beneficiaire ou non</td><td>Positif = sain ; mais exclure les profits/pertes exceptionnels</td></tr>
+  <tr><td>Cash/Revenu trimestriel</td><td>Ratio</td><td>< 0,3 = dangereux ; > 0,5 = sur</td></tr>
+  <tr><td>Dette YoY</td><td>Taux de croissance</td><td>Croissance de la dette < croissance du revenu = sain</td></tr>
+</table>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>Q1 : Pourquoi la marge brute (Gross Margin) est-elle plus importante que le resultat net dans le secteur de l'occasion ?</h3>
+<p><input type="text" id="q1" placeholder="Repondez en une ou deux phrases" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>Cliquez pour voir la reponse</summary>
+    <p><strong>La marge brute reflete l'ecart entre le prix d'achat et le prix de vente de chaque vehicule (capacite operationnelle de base), sans etre perturbee par les frais exceptionnels, la structure du capital ou la fiscalite.</strong> Le resultat net peut sembler "bon" grace a un gain exceptionnel de restructuration de dette, alors que l'activite principale se deteriore — la marge brute, elle, ne ment pas. Dans un secteur a faible marge comme celui-ci, une variation de 1 a 2 points de pourcentage de la marge brute justifie une reunion.</p>
+  </details>
+</div>
+
+<h3>Q2 : La part du revenu de gros (Wholesale) d'une entreprise d'occasion passe soudainement de 5 % a 15 %. Quel signal cela envoie-t-il ?</h3>
+<p><input type="text" id="q2" placeholder="Repondez en une ou deux phrases" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>Cliquez pour voir la reponse</summary>
+    <p><strong>Cela peut indiquer un probleme cote retail — les vehicules ne se vendent plus et doivent etre ecoules en gros.</strong> Le prix de gros est bien inferieur au prix de detail ; une hausse de la part du wholesale signifie : (1) un probleme de gestion des stocks (trop de vehicules difficiles a vendre) ; (2) une demande de marche atone ; (3) un possible ecoulement a perte, ce qui fera baisser la marge brute. En bref : <strong>une hausse de la part du revenu de gros n'est pas une bonne nouvelle.</strong></p>
+  </details>
+</div>
+
+<h3>Q3 : Pourquoi la "rotation des stocks" est-elle plus importante pour les entreprises d'occasion que pour les detaillants classiques ?</h3>
+<p><input type="text" id="q3" placeholder="Repondez en une ou deux phrases" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>Cliquez pour voir la reponse</summary>
+    <p><strong>Parce que les vehicules d'occasion se deprecient.</strong> Un vehicule reste 60 jours en stock n'a pas la meme valeur qu'apres 30 jours — contrairement a une canette de Coca qui ne s'abime pas en entrepot. De plus, le prix des vehicules d'occasion est tres sensible a l'offre et a la demande : stocks accumules + marche atone = forte baisse des prix = chute de la marge brute. Le modele de Carmax (prix fixe + rotation rapide) est precisement concu pour resoudre cette contradiction structurelle.</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>Apercu de la lecon suivante :</strong> <a href="0003-8k-deep-dive.html">Lecon 0003 — Interpretation approfondie des 8-K</a> : quels evenements meritent d'etre remontes, ce qui n'est que du bruit<br>
+  <strong>Lecture recommandee :</strong> Trouvez le dernier 10-Q de Carvana (<a href="https://investors.carvana.com/financial-reports/quarterly-results">page IR de Carvana</a>) et recalculez vous-meme les indicateurs de la fiche de suivi ci-dessus
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  N'hesitez pas si quelque chose n'est pas clair.<em> La lecon suivante est la plus importante de toute la serie — la capacite a juger les evenements 8-K determine si "une notification reue doit etre ignoree ou remontee a la direction".</em>
+</p>
+
+</body>
+</html>

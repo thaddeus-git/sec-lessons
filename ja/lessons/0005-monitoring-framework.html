@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0005 — 競合モニタリングフレームワーク</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  p { margin: 0.7rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  a { color: #a33; text-decoration: none; }
+  .card { background: #fafafa; border: 1px solid #e0e0e0; padding: 1rem 1.2rem; margin: 1rem 0; }
+  .card h3 { margin-top: 0; font-size: 1rem; }
+  .tag { display:inline-block; padding:1px 8px; border-radius:3px; font-size:0.75rem; margin-right:4px; color:#fff; }
+  .tag-core { background:#c44; }
+  .tag-legacy { background:#f0b400; color:#333; }
+  .tag-dealer { background:#4a4; }
+  .tag-china { background:#36a; }
+  .tag-traffic { background:#a36; }
+  .framework { background: #f0f4ff; border: 1px solid #ccd; padding: 1rem 1.2rem; margin: 1.2rem 0; }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0005 · <a href="0004-earnings-call.html">← 前回：Earnings Call</a> · <a href="../reference/sec-form-types.html">参考：SEC フォーム早見表</a>
+</div>
+
+<h1>競合モニタリングフレームワーク<br><small style="font-size:1rem;color:#666;">なぜこの5社を選んだか、各社の重点監視項目</small></h1>
+
+<p>
+  これまでの4課では「ツール」——SEC filing とは何か、財務指標の見方、8-K の判断方法、EC の聴き方——を学んできた。この課では原点に戻る：<strong>「なぜこのシステムを構築するのか？」</strong>
+</p>
+
+<h2>フレームワーク：競合モニタリングの4つの階層</h2>
+
+<div class="framework">
+  <p><strong>階層 1：財務諸表</strong> → 何が起きているかを教える（<em>what</em>）<br>
+  <strong>階層 2：イベント駆動</strong> → 何がいつ起きたかを教える（<em>when what</em>）<br>
+  <strong>階層 3：経営陣シグナル</strong> → 起きていることの背後にある意図を教える（<em>why</em>）<br>
+  <strong>階層 4：クロスカンパニー比較</strong> → それが私たちにとって何を意味するかを教える（<em>so what</em>）</p>
+</div>
+
+<p>最初の3つの階層は SEC filing システムが提供できるものだが、<strong>4つ目の階層こそが戦略分析の価値</strong>——そしてこれはいかなる自動化システムでも完全には代替できない。システムが最初の3つを担当し、あなたは4つ目に集中する。</p>
+
+<h2>5社の選定ロジック</h2>
+
+<p>
+  この5社は無作為に選んだわけではない。各社がフレームワークの中で異なる役割を担っている。
+</p>
+
+<div class="card">
+  <h3><span class="tag tag-core">コアベンチマーク</span> 1. Carvana (CVNA)</h3>
+  <p><strong>なぜこの会社か：</strong>Carvana は「純粋オンライン中古車小売」モデルの旗手である。消費者が試乗せずにオンラインで中古車を購入することを証明した。2017年の上場から2026年にかけて、Carvana は猛烈なキャッシュバーン成長 → 破産の淵 → 黒字転換という完全なサイクルを経験し、中古車 EC 企業が直面しうるほぼすべての戦略的問題を網羅している。</p>
+  <p><strong>監視重点：</strong>売上総利益率のトレンド（オンラインモデルの経済性が成立するかの検証）、在庫管理能力（車両調達源と価格設定）、SG&A 効率（規模の経済が実現しているか）</p>
+  <p><strong>重要課題：</strong>Carvana の収益性は持続可能な構造的改善か、それとも周期的な追い風か？</p>
+</div>
+
+<div class="card">
+  <h3><span class="tag tag-legacy">伝統的巨人</span> 2. Carmax (KMX)</h3>
+  <p><strong>なぜこの会社か：</strong>Carmax は米国最大の中古車小売業者で、設立30年。「実店舗中心、価格交渉なしの一律価格、高効率回転」という伝統的な最適モデルを代表する。Carvana が破壊しようとしたのが Carmax である。逆に Carmax も現在オンライン化を進めており——伝統的モデル変革のサンプルとなる。</p>
+  <p><strong>監視重点：</strong>既存店売上高成長率（実店舗の健全性）、オンライン浸透率（伝統的巨人の変革スピード）、在庫回転日数（業界効率ベンチマーク）</p>
+  <p><strong>重要課題：</strong>「実店舗＋オンライン」のハイブリッドモデルで、効率とコストの同時最適化は可能か？それとも両立できないのか？</p>
+</div>
+
+<div class="card">
+  <h3><span class="tag tag-dealer">ディーラーグループ</span> 3. AutoNation (AN)</h3>
+  <p><strong>なぜこの会社か：</strong>AutoNation は典型的な大手ディーラーの集合体——新車と中古車を同時に販売し、自社金融会社を持つ。この会社を監視するのはビジネスモデルを学ぶためではなく、「産業チェーンの上流」を観察するためである——AutoNation の新車販売と在庫状況は、自動車メーカーの供給テンポと末端需要を反映する。</p>
+  <p><strong>監視重点：</strong>新車 vs 中古車の収益比率（産業チェーンのトレンド）、金融収益（自動車金融の収益性）、店舗拡大/縮小（業界インフラの変化）</p>
+  <p><strong>重要課題：</strong>新車供給過剰は中古車市場を圧迫するか？中古車価格の下落はいつ上流に波及するか？</p>
+</div>
+
+<div class="card">
+  <h3><span class="tag tag-china">国内同業</span> 4. 優信 (UXIN)</h3>
+  <p><strong>なぜこの会社か：</strong>優信（Uxin）は中国の中古車 EC 企業として唯一米国株式市場に上場している。そのデータ開示は SEC 基準に従っており、Carvana と直接比較できる。優信の苦境（資金調達コストの高さ、車両調達の困難さ、消費者信頼の低さ）は、中国中古車市場の構造的課題と密接に関連している。</p>
+  <p><strong>監視重点：</strong>収益構造（2B vs 2C の比率の変化——優信は歴史的に B 端卸売に大きく依存）、資金調達力（継続的に資金を確保できるか）、ユニットエコノミクス（1台売って本当に儲かっているか）</p>
+  <p><strong>重要課題：</strong>中国の中古車 EC における「ユニットエコノミクスの黒字化」は実現可能か？優信が失敗した場合、それはビジネスモデルの問題か、実行の問題か？</p>
+</div>
+
+<div class="card">
+  <h3><span class="tag tag-traffic">トラフィック入り口</span> 5. 汽車之家 (ATHM)</h3>
+  <p><strong>なぜこの会社か：</strong>汽車之家（AutoHome）は中古車 EC 企業ではなく、自動車業界の「トラフィック入り口」である——消費者は車を買う前に汽車之家でレビューを見て、価格を比較し、スペックを調べる。この会社を監視する理由は：① 広告収入は自動車業界全体のマーケティング投資意欲を反映する（自動車メーカーとディーラーが汽車之家の主要顧客）；② コンテンツから取引への変革（字節跳動系の懂車帝が取り組んでいること）が成功すれば、取引領域を奪う可能性がある。</p>
+  <p><strong>監視重点：</strong>広告収入の成長率（業界のマーケティング予算のバロメーター）、ディーラー会員数（ディーラーネットワークの健全性）、コンテンツから取引への転換試行（メディアから取引プラットフォームへの拡張の有無）</p>
+  <p><strong>重要課題：</strong>懂車帝（字節跳動傘下）が汽車之家のシェアを奪っている。汽車之家はトラフィック入り口の地位を守り切れるか？</p>
+</div>
+
+<h2>シグナルマトリックス</h2>
+
+<p>クロスカンパニー比較では、1社の孤立した指標を見るのではなく、このマトリックスでクロス検証を行う：</p>
+
+<table>
+  <tr><th>もし……</th><th>同時に……</th><th>ならば……</th></tr>
+  <tr>
+    <td>Carvana の売上総利益率が上昇</td>
+    <td>Carmax の売上総利益率も上昇</td>
+    <td>業界全体の追い風（例：中古車価格の上昇、車両供給の改善）——特定企業の固有の強みではない</td>
+  </tr>
+  <tr>
+    <td>Carvana の SG&A/収益が低下</td>
+    <td>Carmax の SG&A/収益は変化なし</td>
+    <td>Carvana が実際に運営効率を改善している可能性——オンラインモデルの規模の経済が機能している</td>
+  </tr>
+  <tr>
+    <td>優信の収益が減少</td>
+    <td>Carvana/Carmax の収益は正常</td>
+    <td>中国市場固有の問題（資金調達環境、政策、消費者マインド）——業界全体の問題ではない</td>
+  </tr>
+  <tr>
+    <td>汽車之家の広告収入が減少</td>
+    <td>Carvana/Carmax/AutoNation の収益は正常</td>
+    <td>中国自動車業界のマーケティング予算が縮小（または懂車帝がシェアを奪っている）——中国車市の全体的な景況感に注目</td>
+  </tr>
+  <tr>
+    <td>Carvana の売上総利益率が低下</td>
+    <td>AutoNation の新車在庫が増加</td>
+    <td>新車供給過剰が中古車需要を圧迫——業界が価格競争に突入する可能性、中古車価格に減価リスク</td>
+  </tr>
+</table>
+
+<h2>Monitored（監視される側）vs Monitor（監視する側）</h2>
+
+<p>見落とされがちな視点：<strong>競合他社もあなたの会社を見ている。</strong></p>
+
+<blockquote>
+  あなたの会社の SEC filing（上場後）も同様に競合他社や投資機関によって一文一句分析される。<br>
+  これはつまり、<strong>filing で開示するすべての数字、プレスリリースのすべての一文、Earnings Call のすべての表現が、市場に向けてシグナルを発信している</strong>ということである。
+</blockquote>
+
+<p>もし競合モニタリングシステムで、ある競合が異常にあなたの会社の特定の事業を注視していることを発見したら（Earnings Call での言及や、IR ページでの競合比較を通じて）、<strong>逆方向に推論せよ：その事業は彼らが最大の脅威と見なしているもの——つまり、あなたの会社が最もリソースを投入すべき領域である。</strong></p>
+
+<div class="takeaway">
+  競合モニタリングシステムの価値は「情報の集約」ではなく、「判断の形成」にある。システムは生データを構造化されたインテリジェンスに変え、あなたはそれを会社に指針を与える戦略的判断に変える。
+</div>
+
+<hr>
+
+<h2>Quiz（最終課）</h2>
+
+<div class="quiz">
+
+<h3>Q1: Carmax を監視するのは単に「競合他社を見る」ためではなく、「業界効率のベンチマークを構築する」ためだと言えるのはなぜか？</h3>
+<p><input type="text" id="q1" placeholder="1〜2文で回答" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして答えを表示</summary>
+    <p><strong>Carmax は業界で最も運営が成熟したプレイヤーであり、その回転速度と売上総利益率は「オフラインモデルの最適解」の天井を表している。</strong>Carvana のオンラインモデルが効率とコストで Carmax を超えられなければ、存在理由がない。したがって Carmax の数字は業界全体の「ベースライン」となる——Carmax より良いならモデルの差別化が機能している証拠、Carmax より悪いならオンライン化がまだ証明されていないことを示す。</p>
+  </details>
+</div>
+
+<h3>Q2: 汽車之家の広告収入が減少している一方で、Carvana/AutoNation など米国企業の業績が正常な場合、それは何を示しているか？</h3>
+<p><input type="text" id="q2" placeholder="1〜2文で回答" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして答えを表示</summary>
+    <p><strong>問題は中国市場にあり、世界的な業界問題ではない。</strong>汽車之家の広告主は主に中国の自動車メーカーとディーラーである——彼らの広告予算の縮小は、中国車市の需要側またはディーラーの収益性が悪化していることを意味する。しかし米国市場にはこのシグナルがない。つまり：① 世界的な自動車業界の下降ではない；② 中国特有の問題（政策、消費者マインド、競争の内需化）の可能性；③ あるいは汽車之家の市場シェアが懂車帝に奪われている可能性——個別に検証が必要。</p>
+  </details>
+</div>
+
+<h3>Q3: あなたの会社が上場した後、競合他社も同じ方法であなたの会社を監視するだろう。このことは SEC filing の行動にどのような示唆を与えるか？</h3>
+<p><input type="text" id="q3" placeholder="1〜2文で回答" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして答えを表示</summary>
+    <p><strong>すべての filing は競合他社へのシグナル発信である。</strong>具体的には：① 10-K の Item 1A（リスク要因）は競合に一文一句分析され、自社の弱点を探られる；② 8-K の経営陣異動、重要契約、業績警告は即座に相手の情報システムに捕捉される；③ Earnings Call での特定事業への強調や回避は、戦略的優先順位の変化として解釈される。したがって filing は単なるコンプライアンス義務ではない——<strong>それはあなたの会社と競合他社の間の情報戦場である。filing を書くたびに、「相手がこれを読んでどう行動するか」を考えるべきである。</strong></p>
+  </details>
+</div>
+
+</div>
+
+<div style="background:#f0f0e8;padding:1rem 1.2rem;margin:3rem 0 1rem;font-size:0.95rem;">
+  <strong>シリーズ完結。</strong>5課で SEC 体系 → 財務指標 → イベント判断 → 経営陣シグナル → モニタリングフレームワークをカバーした。<br><br>
+  <strong>次のステップ：</strong>PRD v2.0（<code>/Users/liuming/sec/PRD-competitor-intel-mvp-v2.md</code>）に戻ろう——今ならこのドキュメントの各モジュール設計の「なぜ」が理解できるはずだ。新しい会話を開き、Coding Agent にこのシステムを作らせよう。
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  全課程レビュー：<a href="0001-sec-filing-101.html">0001 SEC Filing 101</a> → <a href="0002-financial-metrics-used-car.html">0002 財務指標</a> → <a href="0003-8k-deep-dive.html">0003 8-K イベント</a> → <a href="0004-earnings-call.html">0004 Earnings Call</a> → 0005 モニタリングフレームワーク<br>
+  参考ドキュメント：<a href="../reference/sec-form-types.html">SEC フォームタイプ早見表</a>（印刷可能）<br>
+  どの課でも復習したい場合は、「lesson 000X を開いて」と直接言ってください。
+</p>
+
+</body>
+</html>

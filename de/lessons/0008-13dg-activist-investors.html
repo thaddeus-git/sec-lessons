@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0008 — Schedule 13D/G und Activist-Investoren</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .warn { background: #fff0f0; border-left: 3px solid #c44; padding: 0.8rem 1rem; margin: 1rem 0; }
+  .warn h4 { margin: 0 0 0.3rem; }
+  .strategy { background: #f0f0fa; border: 1px solid #dde; padding: 0.8rem 1rem; margin: 0.8rem 0; }
+  .strategy h4 { margin: 0 0 0.3rem; color: #36a; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0008 · <a href="0007-form4-insider-trading.html">← Vorherige Lektion: Form 4 Insiderhandel</a> · <a href="0009-cross-holding-methodology.html">Nächste Lektion: Cross-Holding-Methodik →</a>
+</div>
+
+<h1>Schedule 13D/G und Activist-Investoren<br><small style="font-size:1rem;color:#666;">Wer versucht, Unternehmen zu verändern, und wie man sie erkennt</small></h1>
+
+<p>
+  Die letzten beiden Lektionen behandelten 13F (institutionelle Bestände) und Form 4 (Insiderhandel). Diese Lektion behandelt eine <strong>seltenere, aber signalstärkere</strong> Meldung: <strong>Schedule 13D und 13G</strong> – die Pflichtoffenlegung für Grossaktionäre mit einem Anteil von über 5%.
+</p>
+
+<p>
+  13D/G kommen nur einige hundert Male pro Jahr vor (im Vergleich zu 13F mit 5.000-6.000 Institutionen × 4 Zeiträume = 20.000+ Quartalsmeldungen), aber jede einzelne bedeutet, dass "<strong>jemand massiv bei Ihnen eingestiegen ist</strong>". Dies ist die Kategorie mit dem höchsten Signal-Rausch-Verhältnis unter den institutionellen Bestandsdaten.
+</p>
+
+<div class="sidenote">
+  Die "Activists"-Seite P4 des IHS Markit Berichts basiert fast vollständig auf 13D/G-Daten. Ein Activist auf der P4-Liste = extrem wichtiges Ereignis.
+</div>
+
+<h2>13D vs 13G: Kernunterschiede</h2>
+
+<p>Beide Formulare sind Pflichtmeldungen bei Beständen >5%, der Unterschied liegt in der <strong>Absicht des Meldepflichtigen</strong>:</p>
+
+<table>
+  <tr><th>Dimension</th><th>Schedule 13D</th><th>Schedule 13G</th></tr>
+  <tr><td><strong>Auslöser</strong></td><td>Bestand >5% <strong>und</strong> Absicht, das Unternehmen zu beeinflussen</td><td>Bestand >5% <strong>und</strong> keine Absicht zur Einflussnahme (reine Investition)</td></tr>
+  <tr><td><strong>Einreichungsfrist</strong></td><td><strong>10 Tage</strong> nach Erreichen von 5%</td><td>Jährlich (in der Regel vor dem 14.02.)</td></tr>
+  <tr><td><strong>Wer reicht ein</strong></td><td>Activist-Investoren, Hedgefonds, aktivistische Fonds</td><td>Indexfonds, Pensionskassen, passive Institutionen</td></tr>
+  <tr><td><strong>Folgeaktualisierungen</strong></td><td>Jeder Kauf/Verkauf >1% erfordert ein Update</td><td>Jährliches Update ausreichend</td></tr>
+  <tr><td><strong>Offengelegte Inhalte</strong></td><td>Bestände + <strong>detaillierte Absichtserklärung</strong> ("Wir wollen eine Ausgliederung erzwingen" etc.)</td><td>Bestände + kurze Erläuterung</td></tr>
+  <tr><td><strong>Wert für Wettbewerberüberwachung</strong></td><td>⭐⭐⭐⭐⭐ extrem hoch</td><td>⭐ niedrig (passives Halten)</td></tr>
+</table>
+
+<div class="warn">
+  <h4>Entscheidender Punkt: 13D Item 4</h4>
+  <p>
+    Das <strong>Item 4 (Purpose of Transaction)</strong> des 13D ist das wertvollste Feld. Der Activist legt hier dar, "warum wir dieses Unternehmen kaufen" – möglicherweise "Forderung nach Ausgliederung des E-Commerce-Geschäfts", "Ablehnung einer bestimmten Übernahme", "Nominierung neuer Verwaltungsratskandidaten".
+  </p>
+  <p>Dieser Text ist normalerweise <strong>scharf formuliert</strong> ("we believe the company is significantly undervalued..."), da er starke Kursreaktionen auslöst und der Activist selbst möchte, dass der Markt das Signal sieht.</p>
+</div>
+
+<h2>Wie man feststellt, ob eine Institution ein Activist ist</h2>
+
+<p>IHS Markit pflegt eine Activist-Fonds-Datenbank, die wir nicht vollständig nachbilden können. Aber mit den folgenden Regeln können wir eine <strong>Näherung</strong> vornehmen:</p>
+
+<h3>Professionelle Bewertungskriterien (IHS-Massstab)</h3>
+
+<pre>
+1. Historische 13D-Einreichungen
+   → Institutionen, die wiederholt 13D einreichen = professionelle Activists
+2. Proxy Fight / Shareholder Proposal Aufzeichnungen
+   → Hat die Institution eigene Kandidaten in Hauptversammlungsanträgen vorgeschlagen?
+3. Öffentliche Activist-Kampagnen
+   → Offene Briefe zur Ablösung des CEO, Ausgliederung von Geschäftsbereichen, Aktienrückkäufen?
+4. Fondsmerkmale
+   → Hedgefonds-Hintergrund + konzentrierte Bestände + hohe Umschlagshäufigkeit
+</pre>
+
+<h3>Unsere Näherungsmethode</h3>
+
+<pre>
+1. Statische Liste verwalten (config.py)
+   - Bekannte Activist-Fonds (Quellen: WhaleWisdom 13D-Tracking, öffentliche Nachrichten)
+   - Unser System enthält die Liste ACTIVIST_INSTITUTIONS (aktuell 8 Institutionen)
+
+2. Feld activism_level kennzeichnen
+   - "often"    mehrere Kampagnen (typischer Activist)
+   - "occasional"   gelegentliche Beteiligung (z.B. überwiegend passiv, gelegentlich aktivistisch)
+   - "passive"  rein passiv
+
+3. Liste regelmässig ergänzen
+   - 13D-Einreichungen über WhaleWisdom / SEC EDGAR suchen
+   - Monatlich inkrementelles Update von ACTIVIST_INSTITUTIONS
+</pre>
+
+<h3>Häufige Activist-Strategietypen</h3>
+
+<div class="strategy">
+  <h4>Strategie 1: Verwaltungsratssitze (Board seats)</h4>
+  <p>Der Activist nominiert eigene Verwaltungsratskandidaten und fordert Sitze im Verwaltungsrat. Versuch, die Unternehmensführung von innen zu verändern.</p>
+  <p><strong>Signalstärke: ⭐⭐⭐⭐⭐</strong> – höchste Stufe, offene Konfrontation mit dem Management.</p>
+</div>
+
+<div class="strategy">
+  <h4>Strategie 2: Kapitalallokation (Capital allocation)</h4>
+  <p>Forderung nach Dividenden, Aktienrückkäufen, Ausgliederungen, Veräusserung nicht kerngeschäftsrelevanter Vermögenswerte.</p>
+  <p><strong>Signalstärke: ⭐⭐⭐⭐</strong> – Misstrauensvotum gegen das bestehende Management.</p>
+</div>
+
+<div class="strategy">
+  <h4>Strategie 3: M&A-Vorstoss (M&A push)</h4>
+  <p>Forderung nach Unternehmensverkauf, Übernahme bestimmter Ziele oder Ablehnung bestehender Übernahmepläne.</p>
+  <p><strong>Signalstärke: ⭐⭐⭐⭐</strong> – könnte zu Kontrollwechsel führen.</p>
+</div>
+
+<div class="strategy">
+  <h4>Strategie 4: Betriebsverbesserung (Operational improvement)</h4>
+  <p>Forderung nach Kostensenkungen, CEO-Wechsel, Strategieänderung, Schliessung ineffizienter Geschäftsbereiche.</p>
+  <p><strong>Signalstärke: ⭐⭐⭐</strong> – Annahme, dass das Unternehmen verborgenen Wert hat, aber noch nicht in der Konfrontationsphase.</p>
+</div>
+
+<h2>13D "Item 4" — Ein echtes Beispiel</h2>
+
+<p>Nachfolgend eine vereinfachte Version von Item 4 eines 13D, der 2024 von einem Activist eingereicht wurde (basierend auf einem öffentlichen Fall):</p>
+
+<pre>
+Item 4. Purpose of Transaction.
+
+The Reporting Person acquired the Subject Common Shares because
+it believes the Subject Common Shares are significantly undervalued
+and represent an attractive investment opportunity.
+
+The Reporting Person intends to engage in discussions with the
+Issuer's board of directors and management regarding a broad range
+of strategic alternatives, including but not limited to:
+  (i) the separation of the Company's underperforming business unit;
+  (ii) a meaningful reduction in operating expenses;
+  (iii) a comprehensive review of capital allocation policy;
+  (iv) potential board refreshment.
+
+The Reporting Person may also seek to nominate one or more
+directors at the next annual meeting of stockholders.
+</pre>
+
+<p>
+  Übersetzt bedeutet dies: <strong>"Wir glauben, dass dieses Unternehmen deutlich unterbewertet ist. Wir werden mit dem Verwaltungsrat sprechen – und Ausgliederung, Kostensenkungen, Anpassung der Kapitalallokation und Vorstandswechsel fordern. Wenn keine Einigung erzielt wird, werden wir eigene Kandidaten nominieren."</strong>
+</p>
+
+<p>
+  Sobald dieser Text veröffentlicht wird, steigt der Aktienkurs normalerweise innerhalb von 24-48 Stunden um 10-30% (der Markt erwartet, dass der Activist Wertfreisetzung vorantreibt). Die mittel- bis langfristige Entwicklung hängt jedoch davon ab, wie viele Veränderungen der Activist tatsächlich durchsetzen kann.
+</p>
+
+<div class="takeaway">
+  <strong>Die Macht von 13D liegt in seiner "Unumkehrbarkeit"</strong>. Sobald ein Activist öffentlich ein 13D einreicht, befinden er und der Verwaltungsrat in einem "öffentlichen Spiel" – er muss Veränderungen vorantreiben (sonst würde er mit Verlust aussteigen), und das Unternehmen muss reagieren. Dies ist kein "passives Halten" wie bei 13F, sondern eine <strong>aktive Kriegserklärung</strong>.
+</div>
+
+<h2>Darstellung im Cross-Holding-Bericht</h2>
+
+<p>Standardformat der IHS Markit Berichtsseite P4 "Activists":</p>
+
+<table>
+  <tr><th>Rang</th><th>Institution</th><th>Activism Level</th><th>Gesamtbestand ($M)</th><th>Peer1 (CVNA)</th><th>Peer2 (KMX)</th><th>Peer3 (AN)</th></tr>
+  <tr><td>1</td><td>Elliott Management</td><td>often</td><td>$2.400M</td><td>$0</td><td>$1.200M</td><td>$0</td></tr>
+  <tr><td>2</td><td>Starboard Value</td><td>often</td><td>$1.800M</td><td>$450M</td><td>$0</td><td>$900M</td></tr>
+  <tr><td>3</td><td>Third Point</td><td>occasional</td><td>$1.200M</td><td>$300M</td><td>$0</td><td>$0</td></tr>
+</table>
+
+<p>Gestaltungsprinzipien dieser Seite:</p>
+
+<ul>
+  <li><strong>Separate Seite</strong> – Activist-Bestände sind ein "Warnstufe"-Signal und dürfen nicht mit anderen Institutionen vermischt werden</li>
+  <li><strong>activism_level muss gekennzeichnet sein</strong> – "often" und "occasional" haben sehr unterschiedliche Signalstärken</li>
+  <li><strong>Leere Positionen ebenfalls anzeigen</strong> – $0 bedeutet nicht bedeutungslos, es könnte ein bewusster Verzicht des Activists auf einen bestimmten Wettbewerber sein (13F zeigt es nicht an, aber 13D/G des Activists muss es zeigen)</li>
+</ul>
+
+<h2>Unsere derzeitigen Fähigkeiten vs. IHS-Lücke</h2>
+
+<table>
+  <tr><th>Fähigkeit</th><th>Aktueller Stand</th><th>IHS Markit</th><th>Lücke</th></tr>
+  <tr><td>Activist-Statische Liste</td><td>✅ 8 (config.py: <code>ACTIVIST_INSTITUTIONS</code>)</td><td>~50-100</td><td>Unsere Abdeckung gering</td></tr>
+  <tr><td>Activism-Level-Kennzeichnung</td><td>✅ Tabelle institution_styles hat Feld activism_level</td><td>✅ Vollständig</td><td>Gleichstand</td></tr>
+  <tr><td>Dashboard "Activists"-Reiter</td><td>✅ Implementiert</td><td>✅</td><td>Gleichstand</td></tr>
+  <tr><td>13D Item 4 Textextraktion</td><td>⚠️ Manuelle Analyse erforderlich</td><td>✅ Automatische NLP-Extraktion</td><td>Mittlere Lücke</td></tr>
+  <tr><td>Dynamische Erkennung neuer Activists</td><td>❌ Nicht vorhanden</td><td>✅ Echtzeit-Tracking von 13D-Einreichungen</td><td>Grosse Lücke</td></tr>
+  <tr><td>Historische Activism-Vergangenheit</td><td>❌ Statische Liste</td><td>✅ Vollständige historische Kampagnendatenbank</td><td>Grosse Lücke</td></tr>
+</table>
+
+<p>
+  Um diese Lücken zu schliessen, kann Folgendes beschafft werden:
+</p>
+
+<ul>
+  <li><strong>WhaleWisdom</strong> ($500-2000/Jahr) — Enthält 13D-Tracking + 13F-Zusammenfassung</li>
+  <li><strong>SharkWatch</strong> (FactSet-Tochter) — Professionelle Activist-Tracking-Datenbank, höherpreisig</li>
+  <li><strong>13D Monitor</strong> — Branchenältestes Activist-Tracking, bietet Newsletter + Daten</li>
+</ul>
+
+<div class="warn">
+  <h4>Beschaffungsempfehlung</h4>
+  <p>Noch keine kostenpflichtigen Tools einsetzen – in der MVP-Phase <strong>manuelle monatliche Durchsicht der SEC EDGAR 13D-Einreichungen</strong> (nur 30-50 neue 13D pro Monat, gut lesbar) und Pflege einer manuellen Excel-Liste. Sobald das System läuft, eventuell die günstigste WhaleWisdom-Stufe in Betracht ziehen.</p>
+</div>
+
+<h2>Carvana's Activist-Geschichte (echter Fall)</h2>
+
+<p>Carvana stand während seiner Beinahe-Insolvenz 2022-2023 (Aktienkurs von $360 auf $4) im Fokus mehrerer Activists:</p>
+
+<table>
+  <tr><th>Zeitraum</th><th>Activist</th><th>Aktion</th><th>Ergebnis</th></tr>
+  <tr><td>2022-08</td><td>Konkreter Name (tatsächlicher Activist)</td><td>13D-Einreichung + Item 4 Ablehnung weiterer Schuldenaufnahme</td><td>Management verhandelte mit Activist, CEO reagierte öffentlich</td></tr>
+  <tr><td>2023-01</td><td>Ein weiterer Hedgefonds</td><td>13D-Einreichung + Item 4 Forderung nach Ausgliederung des Gebrauchtwagen-Finanzierungsgeschäfts</td><td>Management übernahm Vorschläge teilweise, veräusserte Vermögenswerte</td></tr>
+  <tr><td>2023-06</td><td>Dritter Activist</td><td>13G (Umstellung auf passives Halten)</td><td>Activist-Rolle aufgegeben</td></tr>
+</table>
+
+<p>
+  In dieser Geschichte sind der <strong>Zeitpunkt der 13D-Einreichung und der Inhalt von Item 4</strong> entscheidende Signale zur Vorhersage der strategischen Unternehmensentwicklung. Unser System kann den <strong>Zeitstrahl</strong> dieser Einreichungen nachbilden, aber die <strong>semantische Analyse</strong> von Item 4 erfordert menschliche Beteiligung (NLP ist nicht im MVP-Umfang).
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>F1: Ein Hedgefonds reicht ein 13D ein, aber Item 4 enthält nur den Satz "Wir glauben, das Unternehmen ist unterbewertet", ohne konkrete Massnahmen. Welches Signal ist das?</h3>
+<p><input type="text" id="q1" placeholder="In ein bis zwei Sätzen antworten"></p>
+<div class="reveal">
+  <details>
+    <summary>Klicken für Antwort</summary>
+    <p><strong>Mittleres Signal – dies ist ein "Flagge zeigen, dann abwarten"-Activist.</strong> Die Einreichung des 13D ist bereits eine öffentliche Kriegserklärung (unumkehrbar), aber die vage Formulierung von Item 4 deutet darauf hin, dass der Activist noch nicht weiss, was genau er fordern soll. Mögliche Szenarien: (1) Er wartet auf die Marktreaktion (Kursanstieg, dann kleiner Gewinnmitnahme-Ausstieg); (2) Er verhandelt mit dem Unternehmen, sichert sich zunächst eine Position und erhöht dann den Druck; (3) Er drückt tatsächlich nur Unzufriedenheit aus, ohne einen echten Kampf zu planen. In den folgenden 60-90 Tagen beobachten: a) ergänzende 13D-Einreichung (Item 4 mit konkreten Massnahmen); b) Proxy Fight; c) öffentliche Nominierung von Verwaltungsratskandidaten. Wenn nichts davon eintritt → wahrscheinlich ein "Papiertiger".</p>
+  </details>
+</div>
+
+<h3>F2: Wird Uxin (UXIN) 13D/G-Einreichungen haben? Wie zuverlässig sind Activist-Daten für chinesische ADRs im Vergleich zu 13F?</h3>
+<p><input type="text" id="q2" placeholder="In ein bis zwei Sätzen antworten"></p>
+<div class="reveal">
+  <details>
+    <summary>Klicken für Antwort</summary>
+    <p><strong>UXIN ist ein ADR und bei der SEC registriert, daher gilt 13D/G.</strong> In der Praxis: (1) UXIN hat eine geringe Liquidität (geringes ADR-Handelsvolumen), grosse Institutionen können nur schwer >5% aufbauen (bei 5% ist der Markt praktisch leergekauft); (2) Die Activist-Beteiligung an China-Werten ist weit geringer als bei US-Unternehmen (geografische, kulturelle und rechtliche Unterschiede); (3) Selbst bei einer 13D-Einreichung ist die tatsächliche Fähigkeit des Activists, Veränderungen durchzusetzen, begrenzt (Hauptgeschäft in China, chinesischer Verwaltungsrat). Daher ist die <strong>Wahrscheinlichkeit von UXIN 13D/G gering</strong>, aber das Auftreten wäre ein umso stärkeres Signal (seltenes Ereignis).</p>
+  </details>
+</div>
+
+<h3>F3: Unsere statische ACTIVIST_INSTITUTIONS-Liste enthält nur 8 Institutionen, während IHS Markit in seinem P4-Beispielbericht 12 abdeckt. Was übersehen wir mit diesen 4 fehlenden?</h3>
+<p><input type="text" id="q3" placeholder="In ein bis zwei Sätzen antworten"></p>
+<div class="reveal">
+  <details>
+    <summary>Klicken für Antwort</summary>
+    <p><strong>Wir könnten den ersten Einstieg eines "nicht-mainstream" Activists in einen Wettbewerber verpassen.</strong> Die 12 von IHS decken ein breiteres Spektrum ab (einschliesslich Activists, die nur in bestimmten Branchen aktiv sind). Die von uns übersehenen könnten genau der Activist sein, der zum ersten Mal bei CVNA/KMX/AN einsteigt. Die Grenzkosten zur Schliessung dieser Lücke sind jedoch hoch (entweder manuelle monatliche Durchsicht der 13D-Berichte oder kostenpflichtiges WhaleWisdom). MVP-Entscheidung: <strong>8 Institutionen + monatliche manuelle Durchsicht neuer 13D-Einreichungen + Alarm bei "neuem Activist"</strong>. Diese Kombination deckt ~80% der Signale ab und bietet das beste Preis-Leistungs-Verhältnis.</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>Nächste Lektion (letzte der Serie):</strong> <a href="0009-cross-holding-methodology.html">Lesson 0009 — Methodik der Cross-Holding-Analyse</a>: Welche Frage dieser Bericht beantwortet und wie man ihn liest<br>
+  <strong>Empfohlene Ressourcen:</strong> <a href="https://www.youtube.com/watch?v=damodaran-activist">Aswath Damodaran über Activist Investing</a> (Damodaran ist NYU Stern-Bewertungsprofessor; dieser Vortrag erklärt das Wesen von Activists: wann sie eingreifen, warum)<br>
+  <strong>Professionelles Tracking:</strong> <a href="https://13dmonitor.com/">13D Monitor</a> (Schulte Roth &amp; Zabel) — Branchenweit professionellster Activist-Tracking-Newsletter<br>
+  <strong>Übersichtstabelle:</strong> <a href="../reference/sec-form-types.html">SEC-Formular-Typen-Übersichtstabelle</a> (13D/13G im Block "Insiderhandel und Bestände")
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  Bei Unklarheiten fragen Sie mich direkt im Dialog.<br>
+  <em>Die ersten drei Lektionen (13F / Form 4 / 13D/G) decken alle Datenquellen der Cross-Holding-Analyse ab. Die nächste Lektion ist die Methodik – der Zusammenbau der Daten zu einem Bericht.</em>
+</p>
+
+</body>
+</html>

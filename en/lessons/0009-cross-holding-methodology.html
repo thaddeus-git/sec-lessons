@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0009 — Cross-Holding Analysis Methodology</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .scenario { background: #fafafa; border: 1px solid #e0e0e0; padding: 0.8rem 1rem; margin: 0.8rem 0; }
+  .scenario h4 { margin: 0 0 0.3rem; }
+  .scenario-confirm { border-left: 3px solid #4a4; }
+  .scenario-conflict { border-left: 3px solid #f0b400; }
+  .scenario-danger { border-left: 3px solid #c44; }
+  .scenario-trend { border-left: 3px solid #36a; }
+  .checklist { background: #f4f4ee; padding: 1rem 1.2rem; margin: 1rem 0; }
+  .checklist li { margin: 0.3rem 0; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0009 · <a href="0008-13dg-activist-investors.html">← Previous Lesson: 13D/G Activist</a> · <a href="../reference/sec-form-types.html">Reference: SEC Form Types Quick Reference</a>
+</div>
+
+<h1>Cross-Holding Analysis Methodology<br><small style="font-size:1rem;color:#666;">What questions does this report answer, and how to read it</small></h1>
+
+<p>
+  The previous 3 lessons (13F / Form 4 / 13D-G) covered all data sources for cross-holding analysis. This lesson returns to methodology -- <strong>what principles should guide us when assembling these data into a report?</strong>
+</p>
+
+<p>
+  Our reference is the IHS Markit P4 report (Cross Holding / Peer Comparison). Our Dashboard + Markdown report is a replication, but narrower in scope and less automated. The essence is <strong>learning its design philosophy</strong>, not replicating every single page.
+</p>
+
+<div class="takeaway">
+  <strong>Core design philosophy:</strong> A good cross-holding report does not "dump all data on one page." Instead, <strong>each page answers one specific investment question</strong>. When a reader turns to a page, they should have a corresponding question in mind -- "What answer am I looking for?"
+</div>
+
+<h2>Each page answers one specific investment question</h2>
+
+<p>The IHS Markit P4 report has 10 pages, each mapped to a clear investment question. Below is the complete "page-question-use" mapping:</p>
+
+<table>
+  <tr><th>Page</th><th>Table/Chart</th><th>Investment Question Answered</th><th>How It Is Used</th></tr>
+  <tr><td>P2</td><td>Top Holders Positions</td><td><strong>Who holds large positions in us and our competitors?</strong></td><td>Identify "smart money" allocation -- which large institutions hold both us and competitors</td></tr>
+  <tr><td>P3</td><td>Top Holders Changes</td><td><strong>Are these large institutions increasing or decreasing?</strong></td><td>Judge marginal changes in institutional sentiment -- more informative than static holdings</td></tr>
+  <tr><td>P4</td><td>Activists</td><td><strong>Which activist investors are watching us or our competitors?</strong></td><td>Early warning of potential activist campaigns</td></tr>
+  <tr><td>P5</td><td>Top Buyers</td><td><strong>Who is actively buying into this competitive space?</strong></td><td>Discover new capital entering -- could signal someone is bullish on the industry</td></tr>
+  <tr><td>P6</td><td>Top Sellers</td><td><strong>Who is exiting this competitive space?</strong></td><td>Early warning of capital outflow -- could signal deteriorating industry fundamentals</td></tr>
+  <tr><td>P7</td><td>Initiations / Liquidations</td><td><strong>Who just entered or completely exited?</strong></td><td>Most extreme signals -- new position = strongly bullish, liquidation = strongly bearish</td></tr>
+  <tr><td>P8</td><td>Active/Passive Orientation</td><td><strong>Are holdings mainly active management or passive tracking?</strong></td><td>More passive money = changes may be index rebalancing</td></tr>
+  <tr><td>P9</td><td>Investment Style Classification</td><td><strong>Are holders value or growth investors?</strong></td><td>Value vs growth rotation reflects the company's lifecycle stage</td></tr>
+  <tr><td>P10</td><td>Turnover Distribution</td><td><strong>Are holders trading frequently or holding long-term?</strong></td><td>High-frequency traders = noisy signal; long-term holders = strong signal</td></tr>
+</table>
+
+<h2>Signal stacking across pages (important)</h2>
+
+<p>
+  <strong>A single page's signal has limited value.</strong> True insight comes from cross-page cross-validation. Below are 4 classic signal stacking patterns:
+</p>
+
+<div class="scenario scenario-confirm">
+  <h4>Scenario 1: Confirmatory signal (bullish)</h4>
+  <p>P2: An institution is the Top 1 holder<br>
+  P3: That institution significantly increased holdings<br>
+  P5: That institution is a Top Buyer</p>
+  <p>→ <strong>Strong bullish signal.</strong> A large institution is putting real money in, triple-confirmed.</p>
+</div>
+
+<div class="scenario scenario-conflict">
+  <h4>Scenario 2: Contradictory signals (needs deeper analysis)</h4>
+  <p>P2: An institution is the Top 3 holder<br>
+  P3: That institution slightly reduced holdings<br>
+  P6: But that institution is not a Top Seller (reduction too small)</p>
+  <p>→ <strong>Probably normal portfolio rebalancing</strong>, not necessarily bearish. Large size makes rapid rebalancing difficult.</p>
+</div>
+
+<div class="scenario scenario-danger">
+  <h4>Scenario 3: Danger signal (warning)</h4>
+  <p>P4: An activist institution holds a competitor<br>
+  P7: That activist established a new position this period (first entry)</p>
+  <p>→ <strong>High attention -- activist entry often means change is coming.</strong> Immediately check 13D Item 4 for intent.</p>
+</div>
+
+<div class="scenario scenario-trend">
+  <h4>Scenario 4: Industry turning signal</h4>
+  <p>P8: Passive capital share rising, active capital share falling<br>
+  P9: Growth investors reducing, value investors increasing</p>
+  <p>→ <strong>The industry is shifting from "high growth expectations" to "value reassessment."</strong> Company fundamentals may be entering a mature phase.</p>
+</div>
+
+<h2>Correct report reading sequence (for the boss)</h2>
+
+<p>
+  When colleagues in strategic investment receive a cross-holding report, <strong>don't read it cover to cover</strong>. Follow a "fast first, deep later" rhythm:
+</p>
+
+<pre>
+30-second overview (to decide whether to dig in):
+  1. Summary cards: number of institutions covered, new positions, liquidations
+  2. Who are the Top 3 Holders
+
+2-minute quick assessment (to gauge direction):
+  3. Top 5 Buyers / Sellers
+  4. Any new Activist entries
+  5. Active vs Passive capital trend
+
+5-minute deep analysis (to cross-validate):
+  6. Top 5 Initiations + Top 5 Liquidations
+  7. Cross-page cross-validation (Scenarios 1-4)
+  8. Style / Turnover trend changes
+
+15-minute research:
+  9. Deep dive on a specific institution (view its full position changes)
+  10. Cross-reference with 8-K / Earnings Call (institutions are adding, but what is management saying?)
+</pre>
+
+<p>
+  Your Dashboard and report design should <strong>support this reading sequence</strong> -- place summary cards, Top Holders, and Buyers/Sellers in the most prominent positions, with deep data hidden in tabs.
+</p>
+
+<div class="takeaway">
+  <strong>Anti-pattern in design:</strong> Putting all data together with a label "Toggle to show details." This forces the user to assemble the report themselves. Good design <strong>puts 80% of insight in 20% of the layout</strong> -- letting the reader see the direction in 30 seconds and make a judgment in 5 minutes.
+</div>
+
+<h2>6 design principles learned from the IHS report</h2>
+
+<ol>
+  <li><strong>Each page answers one question.</strong> Don't pile everything onto one page.</li>
+  <li><strong>Leave Commentary space at the bottom of each page.</strong> Analysts need to write judgments; the system provides only data. The empty row that a machine can't fill = space for human judgment.</li>
+  <li><strong>Table columns should align with IHS column definitions.</strong> Style, Turnover, Peer Average -- all essential. This is the industry's common language; deviation confuses readers.</li>
+  <li><strong>Ranking tables must specify the ranking metric clearly.</strong> "Ranked by what" must be in the title -- by market cap? By change amount? By share count change?</li>
+  <li><strong>Charts and tables complement each other.</strong> Pie charts for distribution, bar charts for capital flows -- they cross-validate, not duplicate.</li>
+  <li><strong>Disclaimer must be visible.</strong> Not "a tiny line at the end of the document" -- but "data as of [date]" and data limitation notes at the bottom of every page.</li>
+</ol>
+
+<h2>Output quality checklist</h2>
+
+<p>
+  Before delivering to the client or your boss, check each item:
+</p>
+
+<div class="checklist">
+  <ol>
+    <li>☐ Are all monetary units consistent ($M)?</li>
+    <li>☐ Are all rankings sorted by the correct metric (not alphabetical, not by CIK)?</li>
+    <li>☐ Are there any rows with institution_name = None (collection failure)?</li>
+    <li>☐ Are there any delta_pct = inf or NaN (unhandled division by zero)?</li>
+    <li>☐ Do both Buyers and Sellers have data? (If one side is completely empty, 99% chance it's a bug)</li>
+    <li>☐ Are the previous and current periods actually adjacent (not skipping periods)?</li>
+    <li>☐ Are all disclaimers visible in the report (not just in code comments)?</li>
+    <li>☐ Is data staleness reflected in the report date? ("Data as of 2026-03-31" vs "Report generated 2026-06-17")</li>
+    <li>☐ Has the 13D filing Item 4 text been manually reviewed (not displayed raw)?</li>
+    <li>☐ Are Chinese competitors (UXIN/ATHM) marked "Section 16 Not Applicable" rather than "No Data"?</li>
+  </ol>
+</div>
+
+<h2>A real cross-page signal stacking for Carvana (in practice)</h2>
+
+<p>Below is our actual analysis of Carvana for 2026Q1, using data from four pages for cross-validation:</p>
+
+<table>
+  <tr><th>Page</th><th>Observed Signal</th></tr>
+  <tr><td>P2 (Top Holders)</td><td>Vanguard holdings $1.92B (Top 1), BlackRock holdings $1.53B (Top 2)</td></tr>
+  <tr><td>P3 (Changes)</td><td>Vanguard shares <strong>unchanged</strong> (12.8M → 12.8M)</td></tr>
+  <tr><td>P5 (Top Buyers)</td><td>Baupost Group <strong>added</strong> $480M position</td></tr>
+  <tr><td>P4 (Activists)</td><td>No new activist entries</td></tr>
+</table>
+
+<p><strong>Analysis:</strong></p>
+
+<ul>
+  <li>Vanguard and BlackRock are <strong>passive index capital</strong> (mutual funds + ETFs); their unchanged holdings = normal index rebalancing pace, no panic buying or selling</li>
+  <li>Baupost's $480M addition is a <strong>significant signal</strong> -- Baupost is a well-known value investor (previously held Carvana distressed bonds in 2022), suggesting value investors are re-evaluating Carvana positively</li>
+  <li>No activist entry = no near-term control change risk</li>
+</ul>
+
+<p>
+  <strong>Composite judgment:</strong> Carvana's 2026Q1 institutional holding profile is "<strong>stable index capital + value investors re-entering + no activist disruption</strong>" -- a moderately positive state. Combined with the gross margin improvement signal from Lesson 0002, we can preliminarily judge that Carvana is undergoing a <strong>value revaluation</strong>.
+</p>
+
+<p>
+  This judgment <strong>cannot be reached from any single page alone</strong> -- it is the result of cross-page cross-validation. That is the true value of cross-holding analysis.
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>Q1: In the P5 Top Buyers ranking, BlackRock added $50M, Vanguard added $0, and a small institution established its first position of $200M. Who should rank first?</h3>
+<p><input type="text" id="q1" placeholder="Answer in one or two sentences"></p>
+<div class="reveal">
+  <details>
+    <summary>Click to see answer</summary>
+    <p><strong>It depends on the ranking metric.</strong> If ranked by "absolute addition amount": BlackRock $50M &gt; small institution $200M = wrong conclusion (the small institution's $200M is larger than BlackRock's $50M, but BlackRock is passive index capital; $50M could be a passive result of index rebalancing with no signal value; the small institution's $200M first position = strong active signal). Correct approach: <strong>rank by "active addition amount" (excluding passive index capital)</strong>, or <strong>show two rankings side by side</strong> -- one by absolute amount, one by "active new" amount. IHS P5 typically uses the second approach.</p>
+  </details>
+</div>
+
+<h3>Q2: Top Buyers is $300M and Top Sellers is $0. Is this "one-way flow" normal?</h3>
+<p><input type="text" id="q2" placeholder="Answer in one or two sentences"></p>
+<div class="reveal">
+  <details>
+    <summary>Click to see answer</summary>
+    <p><strong>Not normal -- 99% chance it's a bug.</strong> Under normal conditions, institutional holding changes for a listed company are <strong>bi-directional</strong>: if someone buys, someone sells (unless there is a large block trade). If Top Sellers is completely 0, common causes: (1) cross-period comparison bug (previous period data not fetched, so all "decreases" are identified as "liquidations" rather than "sellers"); (2) field mapping error (should have filled value but filled shares instead); (3) data source with partial omissions. Add this to your checklist: <strong>"Do both Buyers and Sellers have data?"</strong> -- 99% of "one-way flows" are collection bugs.</p>
+  </details>
+</div>
+
+<h3>Q3: In the P4 Activists list, you suddenly see a hedge fund that is not on the ACTIVIST_INSTITUTIONS static list, establishing a 5.2% position in CVNA. What is your judgment process?</h3>
+<p><input type="text" id="q3" placeholder="Describe your process in one or two sentences"></p>
+<div class="reveal">
+  <details>
+    <summary>Click to see answer</summary>
+    <p><strong>Three steps: (1) verify filing authenticity → (2) extract Item 4 for intent → (3) assess potential impact on CVNA.</strong> (1) Check the specific 13D content on SEC EDGAR, confirm it is a 13D (active) not a 13G (passive), verify CIK validity; (2) carefully read Item 4 for the activist's specific demands (spin-off? replace CEO? push M&A?); (3) if the demand involves a spin-off or M&A push, CVNA's stock price will react sharply in the short term -- prepare contingency plans immediately. Also <strong>add this institution to the ACTIVIST_INSTITUTIONS static list</strong> so the system can recognize it next time. This workflow should be implemented in the Dashboard as "alert + link to 13D," not as a manual process each time.</p>
+  </details>
+</div>
+
+</div>
+
+<div style="background:#f0f0e8;padding:1rem 1.2rem;margin:3rem 0 1rem;font-size:0.95rem;">
+  <strong>Series complete.</strong> 9 lessons covering the full competitor monitoring system:<br>
+  0001-0005 SEC fundamentals & monitoring framework (company perspective)<br>
+  0006-0008 Holdings & trading (third-party perspective: 13F / Form 4 / 13D-G)<br>
+  0009 Cross-holding methodology (integrated application)<br><br>
+  <strong>Next step:</strong> Go back to the PRD v2.0 (<code>/Users/liuming/sec/PRD-competitor-intel-mvp-v2.md</code>) and cross-reference Module F's design documents. You should now understand what each cross_holding.py function does, why it is designed that way, and how to interpret its output.
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  Full review: <a href="0001-sec-filing-101.html">0001</a> → <a href="0002-financial-metrics-used-car.html">0002</a> → <a href="0003-8k-deep-dive.html">0003</a> → <a href="0004-earnings-call.html">0004</a> → <a href="0005-monitoring-framework.html">0005</a> → <a href="0006-13f-institutional-holdings.html">0006</a> → <a href="0007-form4-insider-trading.html">0007</a> → <a href="0008-13dg-activist-investors.html">0008</a> → 0009<br>
+  Reference document: <a href="../reference/sec-form-types.html">SEC Form Types Quick Reference</a> (printable)<br>
+  To review any lesson, just say "reopen lesson 000X."
+</p>
+
+</body>
+</html>

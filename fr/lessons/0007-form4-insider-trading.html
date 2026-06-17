@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 0007 — Form 3/4/5 et Opérations d'Initiés</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .warn { background: #fff0f0; border-left: 3px solid #c44; padding: 0.6rem 1rem; margin: 1rem 0; }
+  .warn h4 { margin: 0 0 0.3rem; }
+  .china { background: #f0f4ff; border-left: 3px solid #36a; padding: 0.8rem 1rem; margin: 1rem 0; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Leçon 0007 · <a href="0006-13f-institutional-holdings.html">← Leçon précédente : Participations institutionnelles (13F)</a> · <a href="0008-13dg-activist-investors.html">Leçon suivante : Investisseurs activistes (13D/G) →</a>
+</div>
+
+<h1>Form 3/4/5 et Opérations d'Initiés<br><small style="font-size:1rem;color:#666;">Les dirigeants votent avec leurs pieds — comment lire leurs signaux</small></h1>
+
+<p>
+  La Leçon 0006 portait sur ce que les <strong>institutions externes</strong> (Vanguard, BlackRock, etc.) achètent et vendent. Cette leçon aborde ce que les <strong>initiés de l'entreprise</strong> (CEO, CFO, administrateurs) achètent et vendent eux-mêmes.
+</p>
+
+<p>
+  Les données de transactions d'initiés sont celles qui présentent le <strong>meilleur rapport signal/bruit</strong> dans le système de divulgation de la SEC — car les initiés connaissent l'entreprise bien mieux que les investisseurs externes. Leurs achats ou ventes sont généralement plus informatifs que les variations de participations institutionnelles. Mais à condition de <strong>savoir les lire</strong>, sinon on peut être induit en erreur.
+</p>
+
+<div class="takeaway">
+  Les transactions d'initiés ne sont pas un « événement » — c'est un <strong>flux de données continu</strong>. Une transaction isolée ne veut rien dire, mais le sentiment global pondéré (indicateur InsiderSentiment) peut vous dire « ce que les dirigeants de cette entreprise pensent de l'avenir ».
+</div>
+
+<h2>Qu'est-ce que la Section 16 et qui couvre-t-elle</h2>
+
+<p>
+  La Section 16 est l'article 16 du Securities Exchange Act de 1934, qui régit spécifiquement la détention et la divulgation des transactions des <strong>initiés d'entreprise</strong>. Trois catégories clés :
+</p>
+
+<table>
+  <tr><th>Personne visée</th><th>Signification</th><th>Exemple concret</th></tr>
+  <tr><td><strong>Officer</strong> (dirigeant)</td><td>Cadres dirigeants, généralement VP et au-dessus</td><td>CEO, CFO, COO, SVP/EVP</td></tr>
+  <tr><td><strong>Director</strong> (administrateur)</td><td>Membres du conseil d'administration</td><td>Administrateurs indépendants, administrateurs nommés par la société mère</td></tr>
+  <tr><td><strong>10% Owner</strong> (actionnaire ≥10 %)</td><td>Actionnaire détenant >10 % du capital</td><td>Fondateur, société mère, grand actionnaire passif</td></tr>
+</table>
+
+<div class="warn">
+  <h4>⚠️ Angle mort des sociétés ADR chinoises</h4>
+  <p>
+    La Section 16 ne s'applique qu'aux initiés détenant des <strong>titres enregistrés aux États-Unis</strong>. Les dirigeants des sociétés ADR chinoises (Uxin, Autohome) détiennent généralement des <strong>droits au niveau des îles Caïmans/de la structure VIE</strong> — ces droits ne relèvent pas de la Section 16 de la SEC.
+  </p>
+  <p>Conséquence : <strong>UXIN/ATHM n'ont pratiquement pas de données Form 4</strong>. Cela ne signifie pas « aucune transaction d'initiés », mais plutôt « les transactions d'initiés ne sont pas dans le champ de divulgation de la SEC ». Notre système marque <code>has_section16 = False</code> dans config.py, et le Dashboard affiche « Non applicable » plutôt que « Aucune donnée ».</p>
+</div>
+
+<h2>Différence entre les trois formulaires d'initiés</h2>
+
+<p>
+  La divulgation des transactions d'initiés se fait via trois formulaires, aux rythmes de dépôt et contenus différents. Distinction simple :
+</p>
+
+<table>
+  <tr><th>Formulaire</th><th>Nom complet</th><th>Quand est-il déposé ?</th><th>Contenu</th></tr>
+  <tr><td><strong>Form 3</strong></td><td>Initial Statement</td><td>Dans les 10 jours suivant le statut d'initié</td><td>Déclaration initiale de participation (unique)</td></tr>
+  <tr><td><strong>Form 4</strong></td><td>Statement of Changes</td><td><strong>Dans les 2 jours ouvrés suivant la transaction</strong></td><td>Chaque achat/vente doit être déclaré</td></tr>
+  <tr><td><strong>Form 5</strong></td><td>Annual Statement</td><td>Dans les 45 jours suivant la fin de l'exercice</td><td>Résumé annuel (transactions exemptées)</td></tr>
+</table>
+
+<p>
+  <strong>Le Form 4 est le plus important</strong> — c'est le plus réactif (2 jours ouvrés) et il couvre toutes les transactions. Les Form 3 et Form 5 sont principalement des « rattrapages ».
+</p>
+
+<h2>Structure du Form 4 : Table I vs Table II</h2>
+
+<p>
+  Le Form 4 se compose de deux tableaux, dont la différence est cruciale :
+</p>
+
+<pre>
+Table I — Non-Derivative Securities (achats/ventes d'actions directes)
+  Champs :
+    - Title of Security          Nom du titre
+    - Transaction Date           Date de transaction
+    - Transaction Code           P=achat, S=vente, G=don, A=attribution, F=vente pour impôt
+    - Amount                     Nombre d'actions
+    - Price                      Prix unitaire
+    - Amount After               Nombre d'actions après transaction
+
+Table II — Derivative Securities (variations des options/dérivés)
+  Champs similaires, mais l'unité est le « nombre d'options » et non le « nombre d'actions »
+  Codes courants : M=exercice, A=attribution (options), C=conversion
+</pre>
+
+<h3>Codes de transaction courants (Transaction Code)</h3>
+
+<table>
+  <tr><th>Code</th><th>Signification</th><th>Un signal ?</th></tr>
+  <tr><td><strong>P</strong></td><td>Achat volontaire (Purchase)</td><td>✅✅✅ Signal fortement positif — l'initié investit son propre argent</td></tr>
+  <tr><td><strong>S</strong></td><td>Vente volontaire (Sale)</td><td>✅ Signal faiblement négatif — peut être une diversification, pas forcément un avis baissier</td></tr>
+  <tr><td><strong>F</strong></td><td>Vente pour impôt (Tax withholding)</td><td>❌ Presque aucun signal — la retenue d'impôt lors de l'exercice d'options est une opération standard</td></tr>
+  <tr><td><strong>G</strong></td><td>Don (Gift)</td><td>❌ Signal faible — fréquent pour les dons caritatifs/fiducies familiales</td></tr>
+  <tr><td><strong>A</strong></td><td>Attribution/Exercice (Award/Exercise)</td><td>❌ Pas de signal — fait partie de la rémunération, pas une transaction active</td></tr>
+  <tr><td><strong>M</strong></td><td>Exercice d'options</td><td>À interpréter selon les ventes après exercice (couple Code F/S)</td></tr>
+</table>
+
+<div class="warn">
+  <h4>L'erreur d'interprétation la plus fréquente</h4>
+  <p>Interpréter un « Code F de vente massive pour impôt » comme « l'initié est baissier ». C'est le piège le plus courant. Lorsque des dirigeants exercent des options en bloc dans le cadre d'un plan 10b5-1, cela génère simultanément de nombreuses transactions Code F (retenue d'impôt) et Code S (ventes).</p>
+  <p>La bonne approche : <strong>examiner le montant des Code P (achats volontaires)</strong> et <strong>les ventes nettes après déduction des ventes liées à l'exercice d'options</strong>. Additionner tous les codes de vente noierait le signal dans le bruit.</p>
+</div>
+
+<h2>Algorithme correct pour l'indicateur de sentiment des initiés</h2>
+
+<p>
+  Compter simplement le nombre d'achats et de ventes n'a pas de sens (un plan 10b5-1 génère de nombreuses transactions appariées). La bonne approche est une <strong>notation pondérée</strong> :
+</p>
+
+<pre>
+InsiderSentiment = Σ(montant_achat_i × poids_rôle_i × poids_code_transaction_i)
+                  - Σ(montant_vente_j × poids_rôle_j × poids_code_transaction_j)
+
+Poids par rôle :
+  CEO / CFO                   2,0    Niveau décisionnel le plus élevé
+  10% Owner                   1,5    Grand actionnaire
+  Director                    1,0    Conseil d'administration
+  EVP / SVP / VP              0,8    Niveau exécutif
+
+Poids par code de transaction :
+  P (achat volontaire)        1,0
+  S (vente volontaire)        1,0
+  F (vente pour impôt)        0,2
+  G (don)                     0,3
+  A (attribution d'options)   0,0
+  M (exercice d'options)      0,0   (examiner uniquement les ventes après exercice)
+
+Normalisation sur [-100, +100] :
+  &gt; +30  → Signal haussier
+  -30 ~ +30 → Neutre
+  &lt; -30  → Signal baissier
+</pre>
+
+<p>
+  Notez que le <strong>poids de F est 0,2 et non 0</strong> — on conserve un tout petit signal (des ventes massives pour impôt peuvent refléter un exercice d'options à grande échelle = encaissement concentré), sans pour autant dominer la conclusion.
+</p>
+
+<div class="takeaway">
+  <strong>Évitez une erreur fréquente :</strong> Dans le mois précédant la publication du 10-K, on observe de nombreuses ventes d'initiés (prévues par le plan 10b5-1). Cela ne signifie pas forcément que « les initiés n'ont pas confiance dans le rapport annuel » — il peut s'agir d'une diversification programmée dans le cadre d'un plan 10b5-1. Il faut regarder la date d'adoption du plan 10b5-1 (généralement dans l'Item 8.01 du 8-K ou dans le DEF 14A), pas la transaction elle-même.
+</div>
+
+<h2>Form 144 — La « bande-annonce » des cessions</h2>
+
+<p>
+  Le Form 144 est un autre signal d'initié — c'est un <strong>préavis</strong>, pas une divulgation a posteriori.
+</p>
+
+<table>
+  <tr><th>Faits clés sur le Form 144</th></tr>
+  <tr><td>Seuil de déclenchement : un initié prévoit de vendre <strong>≥5 000 actions ou ≥50 000 $</strong></td></tr>
+  <tr><td>Moment du dépôt : <strong>1 à 3 jours ouvrés avant la vente prévue</strong></td></tr>
+  <tr><td>Validité : la vente doit être réalisée dans les <strong>90 jours</strong> suivant le dépôt du Form 144</td></tr>
+  <tr><td>Valeur de marché agrégée : <strong>estimation</strong> basée sur le cours du jour du dépôt (pas le prix de vente réel)</td></tr>
+</table>
+
+<p>
+  Interprétation clé :
+</p>
+
+<ul>
+  <li>Le Form 144 <strong>ne signifie pas « déjà vendu »</strong> — c'est juste une « intention de vendre ». Le plan peut ne pas être exécuté</li>
+  <li>Mais <strong>des Form 144 déposés en série</strong> = signal de cession continue, à surveiller</li>
+  <li>Pour anticiper la pression vendeuse via le Form 144, il faut regarder le « <strong>taux d'exécution réel</strong> » (le site OpenInsider dispose de ces données)</li>
+</ul>
+
+<h2>Traitement spécifique des concurrents chinois (règles pratiques)</h2>
+
+<p>
+  Parmi nos 5 concurrents, <strong>Uxin (UXIN) et Autohome (ATHM) sont des ADR chinoises</strong>. Elles n'ont pas de données Form 4 / Form 144, mais elles ont des <strong>divulgations au niveau de la maison mère (HK/Actions A)</strong>.
+</p>
+
+<div class="china">
+  <h4>Règles de traitement du système</h4>
+  <p>
+    <strong>1. Marqueur config.py</strong> : <code>has_section16 = False</code><br>
+    <strong>2. Affichage Dashboard</strong> :<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- Pas « Aucune donnée », mais « Non applicable » (pour éviter toute confusion avec un échec de collecte)<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- Mention à côté : « Les initiés détiennent des droits au niveau de la structure VIE, non soumis à la divulgation SEC »<br>
+    <strong>3. Alerte d'anomalie</strong> :<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- Si une ADR chinoise émet soudainement un Form 4 → Alerte rouge<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- C'est un <strong>événement rare</strong>, signifiant que l'initié a délibérément transféré ses droits des îles Caïmans vers le niveau américain pour les négocier<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;- Historiquement très rare, mais quand cela arrive, c'est presque toujours un événement majeur
+  </p>
+</div>
+
+<h2>Transactions d'initiés chez Carvana — 5 derniers mois</h2>
+
+<p>Voici les données Form 4 de Carvana récupérées depuis EDGAR pour la période janvier-juin 2026 (simplifiées) :</p>
+
+<table>
+  <tr><th>Date</th><th>Initié</th><th>Rôle</th><th>Code</th><th>Actions</th><th>Montant ($K)</th><th>Pondéré</th></tr>
+  <tr><td>2026-06-11</td><td>Ernest C. Garcia III</td><td>10% Owner (2,0)</td><td>S</td><td>50 000</td><td>15 000</td><td>-30 000</td></tr>
+  <tr><td>2026-06-11</td><td>Mark Jenkins</td><td>CFO (2,0)</td><td>F</td><td>8 000</td><td>2 400</td><td>-960</td></tr>
+  <tr><td>2026-05-22</td><td>Paul Keister</td><td>VP (0,8)</td><td>P</td><td>2 000</td><td>600</td><td>+480</td></tr>
+  <tr><td>2026-03-15</td><td>Ernest C. Garcia III</td><td>10% Owner</td><td>S</td><td>120 000</td><td>30 000</td><td>-90 000</td></tr>
+</table>
+
+<p>
+  InsiderSentiment de ces 4 transactions = (-30 000 - 960 + 480 - 90 000) / 60 000 = <strong>-200 % → normalisé à environ -100 (extrêmement baissier)</strong>.
+</p>
+
+<p>
+  Mais attention : Ernest C. Garcia III est un actionnaire à 10 %, et ses grosses ventes relèvent souvent d'une <strong>diversification active</strong> dans le cadre d'un plan 10b5-1, pas d'un avis baissier sur l'activité. <strong>Il faut examiner son plan 10b5-1 divulgué dans le 8-K ou le DEF 14A</strong> pour qualifier le signal.
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>Q1 : Un dirigeant exerce des options en bloc dans le cadre d'un plan 10b5-1, déclenchant 100 transactions Code F (vente pour impôt). Comment votre système doit-il interpréter cela ?</h3>
+<p><input type="text" id="q1" placeholder="Répondez en une ou deux phrases"></p>
+<div class="reveal">
+  <details>
+    <summary>Cliquez pour voir la réponse</summary>
+    <p><strong>Presque pas comme un signal négatif — c'est une opération standard d'un plan 10b5-1.</strong> Le poids du Code F est de 0,2 ; 100 transactions × 0,2 = 20 unités de contribution au bruit. Si on regardait uniquement le nombre de transactions, on conclurait à tort à des « cessions massives d'initiés » ; avec l'algorithme pondéré, la conclusion serait neutre ou légèrement négative. Pour juger, il faut regarder quand ce plan 10b5-1 a été adopté (généralement dans l'Item 8.01 du 8-K ou le DEF 14A). S'il a été adopté il y a 3 à 6 mois, il s'agit probablement d'une exécution programmée.</p>
+  </details>
+</div>
+
+<h3>Q2 : Le Dashboard d'Uxin (UXIN) affiche « Transactions d'initiés : Non applicable ». Comment distinguer cela d'un échec de collecte de données ?</h3>
+<p><input type="text" id="q2" placeholder="Répondez en une ou deux phrases"></p>
+<div class="reveal">
+  <details>
+    <summary>Cliquez pour voir la réponse</summary>
+    <p><strong>Les deux doivent être clairement distingués, car leur signification est totalement différente.</strong> « Non applicable » = la structure de l'entreprise fait que la Section 16 ne s'applique pas (les initiés des ADR chinoises détiennent des droits au niveau VIE), le système marque has_section16 = False dans config.py. « Données vides » = échec de collecte ou absence de Form 4 sur la période (rare, car le Form 4 est obligatoire sous 2 jours ouvrés). L'interface du Dashboard doit utiliser des couleurs et textes différents (« Non applicable » en gris avec note explicative ; « Données vides » en rouge, pouvant indiquer une panne API).</p>
+  </details>
+</div>
+
+<h3>Q3 : Le CFO de Carvana vend pour 5 M$ d'actions dans le cadre d'un plan 10b5-1, mais un VP achète activement pour 1 M$. Comment votre système note-t-il cela ?</h3>
+<p><input type="text" id="q2" placeholder="Répondez en une ou deux phrases"></p>
+<div class="reveal">
+  <details>
+    <summary>Cliquez pour voir la réponse</summary>
+    <p><strong>Tout dépend du code spécifique de cette vente de 5 M$.</strong> Si c'est un Code F (vente pour impôt) + un Code S associé (vente dans le cadre du plan 10b5-1), alors le poids = 0,2 + 1,0 × poids du rôle 2,0 = 2,2 unités de contribution négative. Mais l'achat volontaire du VP (Code P) = 1,0 × 0,8 = 0,8 unité de contribution positive. Si le rapport de montants est de 5:1, le résultat net est d'environ -3 400 unités négatives, <strong>mais après normalisation, on pourrait se situer dans l'intervalle -30 ~ 0, avec la conclusion « Prudence »</strong>, pas « Baissier ». Donc même si le montant est important, comme il s'agit d'une vente programmée dans le cadre d'un plan 10b5-1, la conclusion doit être nuancée.</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>Aperçu de la leçon suivante :</strong> <a href="0008-13dg-activist-investors.html">Leçon 0008 — Schedule 13D/G et Investisseurs Activistes</a> : Qui tente de changer l'entreprise, comment les identifier<br>
+  <strong>Ressource recommandée :</strong> <a href="http://openinsider.com/">OpenInsider</a> (gratuit) — Recherchez directement CVNA pour voir à quoi ressemblent les données réelles du Form 4, et comprenez la différence entre Table I et II<br>
+  <strong>Aide-mémoire :</strong> <a href="../reference/sec-form-types.html">Tableau des types de formulaires SEC</a> (Form 3/4/5/144 dans la section « Opérations d'initiés et participations »)
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  Si quelque chose n'est pas clair, demandez-moi directement dans la conversation.<br>
+  <em>Cette leçon est la deuxième pièce du puzzle des participations croisées. La leçon suivante traite du 13D/G — une déclaration moins fréquente que le Form 4, mais dont le signal est plus fort : les « investisseurs activistes ».</em>
+</p>
+
+</body>
+</html>

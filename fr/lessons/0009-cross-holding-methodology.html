@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 0009 — Méthodologie de l'Analyse des Participations Croisées</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .scenario { background: #fafafa; border: 1px solid #e0e0e0; padding: 0.8rem 1rem; margin: 0.8rem 0; }
+  .scenario h4 { margin: 0 0 0.3rem; }
+  .scenario-confirm { border-left: 3px solid #4a4; }
+  .scenario-conflict { border-left: 3px solid #f0b400; }
+  .scenario-danger { border-left: 3px solid #c44; }
+  .scenario-trend { border-left: 3px solid #36a; }
+  .checklist { background: #f4f4ee; padding: 1rem 1.2rem; margin: 1rem 0; }
+  .checklist li { margin: 0.3rem 0; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Leçon 0009 · <a href="0008-13dg-activist-investors.html">← Leçon précédente : 13D/G Activistes</a> · <a href="../reference/sec-form-types.html">Référence : Tableau des formulaires SEC</a>
+</div>
+
+<h1>Méthodologie de l'Analyse des Participations Croisées<br><small style="font-size:1rem;color:#666;">À quelles questions ce rapport répond-il, comment le lire</small></h1>
+
+<p>
+  Les 3 leçons précédentes (13F / Form 4 / 13D-G) ont couvert l'ensemble des sources de données pour l'analyse des participations croisées. Cette leçon revient à la méthodologie — <strong>quels principes suivre lorsqu'on assemble ces données en un rapport ?</strong>
+</p>
+
+<p>
+  La référence est le rapport P4 d'IHS Markit (Cross Holding / Peer Comparison). Notre Dashboard + rapport Markdown en est une réplique, mais avec un périmètre plus réduit et un degré d'automatisation moindre. L'essentiel est d'<strong>apprendre sa philosophie de conception</strong>, pas de reproduire chaque page.
+</p>
+
+<div class="takeaway">
+  <strong>Philosophie de conception fondamentale :</strong> Un bon rapport de participations croisées n'est pas « toutes les données entassées sur une seule page », mais <strong>chaque page répond à une question d'investissement spécifique</strong>. Quand le lecteur tourne la page, il doit avoir une question en tête — « quelle réponse est-ce que je cherche ? »
+</div>
+
+<h2>Chaque page répond à une question d'investissement spécifique</h2>
+
+<p>Le rapport P4 d'IHS Markit compte 10 pages, chacune correspondant à une question d'investissement précise. Voici la cartographie complète « page-question-usage » :</p>
+
+<table>
+  <tr><th>Page</th><th>Tableau/Graphique</th><th>Question d'investissement</th><th>Utilisation en aval</th></tr>
+  <tr><td>P2</td><td>Top Holders Positions</td><td><strong>Qui surpondère notre entreprise et nos concurrents ?</strong></td><td>Identifier l'allocation de la « smart money » — quelles grandes institutions détiennent à la fois notre entreprise et ses concurrents</td></tr>
+  <tr><td>P3</td><td>Top Holders Changes</td><td><strong>Ces grandes institutions renforcent-elles ou allègent-elles ?</strong></td><td>Juger l'évolution marginale du sentiment institutionnel — plus informative que les participations statiques</td></tr>
+  <tr><td>P4</td><td>Activists</td><td><strong>Quels investisseurs activistes surveillent notre entreprise ou nos concurrents ?</strong></td><td>Alerte précoce de campagne activiste potentielle</td></tr>
+  <tr><td>P5</td><td>Top Buyers</td><td><strong>Qui achète activement dans notre secteur concurrentiel ?</strong></td><td>Détecter les nouveaux capitaux entrants — peut indiquer que quelqu'un est optimiste sur le secteur</td></tr>
+  <tr><td>P6</td><td>Top Sellers</td><td><strong>Qui se retire de notre secteur concurrentiel ?</strong></td><td>Alerte précoce de fuite des capitaux — peut indiquer une détérioration des fondamentaux du secteur</td></tr>
+  <tr><td>P7</td><td>Initiations / Liquidations</td><td><strong>Qui vient d'entrer ou de sortir complètement ?</strong></td><td>Signaux les plus extrêmes — nouvelle position = fortement haussier, liquidation = fortement baissier</td></tr>
+  <tr><td>P8</td><td>Orientation Active/Passive</td><td><strong>Les participations sont-elles principalement actives ou passives ?</strong></td><td>Beaucoup de capitaux passifs = les variations peuvent être dues à des rééquilibrages d'indices</td></tr>
+  <tr><td>P9</td><td>Classification par style d'investissement</td><td><strong>Les détenteurs sont-ils des investisseurs value ou growth ?</strong></td><td>La rotation entre investisseurs value et growth reflète le cycle de vie de l'entreprise</td></tr>
+  <tr><td>P10</td><td>Distribution du Turnover</td><td><strong>Les détenteurs négocient-ils fréquemment ou détiennent-ils à long terme ?</strong></td><td>Négociateurs fréquents = signal plus bruité ; détenteurs long terme = signal plus fort</td></tr>
+</table>
+
+<h2>Superposition des signaux entre pages (important)</h2>
+
+<p>
+  <strong>La valeur d'un signal sur une page isolée est limitée.</strong> La véritable perspicacité vient de la validation croisée entre pages. Voici 4 scénarios classiques de superposition de signaux :
+</p>
+
+<div class="scenario scenario-confirm">
+  <h4>Scénario 1 : Signal de confirmation (haussier)</h4>
+  <p>P2 : Une institution est le détenteur Top 1<br>
+  P3 : Cette institution augmente massivement sa position<br>
+  P5 : Cette institution est le Top Buyer</p>
+  <p>→ <strong>Signal haussier fort.</strong> Une grande institution renforce avec de l'argent réel, triple confirmation.</p>
+</div>
+
+<div class="scenario scenario-conflict">
+  <h4>Scénario 2 : Signal contradictoire (à creuser)</h4>
+  <p>P2 : Une institution est le détenteur Top 3<br>
+  P3 : Cette institution réduit légèrement sa position<br>
+  P6 : Mais elle n'est pas dans le Top Seller (réduction insuffisante)</p>
+  <p>→ <strong>Probablement un rééquilibrage de portefeuille normal</strong>, pas forcément baissier. Une taille trop importante rend les ajustements rapides difficiles.</p>
+</div>
+
+<div class="scenario scenario-danger">
+  <h4>Scénario 3 : Signal de danger (alerte)</h4>
+  <p>P4 : Une institution activiste détient un concurrent<br>
+  P7 : Cette institution a initié une nouvelle position ce trimestre (première entrée)</p>
+  <p>→ <strong>Haute vigilance — l'entrée d'un activiste annonce souvent des changements à venir.</strong> Consultez immédiatement l'Item 4 du 13D pour connaître ses intentions.</p>
+</div>
+
+<div class="scenario scenario-trend">
+  <h4>Scénario 4 : Signal de changement de secteur</h4>
+  <p>P8 : La part des capitaux passifs augmente, la part des capitaux actifs diminue<br>
+  P9 : Les investisseurs growth réduisent, les investisseurs value renforcent</p>
+  <p>→ <strong>Le secteur passe d'une « attente de forte croissance » à une « réévaluation de la valeur ».</strong> Les fondamentaux de l'entreprise pourraient entrer dans une phase de maturité.</p>
+</div>
+
+<h2>Ordre de lecture correct du rapport (pour les dirigeants)</h2>
+
+<p>
+  Lorsqu'un collègue de la direction stratégique reçoit un rapport de participations croisées, <strong>il ne doit pas le lire de la première à la dernière page</strong>. Il doit suivre un rythme « d'abord rapide, puis approfondi » :
+</p>
+
+<pre>
+30 secondes — survol (décider si on clique pour lire en détail) :
+  1. Cartes récapitulatives : nombre d'institutions couvertes, nouvelles positions, liquidations
+  2. Qui sont les Top 3 détenteurs
+
+2 minutes — jugement rapide (voir la direction des tendances) :
+  3. Top 5 des Buyers / Sellers
+  4. Y a-t-il un nouvel activiste entrant ?
+  5. Le secteur voit-il les capitaux actifs ou passifs évoluer ?
+
+5 minutes — analyse approfondie (voir les validations croisées) :
+  6. Top 5 Initiations + Top 5 Liquidations
+  7. Validation croisée entre pages (scénarios 1 à 4)
+  8. Évolution des tendances de style/Turnover
+
+15 minutes — recherche :
+  9. Approfondir une institution spécifique (voir l'ensemble de ses variations de participations)
+  10. Recouper avec les 8-K / conférences téléphoniques (l'institution renforce, mais que dit la direction ?)
+</pre>
+
+<p>
+  Votre Dashboard et la conception du rapport doivent <strong>favoriser cet ordre de lecture</strong> — placez les cartes récapitulatives, les Top Holders, les Buyers/Sellers aux endroits les plus visibles, et les données approfondies dans des onglets.
+</p>
+
+<div class="takeaway">
+  <strong>Anti-modèle de conception :</strong> Mettre toutes les données ensemble avec une mention « Activer pour afficher les détails ». Cela revient à laisser l'utilisateur assembler lui-même le rapport. Une bonne conception consiste à <strong>mettre 80 % des informations dans 20 % de l'espace</strong> — le lecteur doit voir la direction en 30 secondes et pouvoir prendre une décision en 5 minutes.
+</div>
+
+<h2>6 principes de conception tirés du rapport IHS</h2>
+
+<ol>
+  <li><strong>Chaque page répond à une question.</strong> Ne pas tout entasser sur une seule page.</li>
+  <li><strong>Laisser un espace « Commentaire » en bas de chaque page.</strong> L'analyste doit écrire son jugement, le système ne fournit que les données. La ligne que la machine ne peut pas remplir = l'espace réservé au jugement humain.</li>
+  <li><strong>Les colonnes des tableaux doivent correspondre aux définitions de colonnes d'IHS.</strong> Style, Turnover, Peer Average sont indispensables — c'est le langage commun du secteur ; s'en écarter dérouterait le lecteur.</li>
+  <li><strong>Les classements doivent avoir un indicateur de classement clair.</strong> « Classé selon quoi » doit être écrit dans le titre — selon la valeur de marché ? le montant de la variation ? la variation du nombre d'actions ?</li>
+  <li><strong>Graphiques et tableaux vont de pair.</strong> Les camemberts montrent la répartition, les histogrammes montrent les flux de capitaux — ils se confirment mutuellement, sans se répéter.</li>
+  <li><strong>Les mentions légales doivent être visibles.</strong> Pas « une ligne en petits caractères à la fin du document » — mais une mention « données arrêtées au [date] » et une note sur les limites des données en bas de chaque page.</li>
+</ol>
+
+<h2>Liste de contrôle qualité des livrables</h2>
+
+<p>
+  Avant de livrer au client/supérieur, vérifier point par point :
+</p>
+
+<div class="checklist">
+  <ol>
+    <li>☐ L'unité monétaire est-elle cohérente dans tous les tableaux ($M)</li>
+    <li>☐ Tous les classements sont-ils triés selon le bon indicateur (pas par ordre alphabétique, pas par CIK)</li>
+    <li>☐ Existe-t-il des lignes avec institution_name = None (échec de collecte)</li>
+    <li>☐ Existe-t-il des delta_pct = inf ou NaN (division par zéro non traitée)</li>
+    <li>☐ Les Buyers et les Sellers ont-ils tous des données (si un côté est complètement vide, 99 % de chances que ce soit un bug)</li>
+    <li>☐ La période précédente et la période actuelle de la comparaison inter-trimestre sont-elles bien consécutives (pas de saut)</li>
+    <li>☐ Toutes les mentions légales sont-elles visibles dans le rapport (pas seulement dans les commentaires du code)</li>
+    <li>☐ Le décalage temporel des données est-il indiqué dans la date du rapport (« données arrêtées au 2026-03-31 » vs « rapport généré le 2026-06-17 »)</li>
+    <li>☐ Le texte de l'Item 4 du dépôt 13D a-t-il été relu manuellement (pas affiché directement)</li>
+    <li>☐ Les concurrents chinois (UXIN/ATHM) sont-ils marqués « Section 16 non applicable » plutôt qu'« aucune donnée »</li>
+  </ol>
+</div>
+
+<h2>Superposition de signaux entre pages sur Carvana (cas pratique)</h2>
+
+<p>Voici notre processus d'analyse réel de Carvana pour le T1 2026 (validation croisée des données de 4 pages) :</p>
+
+<table>
+  <tr><th>Page</th><th>Signal observé</th></tr>
+  <tr><td>P2 (Top Holders)</td><td>Vanguard : 1,92 G$ (Top 1), BlackRock : 1,53 G$ (Top 2)</td></tr>
+  <tr><td>P3 (Changes)</td><td>Vanguard : participation <strong>inchangée</strong> (actions 12,8 M → 12,8 M)</td></tr>
+  <tr><td>P5 (Top Buyers)</td><td>Baupost Group : <strong>nouvelle</strong> position de 480 M$</td></tr>
+  <tr><td>P4 (Activists)</td><td>Aucun nouvel activiste entrant</td></tr>
+</table>
+
+<p><strong>Analyse :</strong></p>
+
+<ul>
+  <li>Vanguard et BlackRock sont des <strong>fonds passifs indiciels</strong> (fonds communs + ETF). Leurs participations inchangées = rythme normal de rééquilibrage indiciel, pas d'achats ou de ventes de panique</li>
+  <li>La nouvelle position de 480 M$ de Baupost est un <strong>signal important</strong> — Baupost est un investisseur value reconnu (déjà détenteur d'obligations Carvana en difficulté en 2022), ce qui indique que les investisseurs value redeviennent optimistes sur Carvana</li>
+  <li>Absence de nouvel activiste = pas de risque de changement de contrôle à court terme</li>
+</ul>
+
+<p>
+  <strong>Jugement global :</strong> La configuration des participations institutionnelles de Carvana au T1 2026 est « <strong>capitaux indiciels stables + retour des investisseurs value + absence d'interférence activiste</strong> » — un état plutôt positif. Combiné au signal d'amélioration de la marge brute de la Leçon 0002, on peut conclure provisoirement que Carvana traverse une <strong>réévaluation de sa valeur</strong>.
+</p>
+
+<p>
+  Ce jugement <strong>ne peut être tiré d'aucune page prise isolément</strong> — c'est le résultat de la validation croisée entre pages. C'est là la véritable valeur de l'analyse des participations croisées.
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>Q1 : Dans le classement Top Buyers P5, BlackRock renforce de 50 M$, Vanguard renforce de 0 $, une petite institution initie une position de 200 M$. Qui doit être classé en premier ?</h3>
+<p><input type="text" id="q1" placeholder="Répondez en une ou deux phrases"></p>
+<div class="reveal">
+  <details>
+    <summary>Cliquez pour voir la réponse</summary>
+    <p><strong>Cela dépend de l'indicateur de classement.</strong> Si l'on classe par « montant absolu de renforcement » : BlackRock 50 M$ &lt; petite institution 200 M$ = conclusion erronée (la petite institution, malgré ses 200 M$ supérieurs aux 50 M$ de BlackRock, n'a pas le même profil ; BlackRock est un fonds passif indiciel, 50 M$ peuvent être le résultat passif d'un rééquilibrage d'indice, sans valeur de signal ; les 200 M$ de la petite institution en première position = fort signal actif). La bonne approche : <strong>classer par « montant de renforcement actif » (exclure les fonds passifs indiciels)</strong>, ou <strong>afficher deux classements</strong> — un par montant absolu, un par montant « actif net ». IHS P5 utilise généralement le second.</p>
+  </details>
+</div>
+
+<h3>Q2 : Les Top Buyers totalisent 300 M$, les Top Sellers totalisent 0 $. Ce « flux unidirectionnel » est-il normal ?</h3>
+<p><input type="text" id="q2" placeholder="Répondez en une ou deux phrases"></p>
+<div class="reveal">
+  <details>
+    <summary>Cliquez pour voir la réponse</summary>
+    <p><strong>Pas normal — 99 % de chances que ce soit un bug.</strong> En conditions normales, les variations de participations institutionnelles d'une société cotée sont <strong>bidirectionnelles</strong> : si quelqu'un achète, quelqu'un vend (sauf très gros blocs). Si les Top Sellers sont totalement à zéro, les causes courantes sont : ① Bug dans la comparaison inter-trimestre (les données de la période précédente n'ont pas été récupérées, donc toutes les « réductions » sont classées comme « liquidations » et non comme « sellers ») ; ② Erreur de mappage de champ (on a rempli value au lieu de shares) ; ③ Données partiellement manquantes. Ajoutez une ligne à votre liste de contrôle : <strong>« Les Buyers et les Sellers ont-ils tous des données ? »</strong> — 99 % des « flux unidirectionnels » sont des bugs de collecte.</p>
+  </details>
+</div>
+
+<h3>Q3 : Dans la liste P4 Activists, un hedge fund qui n'est pas dans la liste statique ACTIVIST_INSTITUTIONS apparaît soudainement, avec une nouvelle position de 5,2 % sur CVNA. Quelle est votre procédure ?</h3>
+<p><input type="text" id="q3" placeholder="Décrivez votre procédure en une ou deux phrases"></p>
+<div class="reveal">
+  <details>
+    <summary>Cliquez pour voir la réponse</summary>
+    <p><strong>Trois étapes : ① Vérifier l'authenticité du dépôt → ② Extraire l'Item 4 pour connaître l'intention → ③ Évaluer l'impact potentiel sur CVNA.</strong> ① Consulter le détail du 13D sur SEC EDGAR, confirmer qu'il s'agit bien d'un 13D (actif) et non d'un 13G (passif), vérifier la validité du CIK ; ② Lire attentivement l'Item 4 pour voir les demandes spécifiques de l'activiste (scission ? remplacement du CEO ? M&A ?) ; ③ Si les demandes concernent une scission ou une M&A, le cours de CVNA réagira fortement à court terme — préparer un plan d'urgence immédiat. <strong>Ajouter simultanément cette institution à la liste statique ACTIVIST_INSTITUTIONS</strong> pour garantir sa reconnaissance par le système la prochaine fois. Ce processus devrait être implémenté dans le Dashboard sous forme d'« alerte + lien vers le 13D », plutôt que d'être exécuté manuellement.</p>
+  </details>
+</div>
+
+</div>
+
+<div style="background:#f0f0e8;padding:1rem 1.2rem;margin:3rem 0 1rem;font-size:0.95rem;">
+  <strong>Fin de la série.</strong> Les 9 leçons couvrent l'ensemble du système de veille concurrentielle :<br>
+  0001-0005 Bases SEC et cadre de veille (point de vue de l'entreprise)<br>
+  0006-0008 Participations et transactions (point de vue des tiers : 13F / Form 4 / 13D-G)<br>
+  0009 Méthodologie des participations croisées (mise en pratique)<br><br>
+  <strong>Prochaine étape :</strong> Retournez au PRD v2.0 (<code>/Users/liuming/sec/PRD-competitor-intel-mvp-v2.md</code>), consultez le document de conception du module F. Vous devriez maintenant comprendre ce que fait chaque fonction de cross_holding.py, pourquoi elle est conçue ainsi, et comment interpréter ses sorties.
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  Révision complète : <a href="0001-sec-filing-101.html">0001</a> → <a href="0002-financial-metrics-used-car.html">0002</a> → <a href="0003-8k-deep-dive.html">0003</a> → <a href="0004-earnings-call.html">0004</a> → <a href="0005-monitoring-framework.html">0005</a> → <a href="0006-13f-institutional-holdings.html">0006</a> → <a href="0007-form4-insider-trading.html">0007</a> → <a href="0008-13dg-activist-investors.html">0008</a> → 0009<br>
+  Document de référence : <a href="../reference/sec-form-types.html">Tableau des types de formulaires SEC</a> (imprimable)<br>
+  Pour revoir une leçon, dites simplement « rouvrir la leçon 000X ».
+</p>
+
+</body>
+</html>

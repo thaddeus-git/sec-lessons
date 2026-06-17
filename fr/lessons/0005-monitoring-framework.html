@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecon 0005 — Cadre de surveillance concurrentielle</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  p { margin: 0.7rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  a { color: #a33; text-decoration: none; }
+  .card { background: #fafafa; border: 1px solid #e0e0e0; padding: 1rem 1.2rem; margin: 1rem 0; }
+  .card h3 { margin-top: 0; font-size: 1rem; }
+  .tag { display:inline-block; padding:1px 8px; border-radius:3px; font-size:0.75rem; margin-right:4px; color:#fff; }
+  .tag-core { background:#c44; }
+  .tag-legacy { background:#f0b400; color:#333; }
+  .tag-dealer { background:#4a4; }
+  .tag-china { background:#36a; }
+  .tag-traffic { background:#a36; }
+  .framework { background: #f0f4ff; border: 1px solid #ccd; padding: 1rem 1.2rem; margin: 1.2rem 0; }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lecon 0005 · <a href="0004-earnings-call.html">← Lecon precedente : Earnings Call</a> · <a href="../reference/sec-form-types.html">Reference : Tableau des types de formulaires SEC</a>
+</div>
+
+<h1>Cadre de surveillance concurrentielle<br><small style="font-size:1rem;color:#666;">Pourquoi ces 5 entreprises ont ete choisies et quoi surveiller pour chacune</small></h1>
+
+<p>
+  Les quatre premieres lecons ont presente les "outils" — ce qu'est un SEC filing, comment lire les indicateurs financiers, comment juger un 8-K, comment ecouter un Earnings Call. Cette derniere lecon revient a l'essentiel : <strong>"Pourquoi construisons-nous ce systeme ?"</strong>
+</p>
+
+<h2>Un cadre : les quatre niveaux de la surveillance concurrentielle</h2>
+
+<div class="framework">
+  <p><strong>Niveau 1 : Etats financiers</strong> → nous disent ce qui se passe (<em>what</em>)<br>
+  <strong>Niveau 2 : Evenements</strong> → nous disent quand quelque chose d'important se produit (<em>when what</em>)<br>
+  <strong>Niveau 3 : Signaux de la direction</strong> → nous disent l'intention derriere ce qui se passe (<em>why</em>)<br>
+  <strong>Niveau 4 : Comparaison inter-entreprises</strong> → nous dit ce que cela signifie pour nous (<em>so what</em>)</p>
+</div>
+
+<p>Les trois premiers niveaux sont ce que le systeme de SEC filing peut vous apporter. <strong>Le quatrieme niveau est la valeur de l'analyse strategique</strong> — et c'est ce qu'aucun systeme automatise ne peut entierement remplacer. Le systeme assure les trois premiers niveaux ; vous vous concentrez sur le quatrieme.</p>
+
+<h2>Logique de selection des 5 concurrents</h2>
+
+<p>
+  Ces 5 entreprises n'ont pas ete choisies au hasard. Chacune joue un role different dans le cadre d'analyse.
+</p>
+
+<div class="card">
+  <h3><span class="tag tag-core">Reference centrale</span> 1. Carvana (CVNA)</h3>
+  <p><strong>Pourquoi elle :</strong> Carvana est le porte-etendard du modele "vente en ligne pure de vehicules d'occasion". Elle a valide l'acceptation par les consommateurs de l'achat en ligne sans essai routier. De son introduction en bourse en 2017 a 2026, Carvana a traverse un cycle complet : croissance effrenee financée par des depenses massives → quasi-faillite → retournement de rentabilite, couvrant presque tous les problemes strategiques qu'une entreprise de e-commerce automobile peut rencontrer.</p>
+  <p><strong>Points de surveillance :</strong> Tendance de la marge brute (valider la viabilite economique du modele en ligne), capacite de gestion des stocks (provenance des vehicules, strategies de prix), efficacite des SG&A (realisation ou non des economies d'echelle)</p>
+  <p><strong>Question cle :</strong> La rentabilite de Carvana est-elle une amelioration structurelle durable ou un vent arriere cyclique ?</p>
+</div>
+
+<div class="card">
+  <h3><span class="tag tag-legacy">Geant traditionnel</span> 2. Carmax (KMX)</h3>
+  <p><strong>Pourquoi elle :</strong> Carmax est le plus grand detaillant de vehicules d'occasion aux Etats-Unis, cree il y a 30 ans. Elle represente le modele traditionnel optimal : "physique avant tout, prix fixe sans negociation, rotation elevee". Carvana cherche precisement a disrupter Carmax. En retour, Carmax se digitalise aujourd'hui — elle est l'exemple meme de la transformation d'un modele traditionnel.</p>
+  <p><strong>Points de surveillance :</strong> Croissance des ventes a magasins comparables (sante du reseau physique), penetration en ligne (vitesse de transformation du geant traditionnel), jours de rotation des stocks (reference d'efficacite du secteur)</p>
+  <p><strong>Question cle :</strong> Le modele hybride (physique + en ligne) peut-il optimiser simultanement efficacite et couts ? Ou perd-il sur les deux tableaux ?</p>
+</div>
+
+<div class="card">
+  <h3><span class="tag tag-dealer">Groupe concessionnaire</span> 3. AutoNation (AN)</h3>
+  <p><strong>Pourquoi elle :</strong> AutoNation est un groupe concessionnaire type de grande envergure — vendant a la fois des vehicules neufs et d'occasion, avec sa propre societe de financement captive. La surveiller n'est pas pour apprendre son modele, mais pour observer "l'amont de la filiere" — les ventes de vehicules neufs et les stocks d'AutoNation refletent le rythme d'approvisionnement des constructeurs et la demande finale.</p>
+  <p><strong>Points de surveillance :</strong> Proportion des revenus neufs vs occasions (tendance de la filiere), revenus financiers (rentabilite du credit automobile), expansion/contraction du reseau (evolution de l'infrastructure du secteur)</p>
+  <p><strong>Question cle :</strong> Un excedent d'offre de vehicules neufs va-t-il comprimer le marche de l'occasion ? Quand la baisse des prix de l'occasion se propagera-t-elle en amont ?</p>
+</div>
+
+<div class="card">
+  <h3><span class="tag tag-china">Homologue chinois</span> 4. Uxin (UXIN)</h3>
+  <p><strong>Pourquoi elle :</strong> Uxin est la seule entreprise chinoise de e-commerce de vehicules d'occasion encore cotee aux Etats-Unis. Ses publications de donnees suivent les normes SEC et sont directement comparables a Carvana. Les difficultes d'Uxin (couts de financement eleves, difficulte d'acquisition de vehicules, faible confiance des consommateurs) sont etroitement liees aux defis structurels du marche chinois de l'occasion.</p>
+  <p><strong>Points de surveillance :</strong> Structure des revenus (evolution du ratio 2B vs 2C — Uxin a historiquement fortement dependu du批发 B2B), capacite de financement (capacite a continuer a lever des fonds), economie unitaire (est-ce rentable de vendre une voiture, oui ou non)</p>
+  <p><strong>Question cle :</strong> L'economie unitaire du e-commerce automobile chinois peut-elle enfin devenir positive ? Si Uxin echoue, est-ce un probleme de modele ou d'execution ?</p>
+</div>
+
+<div class="card">
+  <h3><span class="tag tag-traffic">Portail de trafic</span> 5. Autohome (ATHM)</h3>
+  <p><strong>Pourquoi elle :</strong> Autohome n'est pas un e-commercant de vehicules d'occasion — c'est un "portail de trafic" de l'industrie automobile. Les consommateurs consultent Autohome avant d'acheter une voiture : essais, comparatifs de prix, fiches techniques. La surveiller parce que : (1) ses revenus publicitaires refletent la volonte de depenses marketing de toute l'industrie automobile (constructeurs et concessionnaires sont ses principaux clients) ; (2) sa transformation contenu + transaction (ce que fait Dongchedi, filiale de ByteDance) pourrait, si elle reussit, capter une partie de la transaction.</p>
+  <p><strong>Points de surveillance :</strong> Croissance des revenus publicitaires (barometre du budget marketing du secteur), nombre de concessions membres (sante du reseau de concessionnaires), tentatives de conversion du contenu vers la transaction (extension de la plateforme medias vers le transactionnel)</p>
+  <p><strong>Question cle :</strong> Dongchedi (filiale de ByteDance) convoite le territoire d'Autohome. Autohome peut-elle defendre sa position de portail de trafic ?</p>
+</div>
+
+<h2>Une matrice de signaux</h2>
+
+<p>Lors des comparaisons inter-entreprises, ne regardez pas un indicateur d'une seule entreprise isolement. Utilisez cette matrice pour une validation croisee :</p>
+
+<table>
+  <tr><th>Si...</th><th>Et en meme temps...</th><th>Alors...</th></tr>
+  <tr>
+    <td>La marge brute de Carvana augmente</td>
+    <td>La marge brute de Carmax augmente aussi</td>
+    <td>Vent arriere sectoriel (ex. hausse du prix des vehicules d'occasion, amelioration de l'offre) — pas un avantage specifique a une entreprise</td>
+  </tr>
+  <tr>
+    <td>Le ratio SG&A/Revenu de Carvana baisse</td>
+    <td>Le ratio SG&A/Revenu de Carmax est stable</td>
+    <td>Carvana ameliore reellement son efficacite operationnelle — les economies d'echelle du modele en ligne commencent a porter leurs fruits</td>
+  </tr>
+  <tr>
+    <td>Le revenu d'Uxin baisse</td>
+    <td>Les revenus de Carvana/Carmax sont normaux</td>
+    <td>Problemes specifiques au marche chinois (environnement de financement, politiques, confiance des consommateurs) — pas un probleme sectoriel global</td>
+  </tr>
+  <tr>
+    <td>Les revenus publicitaires d'Autohome baissent</td>
+    <td>Les revenus de Carvana/Carmax/AutoNation sont normaux</td>
+    <td>Le budget marketing automobile chinois se contracte (ou Dongchedi gagne des parts de marche) — surveiller la conjoncture globale du marche automobile chinois</td>
+  </tr>
+  <tr>
+    <td>La marge brute de Carvana baisse</td>
+    <td>Les stocks de vehicules neufs d'AutoNation augmentent</td>
+    <td>L'excedent d'offre de vehicules neufs comprime la demande d'occasion — le secteur pourrait entrer dans une guerre des prix, avec un risque de depreciation des actifs d'occasion</td>
+  </tr>
+</table>
+
+<h2>Surveille (Monitored) vs Surveillant (Monitor)</h2>
+
+<p>Un angle facile a negliger : <strong>vos concurrents vous surveillent aussi.</strong></p>
+
+<blockquote>
+  Vos SEC filings (apres introduction en bourse) seront egalement passes au crible par vos concurrents et les investisseurs institutionnels.<br>
+  Cela signifie : <strong>chaque chiffre que vous publiez dans un filing, chaque phrase de votre communique de presse, chaque mot prononce lors de votre Earnings Call envoie un signal au marche.</strong>
+</blockquote>
+
+<p>Si, dans votre systeme de surveillance, vous constatez qu'un concurrent s'interesse anormalement a l'un de vos produits (en vous mentionnant pendant son Earnings Call ou en vous comparant sur sa page IR), <strong>raisonnement inverse : ce produit represente probablement la plus grande menace percue par ce concurrent — et donc ce sur quoi vous devriez investir le plus.</strong></p>
+
+<div class="takeaway">
+  La valeur d'un systeme de surveillance concurrentielle ne reside pas dans la "centralisation des informations", mais dans la "formation d'un jugement". Le systeme transforme les donnees brutes en renseignements structures ; vous transformez ces renseignements en decisions strategiques qui guident votre entreprise.
+</div>
+
+<hr>
+
+<h2>Quiz (derniere lecon)</h2>
+
+<div class="quiz">
+
+<h3>Q1 : Pourquoi surveiller Carmax ne se limite-t-il pas a "observer un concurrent", mais constitue-t-il plutot "l'etablissement d'une reference d'efficacite sectorielle" ?</h3>
+<p><input type="text" id="q1" placeholder="Repondez en une ou deux phrases" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>Cliquez pour voir la reponse</summary>
+    <p><strong>Carmax est l'acteur le plus mature du secteur ; sa vitesse de rotation et sa marge brute representent le plafond du "modele physique optimal".</strong> Si le modele en ligne de Carvana ne peut pas depasser Carmax en efficacite et en couts, il n'a aucune raison d'etre. Les chiffres de Carmax constituent donc la "baseline" du secteur : etre meilleur que Carmax prouve la differentiation du modele ; etre moins performant que Carmax montre que la digitalisation ne s'est pas encore justifiee.</p>
+  </details>
+</div>
+
+<h3>Q2 : Quand les revenus publicitaires d'Autohome baissent mais que les performances de Carvana/AutoNation et autres societes americaines sont normales, que cela vous apprend-il ?</h3>
+<p><input type="text" id="q2" placeholder="Repondez en une ou deux phrases" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>Cliquez pour voir la reponse</summary>
+    <p><strong>Le probleme est localise sur le marche chinois, il n'est pas mondial.</strong> Les annonceurs d'Autohome sont principalement des constructeurs et concessionnaires chinois — la contraction de leur budget publicitaire indique une deterioration de la demande ou de la rentabilite des concessionnaires en Chine. Mais l'absence de ce signal aux Etats-Unis montre que : (1) il ne s'agit pas d'un ralentissement mondial de l'automobile ; (2) le probleme est probablement specifique a la Chine (politiques, confiance des consommateurs, concurrence interne) ; (3) il peut aussi s'agir d'une perte de parts de marche d'Autohome au profit de Dongchedi — necessite une verification specifique.</p>
+  </details>
+</div>
+
+<h3>Q3 : Apres l'introduction en bourse de votre entreprise, vos concurrents vous surveilleront de la meme maniere. Quelles implications cela a-t-il pour votre comportement en matiere de SEC filings ?</h3>
+<p><input type="text" id="q3" placeholder="Repondez en une ou deux phrases" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>Cliquez pour voir la reponse</summary>
+    <p><strong>Chaque filing envoie un signal a vos concurrents.</strong> Concretement : (1) L'Item 1A du 10-K (facteurs de risque) sera analyse mot a mot par vos concurrents pour identifier vos faiblesses ; (2) les changements de dirigeants, les contrats importants et les alertes de resultats dans les 8-K seront immediatement captures par les systemes de renseignement de vos concurrents ; (3) l'accent mis ou evite sur un secteur d'activite dans votre Earnings Call sera interprete comme un changement de priorite strategique. Les filings ne sont donc pas seulement une obligation de conformite — <strong>ce sont un champ de bataille informationnel entre vous et vos concurrents. Chaque fois que vous redigez un filing, demandez-vous : "Qu'en fera mon concurrent en le lisant ?"</strong></p>
+  </details>
+</div>
+
+</div>
+
+<div style="background:#f0f0e8;padding:1rem 1.2rem;margin:3rem 0 1rem;font-size:0.95rem;">
+  <strong>Fin de la serie.</strong> 5 lecons couvrant le systeme SEC → indicateurs financiers → jugement des evenements → signaux de la direction → cadre de surveillance.<br><br>
+  <strong>Prochaine etape :</strong> Retournez au PRD v2.0 (<code>/Users/liuming/sec/PRD-competitor-intel-mvp-v2.md</code>) — vous devriez maintenant comprendre le "pourquoi" de chaque module de ce document. Ouvrez une nouvelle conversation et demandez a l'agent de codage de construire ce systeme.
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  Parcours complet : <a href="0001-sec-filing-101.html">0001 SEC Filing 101</a> → <a href="0002-financial-metrics-used-car.html">0002 Indicateurs financiers</a> → <a href="0003-8k-deep-dive.html">0003 Evenements 8-K</a> → <a href="0004-earnings-call.html">0004 Earnings Call</a> → 0005 Cadre de surveillance<br>
+  Document de reference : <a href="../reference/sec-form-types.html">Tableau des types de formulaires SEC</a> (imprimable)<br>
+  Pour reviser une lecon, dites simplement "rouvrir la lecon 000X".
+</p>
+
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0009 — Metodologia del analisis de tenencias cruzadas</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .scenario { background: #fafafa; border: 1px solid #e0e0e0; padding: 0.8rem 1rem; margin: 0.8rem 0; }
+  .scenario h4 { margin: 0 0 0.3rem; }
+  .scenario-confirm { border-left: 3px solid #4a4; }
+  .scenario-conflict { border-left: 3px solid #f0b400; }
+  .scenario-danger { border-left: 3px solid #c44; }
+  .scenario-trend { border-left: 3px solid #36a; }
+  .checklist { background: #f4f4ee; padding: 1rem 1.2rem; margin: 1rem 0; }
+  .checklist li { margin: 0.3rem 0; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0009 · <a href="0008-13dg-activist-investors.html">← Leccion anterior: Activistas 13D/G</a> · <a href="../reference/sec-form-types.html">Referencia: Tabla de formularios SEC</a>
+</div>
+
+<h1>Metodologia del analisis de tenencias cruzadas<br><small style="font-size:1rem;color:#666;">Que preguntas responde este informe y como interpretarlo</small></h1>
+
+<p>
+  Las 3 lecciones anteriores (13F / Form 4 / 13D-G) trataron sobre todas las fuentes de datos del analisis de tenencias cruzadas. Esta leccion vuelve a la metodologia — <strong>al ensamblar estos datos en un informe, que principios deben seguirse?</strong>
+</p>
+
+<p>
+  La referencia es el informe P4 de IHS Markit (Cross Holding / Peer Comparison). Nuestro Dashboard + informe en Markdown es una replica del mismo, pero con un alcance menor y un grado de automatizacion mas bajo. En esencia, se trata de <strong>aprender su filosofia de diseno</strong>, no de replicar cada una de sus paginas.
+</p>
+
+<div class="takeaway">
+  <strong>Filosofia de diseno central:</strong> Un buen informe de tenencias cruzadas no consiste en "amontonar todos los datos en una pagina", sino en que <strong>cada pagina responda a una pregunta de inversion concreta</strong>. Cuando el lector pasa a una pagina, debe tener en mente la pregunta correspondiente: "Que respuesta estoy buscando?"
+</div>
+
+<h2>Cada pagina responde a una pregunta de inversion concreta</h2>
+
+<p>El informe P4 de IHS Markit tiene 10 paginas, cada una correspondiente a una pregunta de inversion clara. La siguiente tabla muestra la correspondencia completa "pagina-pregunta-uso":</p>
+
+<table>
+  <tr><th>Pag.</th><th>Tabla/Grafico</th><th>Pregunta de inversion que responde</th><th>Uso posterior</th></tr>
+  <tr><td>P2</td><td>Top Holders Positions</td><td><strong>Quien tiene posiciones importantes en nuestra empresa y en los competidores?</strong></td><td>Identificar la asignacion del "dinero inteligente" — que grandes instituciones tienen posiciones simultaneas en nuestra empresa y en los competidores</td></tr>
+  <tr><td>P3</td><td>Top Holders Changes</td><td><strong>Estas grandes instituciones estan aumentando o reduciendo posiciones?</strong></td><td>Evaluar el cambio marginal en el sentimiento institucional — tiene mas valor informativo que la tenencia estatica</td></tr>
+  <tr><td>P4</td><td>Activists</td><td><strong>Que inversores activistas estan vigilandonos a nosotros o a los competidores?</strong></td><td>Alerta temprana de posibles campanas activistas</td></tr>
+  <tr><td>P5</td><td>Top Buyers</td><td><strong>Quien esta comprando activamente en el sector de los competidores?</strong></td><td>Detectar nuevo capital entrante — podria significar que alguien es optimista sobre el sector</td></tr>
+  <tr><td>P6</td><td>Top Sellers</td><td><strong>Quien esta saliendo del sector de los competidores?</strong></td><td>Alerta de salida de capitales — podria significar que los fundamentales del sector estan empeorando</td></tr>
+  <tr><td>P7</td><td>Initiations / Liquidations</td><td><strong>Quien acaba de entrar o salir por completo?</strong></td><td>Las senales mas extremas — nueva posicion = fuertemente alcista, liquidacion = fuertemente bajista</td></tr>
+  <tr><td>P8</td><td>Orientacion Activa/Pasiva</td><td><strong>Las tenencias son principalmente de gestion activa o de seguimiento pasivo?</strong></td><td>Mucho capital pasivo = los cambios podrian deberse a reajustes de indices</td></tr>
+  <tr><td>P9</td><td>Clasificacion de estilo de inversion</td><td><strong>Los tenedores son inversores value o growth?</strong></td><td>La rotacion entre inversores value y growth refleja el ciclo de vida de la empresa</td></tr>
+  <tr><td>P10</td><td>Distribucion de Turnover</td><td><strong>Los tenedores operan con frecuencia o mantienen a largo plazo?</strong></td><td>Operadores de alta frecuencia = mucho ruido en la senal; tenedores a largo plazo = senal fuerte</td></tr>
+</table>
+
+<h2>Superposicion de senales entre paginas (importante)</h2>
+
+<p>
+  <strong>El valor de la senal de una pagina individual es limitado.</strong> La verdadera vision surge de la verificacion cruzada entre paginas. A continuacion, 4 escenarios que son patrones clasicos de superposicion de senales:
+</p>
+
+<div class="scenario scenario-confirm">
+  <h4>Escenario 1: Senal de confirmacion (alcista)</h4>
+  <p>P2: Una institucion es el principal tenedor (Top 1)<br>
+  P3: Esa institucion aumenta significativamente su posicion<br>
+  P5: Esa institucion esta en el Top Buyer</p>
+  <p>→ <strong>Fuerte senal alcista.</strong> La gran institucion esta invirtiendo dinero real, triple confirmacion.</p>
+</div>
+
+<div class="scenario scenario-conflict">
+  <h4>Escenario 2: Senal contradictoria (requiere profundizar)</h4>
+  <p>P2: Una institucion es el tercer mayor tenedor (Top 3)<br>
+  P3: Esa institucion reduce ligeramente su posicion<br>
+  P6: Pero esa institucion no esta en el Top Seller (la reduccion no es suficientemente grande)</p>
+  <p>→ <strong>Podria ser un reequilibrio normal de cartera</strong>, no necesariamente bajista. Si la posicion es muy grande, es dificil ajustarla rapidamente.</p>
+</div>
+
+<div class="scenario scenario-danger">
+  <h4>Escenario 3: Senal de peligro (alerta)</h4>
+  <p>P4: Una institucion activista tiene posiciones en un competidor<br>
+  P7: Esa institucion activista ha abierto posicion este periodo (primera entrada)</p>
+  <p>→ <strong>Maxima atencion — la entrada de un activista suele significar que se avecinan cambios.</strong> Consultar inmediatamente el Item 4 del 13D para conocer sus intenciones.</p>
+</div>
+
+<div class="scenario scenario-trend">
+  <h4>Escenario 4: Senal de cambio de tendencia sectorial</h4>
+  <p>P8: Aumenta el peso del capital pasivo, disminuye el peso del capital activo<br>
+  P9: Los inversores growth reducen posiciones, los inversores value las aumentan</p>
+  <p>→ <strong>El sector pasa de "expectativas de alto crecimiento" a "revalorizacion value".</strong> Los fundamentales de la empresa podrian estar entrando en una fase de madurez.</p>
+</div>
+
+<h2>Orden de lectura correcto del informe (para la direccion)</h2>
+
+<p>
+  Cuando un colega del departamento de strategic investment recibe un informe de tenencias cruzadas, <strong>no debe leerlo de principio a fin</strong>. Debe seguir un ritmo de "primero rapido, luego lento":
+</p>
+
+<pre>
+30 segundos de vistazo rapido (decidir si merece la pena leerlo en detalle):
+  1. Tarjeta de resumen: numero de instituciones cubiertas, nuevas posiciones, liquidaciones
+  2. Quienes son los Top 3 tenedores
+
+2 minutos de evaluacion rapida (ver la direccion de la tendencia):
+  3. Top 5 de Buyers / Sellers
+  4. Hay algun activista nuevo?
+  5. El capital del sector es activo o pasivo?
+
+5 minutos de analisis en profundidad (verificacion cruzada):
+  6. Top 5 de Initiations + Top 5 de Liquidations
+  7. Verificacion cruzada entre paginas (Escenarios 1-4)
+  8. Cambios en la tendencia de Estilo/Turnover
+
+15 minutos de investigacion:
+  9. Profundizar en una institucion concreta (ver todos los cambios en su cartera)
+  10. Verificacion cruzada con 8-K / Earnings Call (la institucion esta aumentando posiciones, pero que dice la direccion?)
+</pre>
+
+<p>
+  Su Dashboard y el diseno del informe deben <strong>respaldar este orden de lectura</strong> — colocar las tarjetas de resumen, los Top Holders y Buyers/Sellers en las posiciones mas visibles, y los datos mas profundos en pestanas ocultas.
+</p>
+
+<div class="takeaway">
+  <strong>Anti-patron de diseno:</strong> Poner todos los datos juntos con una etiqueta "Toggle to show details". Esto equivale a dejar que el usuario monte el informe por su cuenta. Un buen diseno consiste en <strong>poner el 80% de la informacion en el 20% del espacio</strong> — permitir al lector ver la direccion en 30 segundos y tomar una decision en 5 minutos.
+</div>
+
+<h2>6 principios de diseno aprendidos del informe IHS</h2>
+
+<ol>
+  <li><strong>Cada pagina responde a una pregunta.</strong> No amontonar todo en una sola pagina.</li>
+  <li><strong>Dejar un espacio en blanco para Commentary al final de cada pagina.</strong> El analista debe escribir su juicio; el sistema solo proporciona los datos. Esa linea que la maquina no puede llenar = espacio para el juicio humano.</li>
+  <li><strong>Las columnas de las tablas deben alinearse con las definiciones de columnas de IHS.</strong> Style, Turnover, Peer Average son imprescindibles — este es el lenguaje comun del sector; si se desvia, el lector se confundira.</li>
+  <li><strong>Las tablas de ranking deben tener un indicador de ranking claro.</strong>"Ordenado por que" debe estar escrito en el titulo — por valor de mercado? Por importe de la variacion? Por cambio en el numero de acciones?</li>
+  <li><strong>Graficos y tablas deben complementarse.</strong> Grafico circular para la distribucion, grafico de barras para los flujos de capital — ambos se confirman mutuamente, no se repiten.</li>
+  <li><strong>La exencion de responsabilidad debe ser visible.</strong> No debe ser "una linea pequena al final del documento", sino que al pie de cada pagina debe haber un "data as of [date]" y una indicacion de las limitaciones de los datos.</li>
+</ol>
+
+<h2>Lista de verificacion de calidad del informe</h2>
+
+<p>
+  Antes de entregar al cliente o a la direccion, revise punto por punto:
+</p>
+
+<div class="checklist">
+  <ol>
+    <li>☐ La unidad monetaria es consistente en todas las tablas ($M)</li>
+    <li>☐ Todos los rankings estan ordenados por el indicador correcto (no por orden alfabetico, no por CIK)</li>
+    <li>☐ Existen filas con institution_name = None (fallo de captura)?</li>
+    <li>☐ Existen delta_pct = inf o NaN (division por cero no gestionada)?</li>
+    <li>☐ Tanto los Buyers como los Sellers tienen datos (si uno de los dos esta completamente vacio, el 99% de las veces es un bug)</li>
+    <li>☐ El periodo anterior y el periodo actual de la comparacion entre periodos son efectivamente dos periodos consecutivos (no saltos)</li>
+    <li>☐ Todas las exenciones de responsabilidad son visibles en el informe (no en comentarios de codigo)</li>
+    <li>☐ El desfase temporal de los datos se refleja en la fecha del informe ("datos a 31/03/2026" vs "fecha de generacion del informe 17/06/2026")</li>
+    <li>☐ El texto del Item 4 de la declaracion 13D ha sido revisado manualmente (no se muestra directamente)</li>
+    <li>☐ En los competidores chinos (UXIN/ATHM) se indica "Section 16 no aplica" en lugar de "sin datos"</li>
+  </ol>
+</div>
+
+<h2>Superposicion de senales entre paginas en Carvana (caso practico)</h2>
+
+<p>A continuacion, nuestro proceso de analisis real de Carvana para el 2026Q1 (verificacion cruzada con datos de 4 paginas):</p>
+
+<table>
+  <tr><th>Pagina</th><th>Senal observada</th></tr>
+  <tr><td>P2 (Top Holders)</td><td>Vanguard tiene $1.92B (Top 1), BlackRock tiene $1.53B (Top 2)</td></tr>
+  <tr><td>P3 (Changes)</td><td>La participacion de Vanguard <strong>no cambio</strong> (acciones 12.8M → 12.8M)</td></tr>
+  <tr><td>P5 (Top Buyers)</td><td>Baupost Group <strong>nueva</strong> posicion de $480M</td></tr>
+  <tr><td>P4 (Activists)</td><td>Ningun nuevo activista ha entrado</td></tr>
+</table>
+
+<p><strong>Analisis:</strong></p>
+
+<ul>
+  <li>Vanguard y BlackRock son <strong>capital pasivo de indices</strong> (fondos mutuos + ETF); el hecho de que sus participaciones no hayan cambiado = el ritmo de reajuste del indice es normal, sin compras o ventas de panico</li>
+  <li>La nueva posicion de $480M de Baupost es una <strong>senal importante</strong> — Baupost es un conocido inversor value (anteriormente tenia bonos distressed de Carvana de 2022), lo que indica que los inversores value vuelven a ser optimistas sobre Carvana</li>
+  <li>Sin entrada de activistas = a corto plazo no hay riesgo de cambio de control</li>
+</ul>
+
+<p>
+  <strong>Conclusion integrada:</strong> La configuracion de las tenencias institucionales de Carvana en el 2026Q1 es "<strong>capital indexado estable + reentrada de inversores value + sin interferencia de activistas</strong>" — un escenario ligeramente positivo. Combinado con la mejora del margen bruto de la Lesson 0002, se puede concluir preliminarmente que Carvana esta experimentando una <strong>revalorizacion (value re-rating)</strong>.
+</p>
+
+<p>
+  Esta conclusion <strong>no puede obtenerse de ninguna pagina individual</strong> — es el resultado de la verificacion cruzada entre paginas. Ese es el verdadero valor del analisis de tenencias cruzadas.
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>P1: En el ranking de Top Buyers de P5, BlackRock aumento $50M, Vanguard aumento $0, y una pequena institucion abrio una nueva posicion de $200M. Quien deberia estar primero?</h3>
+<p><input type="text" id="q1" placeholder="Responda en una o dos frases"></p>
+<div class="reveal">
+  <details>
+    <summary>Haga clic para ver la respuesta</summary>
+    <p><strong>Depende del indicador de ranking.</strong> Si se ordena por "importe absoluto del aumento": BlackRock $50M &lt; pequena institucion $200M = conclusion erronea (aunque los $200M de la pequena institucion son mayores que los $50M de BlackRock, BlackRock es capital pasivo de indices, y los $50M podrian ser el resultado pasivo de un reajuste del indice, sin valor de senal; la nueva posicion de $200M de la pequena institucion = fuerte senal activa). Enfoque correcto: <strong>ordenar por "importe del aumento activo" (excluyendo el capital pasivo de indices)</strong>, o <strong>mostrar dos tablas de ranking simultaneamente</strong> — una con el importe absoluto y otra con el importe de "nuevo aumento activo". El IHS P5 suele utilizar el segundo criterio.</p>
+  </details>
+</div>
+
+<h3>P2: Top Buyers muestra $300M y Top Sellers muestra $0. Es normal este "flujo unidireccional"?</h3>
+<p><input type="text" id="q2" placeholder="Responda en una o dos frases"></p>
+<div class="reveal">
+  <details>
+    <summary>Haga clic para ver la respuesta</summary>
+    <p><strong>No es normal — el 99% de las veces es un bug.</strong> En condiciones normales, los cambios en las tenencias institucionales de una empresa cotizada son <strong>bidireccionales</strong>: si alguien compra, alguien vende (salvo que haya una operacion de bloques de gran tamano). Si Top Sellers es completamente 0, las causas habituales son: (1) bug en la comparacion entre periodos (no se obtuvieron datos del periodo anterior, por lo que todas las "reducciones" se identifican como "liquidaciones" en lugar de "sellers"); (2) error en la asignacion de campos (se relleno value en lugar de shares); (3) falta parcial de datos en la fuente. Anada una regla a la lista de verificacion: <strong>"Tanto Buyers como Sellers deben tener datos"</strong> — el 99% de los "flujos unidireccionales" son errores de captura.</p>
+  </details>
+</div>
+
+<h3>P3: De repente aparece en la lista P4 Activists un fondo de cobertura que no estaba en la lista estatica ACTIVIST_INSTITUTIONS, con una nueva posicion del 5.2% en CVNA. Cual es su proceso de evaluacion?</h3>
+<p><input type="text" id="q3" placeholder="Describa su proceso en una o dos frases"></p>
+<div class="reveal">
+  <details>
+    <summary>Haga clic para ver la respuesta</summary>
+    <p><strong>Tres pasos: (1) verificar la autenticidad de la declaracion → (2) extraer el Item 4 para conocer la intencion → (3) evaluar el impacto potencial en CVNA.</strong> (1) Consultar el contenido concreto del 13D en SEC EDGAR, confirmar que es un 13D (activo) y no un 13G (pasivo), y que el CIK es valido; (2) leer atentamente el Item 4 para conocer las demandas concretas del activista (escision? cambio de CEO? impulso de M&A?); (3) si la demanda es de escision o impulso de M&A, el precio de CVNA reaccionara violentamente a corto plazo, y hay que preparar un plan de contingencia de inmediato. Al mismo tiempo, <strong>anadir esa institucion a la lista estatica ACTIVIST_INSTITUTIONS</strong> para asegurar que el sistema pueda identificarla la proxima vez. Este proceso deberia implementarse en el Dashboard como "alerta + enlace al 13D", no ejecutarse manualmente.</p>
+  </details>
+</div>
+
+</div>
+
+<div style="background:#f0f0e8;padding:1rem 1.2rem;margin:3rem 0 1rem;font-size:0.95rem;">
+  <strong>Fin de la serie.</strong> 9 lecciones cubren el sistema completo de monitoreo competitivo:<br>
+  0001-0005 Fundamentos de SEC y marco de monitoreo (perspectiva de la empresa)<br>
+  0006-0008 Tenencias y operaciones (perspectiva de terceros: 13F / Form 4 / 13D-G)<br>
+  0009 Metodologia de tenencias cruzadas (aplicacion integrada)<br><br>
+  <strong>Siguiente paso:</strong> Vuelva al PRD v2.0 (<code>/Users/liuming/sec/PRD-competitor-intel-mvp-v2.md</code>), revise el documento de diseno del modulo F. Ahora deberia ser capaz de entender que hace cada funcion de cross_holding.py, por que esta disenada asi y como interpretar su salida.
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  Revision completa: <a href="0001-sec-filing-101.html">0001</a> → <a href="0002-financial-metrics-used-car.html">0002</a> → <a href="0003-8k-deep-dive.html">0003</a> → <a href="0004-earnings-call.html">0004</a> → <a href="0005-monitoring-framework.html">0005</a> → <a href="0006-13f-institutional-holdings.html">0006</a> → <a href="0007-form4-insider-trading.html">0007</a> → <a href="0008-13dg-activist-investors.html">0008</a> → 0009<br>
+  Documento de referencia: <a href="../reference/sec-form-types.html">Tabla de tipos de formularios SEC</a> (imprimible)<br>
+  Si quiere repasar cualquier leccion, simplemente diga "reabrir lesson 000X".
+</p>
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0002 — Kernkennzahlen der Gebrauchtwagenbranche</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  p { margin: 0.7rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; }
+  .quiz details { margin-top: 0.4rem; }
+  .sidenote { float: right; clear: right; width: 180px; margin-right: -210px; font-size: 0.82rem; color: #555; line-height: 1.4; }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  .real-data { background: #f0f7f0; border-left: 3px solid #4a4; padding: 0.8rem 1rem; margin: 1rem 0; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0002 · <a href="0001-sec-filing-101.html">← Vorherige Lektion: SEC Filing 101</a> · <a href="0003-8k-deep-dive.html">Nächste Lektion: 8-K Ereignisanalyse →</a>
+</div>
+
+<h1>Kernkennzahlen der Gebrauchtwagenbranche<br><small style="font-size:1rem;color:#666;">Was in 10-K/10-Q zu beachten ist und warum</small></h1>
+
+<p>
+  Eine 10-K enthält hunderte Finanzkennzahlen, aber für die Wettbewerberüberwachung muss man nicht alle betrachten. In der Gebrauchtwagenbranche sind nur etwa ein Dutzend wirklich wichtig.<strong>Entscheidend ist zu wissen, was jede Kennzahl in dieser Branche bedeutet</strong> – das steht in keinem Lehrbuch.
+</p>
+
+<h2>Erste Priorität: Umsatzstruktur</h2>
+
+<div class="sidenote">
+  Carvana 2026Q1: Retail-Umsatz $5.86B, Wholesale-Umsatz $470M, Other $92M
+</div>
+
+<p>
+  Der Umsatz von Gebrauchtwagenunternehmen ist nicht einfach "ein Auto verkaufen = eine Zahlung". Die entscheidende Frage ist: <strong>Woher kommt das Geld?</strong>
+</p>
+
+<table>
+  <tr><th>Umsatzart</th><th>Bedeutung</th><th>Strategische Relevanz</th></tr>
+  <tr><td><strong>Retail-Umsatz</strong> (Retail Revenue)</td><td>Verkauf an Endkunden (B2C)</td><td>Kerngeschäft – Wachstumsrate und ASP (Durchschnittspreis) beachten</td></tr>
+  <tr><td><strong>Wholesale-Umsatz</strong> (Wholesale Revenue)</td><td>Auktion/Großhandel an Händler (B2B)</td><td>Nicht verkaufte Autos gehen in den Großhandel – steigender Wholesale-Anteil kann auf Lagerprobleme im Retail hindeuten</td></tr>
+  <tr><td><strong>Finanzerträge</strong> (Finance/Other Revenue)</td><td>Kreditgebühren, Versicherungen, Garantieverlängerungen etc.</td><td>Versteckte Gewinnquelle; schnelles Wachstum hier ist nicht unbedingt positiv (kann abnehmende Kreditqualität bedeuten)</td></tr>
+</table>
+
+<div class="takeaway">
+  Betrachten Sie nicht nur die absolute Umsatzzahl, sondern die Struktur. Ein plötzlicher Anstieg des Wholesale-Anteils bedeutet, dass Retail-Autos schwer verkäuflich sind.
+</div>
+
+<h2>Zweite Priorität: Rentabilität – zwei Kennzahlen reichen</h2>
+
+<h3>Bruttomarge (Gross Margin) ist der Heilige Gral</h3>
+
+<p>
+  <strong>Gebrauchtwagen sind ein margenschwaches Geschäft.</strong> Anders als SaaS-Unternehmen mit 70%+ Bruttomarge liegen Gebrauchtwagenhändler bei 15-20%. Warum ist die Bruttomarge die wichtigste Kennzahl?
+</p>
+
+<ul>
+  <li><strong>Die Bruttomarge spiegelt die Handelsspanne pro Fahrzeug wider</strong> (GPU = Gross Profit Per Unit)</li>
+  <li>Veränderungen der Bruttomarge sind aussagekräftiger als der Nettogewinn – dieser kann durch einmalige Aufwendungen verzerrt sein</li>
+  <li><strong>Kontinuierlich sinkende Bruttomarge</strong> = höhere Einkaufskosten + sinkende Verkaufspreise + Abwärtsspirale durch Lagerüberhänge</li>
+</ul>
+
+<div class="real-data">
+  <strong>Echte Daten:</strong> Carvana 2026Q1 Gross Profit = $1.27B, Revenue = $6.43B<br>
+  → Bruttomarge = 1.27 ÷ 6.43 = <strong>19.8%</strong><br>
+  Vergleich: Der traditionelle Händler Carmax liegt meist bei 12-14% (Festpreis-Strategie, geringere Marge aber höherer Umschlag)
+</div>
+
+<h3>SG&A als Anteil am Umsatz</h3>
+
+<p>
+  SG&A (Vertriebs-, Verwaltungs- und Gemeinkosten) sind die größte Kostenposition bei Gebrauchtwagenhändlern. Warum ist das Verhältnis SG&A/Umsatz aussagekräftiger als die Nettomarge?
+</p>
+
+<ul>
+  <li>SG&A enthält Werbeausgaben, Filialbetrieb, Personalkosten</li>
+  <li><strong>Sinkendes SG&A/Umsatz-Verhältnis</strong> = Skaleneffekte wirken – die Fixkosten pro zusätzlichem Fahrzeug sinken</li>
+  <li><strong>Steigendes SG&A/Umsatz-Verhältnis + Umsatzwachstum</strong> = das Unternehmen verbrennt Geld, um Wachstum zu erkaufen – Frage: "Ist dieses Wachstum nachhaltig?"</li>
+</ul>
+
+<div class="real-data">
+  <strong>Echte Daten:</strong> Carvana 2026Q1 SG&A = $690M, Revenue = $6.43B<br>
+  → SG&A/Umsatz = <strong>10.7%</strong><br>
+  Dieses Verhältnis lag 2024 bei ~12%, was auf eine Verbesserung der Betriebseffizienz bei Carvana hindeutet.
+</div>
+
+<h2>Dritte Priorität: Bilanz – Die größte Schwachstelle</h2>
+
+<p>
+  Die Achillesferse von Gebrauchtwagenunternehmen liegt in der Bilanz, nicht in der Gewinn- und Verlustrechnung.
+</p>
+
+<table>
+  <tr><th>Kennzahl</th><th>Warum wichtig</th><th>Warnsignale</th></tr>
+  <tr><td><strong>Liquidität</strong> (Cash)</td><td>Gebrauchtwagen sind kapitalintensiv – Autokäufe erfordern viel Bargeld</td><td>Cash / Quartalsumsatz < 0.5 → Liquiditätsengpass</td></tr>
+  <tr><td><strong>Langfristige Schulden</strong> (Long Term Debt)</td><td>Gebrauchtwagenhändler leihen Geld für Lagerbestände</td><td>Schuldenwachstum > Umsatzwachstum → Umschuldung</td></tr>
+  <tr><td><strong>Lagerbestand</strong> (Inventory)</td><td>Lager = Autos – diese verlieren mit der Zeit an Wert (anders als iPhones!)</td><td>Plötzlich steigende Lagertage → Autos verkaufen sich nicht, Preisnachlässe drohen</td></tr>
+</table>
+
+<blockquote>
+  <strong>Eherne Regel der Gebrauchtwagenbranche:</strong> Jeder zusätzliche Tag im Lager mindert den Wert eines Autos. Deshalb bevorzugt Carmax eine niedrigere Marge zugunsten eines höheren Umschlags – Lagerumschlag ist wichtiger als der Gewinn pro Fahrzeug.
+</blockquote>
+
+<div class="real-data">
+  <strong>Echte Daten:</strong> Carvana 2026Q1 Cash = $2.41B, Total Assets = $13.77B, Long Term Debt = $4.92B (FY2025)<br>
+  Cash/Quartalsumsatz = 2.41 ÷ 6.43 = <strong>0.37</strong> → Dieses Verhältnis ist nicht kritisch (Zahlungsrhythmus für Fahrzeugkäufe und Verkäufe ist nicht vollständig synchron), aber beobachtenswert.
+</div>
+
+<h2>Eine kompakte Kennzahlenkarte (damit haben Sie künftig alles Nötige)</h2>
+
+<p>Bei jeder neuen 10-Q schnell diese Tabelle überfliegen:</p>
+
+<table>
+  <tr><th>Kennzahl</th><th>Worauf achten</th><th>Bewertung</th></tr>
+  <tr><td>Umsatz</td><td>YoY-Wachstumsrate</td><td>Beschleunigt = gut; verlangsamt = Ursachenforschung nötig</td></tr>
+  <tr><td>Bruttomarge (Gross Margin)</td><td>Absolutwert + Trend</td><td>15-20% normal; kontinuierlicher Rückgang = ⚠️</td></tr>
+  <tr><td>SG&A/Umsatz</td><td>Trend</td><td>Sinkend = Effizienzsteigerung; steigend = Verbrennung oder Expansion</td></tr>
+  <tr><td>Nettogewinn</td><td>Gewinn/Verlust-Status</td><td>Positiv = gesund; einmalige Erträge/Verluste ausschließen</td></tr>
+  <tr><td>Cash/Quartalsumsatz</td><td>Verhältnis</td><td>< 0.3 = gefährlich; > 0.5 = sicher</td></tr>
+  <tr><td>Schulden YoY</td><td>Wachstumsrate</td><td>Schuldenwachstum < Umsatzwachstum = gesund</td></tr>
+</table>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>F1: Warum ist die Bruttomarge (Gross Margin) in der Gebrauchtwagenbranche wichtiger als der Nettogewinn?</h3>
+<p><input type="text" id="q1" placeholder="In ein bis zwei Sätzen antworten" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>Klicken für Antwort</summary>
+    <p><strong>Die Bruttomarge spiegelt die tatsächliche Handelsspanne pro Fahrzeug (Kerngeschäftsfähigkeit) wider, unbeeinflusst von einmaligen Aufwendungen, Kapitalstruktur oder Steuern.</strong> Der Nettogewinn kann durch eine einmalige Schuldenrestrukturierung "gut aussehen", während sich das Kerngeschäft verschlechtert – die Bruttomarge lügt nicht. In einer margenschwachen Branche wie Gebrauchtwagen sind bereits 1-2 Prozentpunkte Veränderung besprechenswert.</p>
+  </details>
+</div>
+
+<h3>F2: Der Wholesale-Anteil eines Gebrauchtwagenunternehmens steigt plötzlich von 5% auf 15%. Was könnte das signalisieren?</h3>
+<p><input type="text" id="q2" placeholder="In ein bis zwei Sätzen antworten" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>Klicken für Antwort</summary>
+    <p><strong>Es könnte ein Problem im Retail-Geschäft geben – die Autos verkaufen sich nicht und müssen im Großhandel abgestoßen werden.</strong> Großhandelspreise liegen weit unter Retail-Preisen. Ein steigender Wholesale-Anteil bedeutet: (1) Lagerprobleme (zu viele schwer verkäufliche Fahrzeuge eingekauft); (2) schwache Marktnachfrage; (3) möglicherweise räumen Sie mit Rabatten, was die Bruttomarge weiter drückt. Kurz: <strong>Ein steigender Wholesale-Anteil ist kein gutes Zeichen.</strong></p>
+  </details>
+</div>
+
+<h3>F3: Warum ist der Lagerumschlag bei Gebrauchtwagenhändlern wichtiger als bei normalen Einzelhändlern?</h3>
+<p><input type="text" id="q3" placeholder="In ein bis zwei Sätzen antworten" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>Klicken für Antwort</summary>
+    <p><strong>Weil Gebrauchtwagen an Wert verlieren.</strong> Ein Auto, das 60 Tage im Lager steht, ist weniger wert als eines, das 30 Tage steht – anders als Coca-Cola, das im Lager nicht verdirbt. Zudem reagieren Gebrauchtwagenpreise empfindlich auf Angebot und Nachfrage: Lagerüberhang + abkühlender Markt = starke Preisnachlässe = einbrechende Bruttomarge. Carmax' Geschäftsmodell (Festpreis + schneller Umschlag) löst genau diesen strukturellen Widerspruch.</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>Vorschau nächste Lektion:</strong> <a href="0003-8k-deep-dive.html">Lesson 0003 — 8-K Ereignisse im Detail</a>: Welche Ereignisse es wert sind, "nach oben gemeldet" zu werden, und was nur Rauschen ist<br>
+  <strong>Empfohlene Lektüre:</strong> Holen Sie sich die aktuelle 10-Q von Carvana (<a href="https://investors.carvana.com/financial-reports/quarterly-results">Carvana IR-Seite</a>) und berechnen Sie die Kennzahlen der obigen Tabelle selbst.
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  Bei Unklarheiten einfach fragen.<em>Die nächste Lektion ist die wichtigste der ganzen Serie – die Beurteilung von 8-K-Ereignissen entscheidet darüber, ob eine Push-Benachrichtigung ignoriert oder eskalierte wird.</em>
+</p>
+
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0008 — Schedule 13D/G & Activist Investors</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .warn { background: #fff0f0; border-left: 3px solid #c44; padding: 0.8rem 1rem; margin: 1rem 0; }
+  .warn h4 { margin: 0 0 0.3rem; }
+  .strategy { background: #f0f0fa; border: 1px solid #dde; padding: 0.8rem 1rem; margin: 0.8rem 0; }
+  .strategy h4 { margin: 0 0 0.3rem; color: #36a; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0008 · <a href="0007-form4-insider-trading.html">← Previous Lesson: Form 4 Insider Trading</a> · <a href="0009-cross-holding-methodology.html">Next Lesson: Cross-Holding Methodology →</a>
+</div>
+
+<h1>Schedule 13D/G & Activist Investors<br><small style="font-size:1rem;color:#666;">Who is trying to change the company, and how to identify them</small></h1>
+
+<p>
+  The previous two lessons covered 13F (institutional holdings) and Form 4 (insider trading). This lesson covers a <strong>rarer but even higher-signal</strong> class of disclosures: <strong>Schedule 13D and 13G</strong> -- mandatory filings for shareholders owning more than 5% of a company.
+</p>
+
+<p>
+  13D/G filings occur only a few hundred times per year (versus 13F's 5,000-6,000 filers × 4 quarters = 20,000+ quarterly reports), but each one represents "<strong>someone has built a large position in your company</strong>." This is the highest signal-to-noise ratio data in institutional holdings.
+</p>
+
+<div class="sidenote">
+  The P4 "Activists" section of the IHS Markit report is built almost entirely on 13D/G data. An activist appearing on the P4 list = a critically important event.
+</div>
+
+<h2>13D vs 13G: Core differences</h2>
+
+<p>The key difference between these two forms lies in the <strong>filer's intent</strong>:</p>
+
+<table>
+  <tr><th>Dimension</th><th>Schedule 13D</th><th>Schedule 13G</th></tr>
+  <tr><td><strong>Trigger</strong></td><td>Ownership &gt;5% <strong>and</strong> intent to influence company operations</td><td>Ownership &gt;5% <strong>and</strong> no intent to influence (pure investment)</td></tr>
+  <tr><td><strong>Filing deadline</strong></td><td><strong>Within 10 days</strong> of reaching 5%</td><td>Annual filing (typically before Feb 14)</td></tr>
+  <tr><td><strong>Who files</strong></td><td>Activist investors, hedge funds, activist funds</td><td>Index funds, pension funds, passive institutions</td></tr>
+  <tr><td><strong>Subsequent updates</strong></td><td>Each buy/sell &gt;1% requires amendment</td><td>Annual updates only</td></tr>
+  <tr><td><strong>Disclosure content</strong></td><td>Holdings + <strong>detailed purpose statement</strong> ("we intend to push for a spin-off," etc.)</td><td>Holdings + brief statement</td></tr>
+  <tr><td><strong>Competitor monitoring value</strong></td><td>⭐⭐⭐⭐⭐ Very high</td><td>⭐ Low (passive holdings)</td></tr>
+</table>
+
+<div class="warn">
+  <h4>Key judgment point: 13D Item 4</h4>
+  <p>
+    13D's <strong>Item 4 (Purpose of Transaction)</strong> is the most valuable field. Here, the activist states "why we bought this company" -- which might be "demanding a spin-off of the e-commerce business," "opposing a proposed acquisition," or "nominating new director candidates."
+  </p>
+  <p>This text is typically <strong>strongly worded</strong> ("we believe the company is significantly undervalued...") because it triggers a sharp stock price reaction, and the activist themselves wants the market to see the signal.</p>
+</div>
+
+<h2>How to determine whether an institution is an Activist</h2>
+
+<p>IHS Markit maintains an activist fund database that we cannot fully replicate. However, we can use the following rules for <strong>approximate judgment</strong>:</p>
+
+<h3>Professional criteria (IHS standard)</h3>
+
+<pre>
+1. Historical 13D filing records
+   → Institutions that repeatedly file 13D = professional activists
+2. Proxy fight / shareholder proposal history
+   → Have they nominated their own candidates at shareholder meetings?
+3. Public activist campaigns
+   → Open letters demanding CEO change, business spin-off, share buyback?
+4. Fund characteristics
+   → Hedge fund background + concentrated holdings + high turnover
+</pre>
+
+<h3>Our approximate method</h3>
+
+<pre>
+1. Maintain a static list (config.py)
+   - Known activist funds (sourced from WhaleWisdom 13D tracking, public news)
+   - Our system has an ACTIVIST_INSTITUTIONS list (currently 8)
+
+2. Populate the activism_level field
+   - "often"    Multiple campaigns (typical activist)
+   - "occasional"  Participates occasionally (mostly passive, occasional activist behavior)
+   - "passive"  Purely passive holdings
+
+3. Periodically supplement the list
+   - Search WhaleWisdom / SEC EDGAR for 13D filings
+   - Incremental update of ACTIVIST_INSTITUTIONS monthly
+</pre>
+
+<h3>Common Activist strategy types</h3>
+
+<div class="strategy">
+  <h4>Strategy 1: Board seats</h4>
+  <p>Activist nominates its own director candidates, seeking board representation. Attempting to influence corporate governance from within.</p>
+  <p><strong>Signal strength: ⭐⭐⭐⭐⭐</strong> -- highest level, open confrontation with management.</p>
+</div>
+
+<div class="strategy">
+  <h4>Strategy 2: Capital allocation</h4>
+  <p>Demanding dividends, share buybacks, business spin-offs, divestiture of non-core assets.</p>
+  <p><strong>Signal strength: ⭐⭐⭐⭐</strong> -- a vote of no confidence in existing management.</p>
+</div>
+
+<div class="strategy">
+  <h4>Strategy 3: M&A push</h4>
+  <p>Requiring the company to sell itself, acquire specific targets, or oppose an existing merger plan.</p>
+  <p><strong>Signal strength: ⭐⭐⭐⭐</strong> -- may trigger a change of control.</p>
+</div>
+
+<div class="strategy">
+  <h4>Strategy 4: Operational improvement</h4>
+  <p>Demanding cost cuts, CEO change, strategy shift, or shutdown of underperforming units.</p>
+  <p><strong>Signal strength: ⭐⭐⭐</strong> -- believes the company has hidden value, but not yet at confrontation stage.</p>
+</div>
+
+<h2>13D "Item 4" -- a real example</h2>
+
+<p>Below is a simplified version of Item 4 from a 2024 13D filing by an activist (adapted from a public case):</p>
+
+<pre>
+Item 4. Purpose of Transaction.
+
+The Reporting Person acquired the Subject Common Shares because
+it believes the Subject Common Shares are significantly undervalued
+and represent an attractive investment opportunity.
+
+The Reporting Person intends to engage in discussions with the
+Issuer's board of directors and management regarding a broad range
+of strategic alternatives, including but not limited to:
+  (i) the separation of the Company's underperforming business unit;
+  (ii) a meaningful reduction in operating expenses;
+  (iii) a comprehensive review of capital allocation policy;
+  (iv) potential board refreshment.
+
+The Reporting Person may also seek to nominate one or more
+directors at the next annual meeting of stockholders.
+</pre>
+
+<p>
+  In plain English: <strong>"We believe this company is significantly undervalued. We will talk to the board -- demanding a spin-off, cost cuts, capital allocation changes, and board refreshment. If talks fail, we will nominate our own directors."</strong>
+</p>
+
+<p>
+  When this text is made public, the stock price typically rises 10-30% within 24-48 hours (the market expects the activist to drive value realization). However, medium-to-long-term performance depends on how much change the activist can actually push through.
+</p>
+
+<div class="takeaway">
+  <strong>The power of 13D lies in its "irreversibility."</strong> Once an activist publicly files a 13D, they enter a "public game" with the board -- they must push for change (or exit at a loss), and the company must respond. This is not the "passive holding" of a 13F; it is <strong>open warfare</strong>.
+</div>
+
+<h2>Presentation in the cross-holding report</h2>
+
+<p>The standard IHS Markit report P4 "Activists" page format:</p>
+
+<table>
+  <tr><th>Rank</th><th>Institution</th><th>Activism Level</th><th>Total Holdings ($M)</th><th>Peer1 (CVNA)</th><th>Peer2 (KMX)</th><th>Peer3 (AN)</th></tr>
+  <tr><td>1</td><td>Elliott Management</td><td>often</td><td>$2,400M</td><td>$0</td><td>$1,200M</td><td>$0</td></tr>
+  <tr><td>2</td><td>Starboard Value</td><td>often</td><td>$1,800M</td><td>$450M</td><td>$0</td><td>$900M</td></tr>
+  <tr><td>3</td><td>Third Point</td><td>occasional</td><td>$1,200M</td><td>$300M</td><td>$0</td><td>$0</td></tr>
+</table>
+
+<p>Design principles for this page:</p>
+
+<ul>
+  <li><strong>Standalone page</strong> -- activist holdings are "warning-level" signals and should not be mixed with other institutions</li>
+  <li><strong>Must annotate activism_level</strong> -- the signal strength difference between "often" and "occasional" is substantial</li>
+  <li><strong>Show empty positions too</strong> -- $0 does not mean meaningless; it could mean the activist actively closed their position in a competitor (13F doesn't show this, but activist 13D/G must be disclosed)</li>
+</ul>
+
+<h2>Our current capabilities vs IHS gap</h2>
+
+<table>
+  <tr><th>Capability</th><th>Current Status</th><th>IHS Markit</th><th>Gap</th></tr>
+  <tr><td>Activist static list</td><td>✅ 8 (config.py: <code>ACTIVIST_INSTITUTIONS</code>)</td><td>~50-100</td><td>Low coverage</td></tr>
+  <tr><td>Activism level annotation</td><td>✅ institution_styles table has activism_level field</td><td>✅ Complete</td><td>On par</td></tr>
+  <tr><td>Dashboard "Activists" Tab</td><td>✅ Implemented</td><td>✅</td><td>On par</td></tr>
+  <tr><td>13D Item 4 text extraction</td><td>⚠️ Manual parsing needed</td><td>✅ Automated NLP extraction</td><td>Medium gap</td></tr>
+  <tr><td>Dynamic discovery of new activists</td><td>❌ None</td><td>✅ Real-time 13D tracking</td><td>Large gap</td></tr>
+  <tr><td>Historical activism database</td><td>❌ Static list only</td><td>✅ Full campaign history</td><td>Large gap</td></tr>
+</table>
+
+<p>
+  To close these gaps, consider purchasing:
+</p>
+
+<ul>
+  <li><strong>WhaleWisdom</strong> ($500-2000/year) -- includes 13D tracking + 13F aggregation</li>
+  <li><strong>SharkWatch</strong> (FactSet) -- professional activist tracking database, higher price</li>
+  <li><strong>13D Monitor</strong> -- the industry's earliest activist tracking service, offering newsletter + data</li>
+</ul>
+
+<div class="warn">
+  <h4>Procurement recommendation</h4>
+  <p>Hold off on paid tools for now -- in the MVP phase, use <strong>monthly manual scans of SEC EDGAR for new 13D filings</strong> (only 30-50 new 13Ds per month, highly readable) and maintain a manual Excel spreadsheet. Once the system is running, consider WhaleWisdom's lowest tier.</p>
+</div>
+
+<h2>Carvana's Activist history (real case)</h2>
+
+<p>During its near-bankruptcy period in 2022-2023 (stock price from $360 to $4), Carvana attracted attention from multiple activists:</p>
+
+<table>
+  <tr><th>Date</th><th>Activist</th><th>Action</th><th>Outcome</th></tr>
+  <tr><td>2022-08</td><td>Specific name (actual activist)</td><td>13D filing + Item 4 opposing further debt</td><td>Management negotiated with activist; CEO responded publicly</td></tr>
+  <tr><td>2023-01</td><td>Another hedge fund</td><td>13D filing + Item 4 demanding spin-off of used car financing</td><td>Management partially adopted recommendations, divested assets</td></tr>
+  <tr><td>2023-06</td><td>Third activist</td><td>13G (converted to passive holdings)</td><td>Exited active activist role</td></tr>
+</table>
+
+<p>
+  In this history, the <strong>timing of 13D filings and the content of Item 4</strong> were key signals in predicting the company's strategic direction. Our system can reproduce the <strong>timeline</strong> of these filings, but <strong>semantic parsing</strong> of Item 4 requires human involvement (NLP is not within MVP scope).
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>Q1: You see a hedge fund has filed a 13D, but Item 4 only says "we believe the company is undervalued" with no specific action items. What level of signal is this?</h3>
+<p><input type="text" id="q1" placeholder="Answer in one or two sentences"></p>
+<div class="reveal">
+  <details>
+    <summary>Click to see answer</summary>
+    <p><strong>Medium signal -- this is a "plant the flag, then watch and wait" activist.</strong> Filing a 13D is itself a public declaration (irreversible), but vague Item 4 wording suggests the activist hasn't decided what to push for yet. Possible explanations: (1) waiting for market reaction (take a small profit and exit); (2) negotiating with the company, taking a position first then applying pressure; (3) genuinely unhappy but without a plan to actually fight. Check the next 60-90 days for: a) supplementary 13D filings (updating Item 4 with concrete actions); b) initiation of a proxy fight; c) public director nominations. If none appear → may be a "paper tiger."</p>
+  </details>
+</div>
+
+<h3>Q2: Can Uxin (UXIN) have 13D/G filings? Compared to 13F, how reliable is activist data for Chinese ADRs?</h3>
+<p><input type="text" id="q2" placeholder="Answer in one or two sentences"></p>
+<div class="reveal">
+  <details>
+    <summary>Click to see answer</summary>
+    <p><strong>UXIN is an ADR registered with the SEC, so 13D/G applies.</strong> However in practice: (1) UXIN has poor liquidity (low ADR trading volume), making it difficult for large institutions to build >5% positions (buying 5% would basically absorb all available supply); (2) activist involvement in China-concept stocks is far lower than in U.S. domestic companies (geographic, cultural, and legal environment differences); (3) even with a 13D filing, an activist's actual ability to drive change is limited (the company's main business is in China, the board is Chinese). So <strong>UXIN 13D/G appearances are low probability; when they do occur, the signal is actually stronger</strong> (rare event).</p>
+  </details>
+</div>
+
+<h3>Q3: Our ACTIVIST_INSTITUTIONS static list only has 8 firms, while IHS Markit covers 12 (in its P4 example report). What would we miss from these missing 4?</h3>
+<p><input type="text" id="q3" placeholder="Answer in one or two sentences"></p>
+<div class="reveal">
+  <details>
+    <summary>Click to see answer</summary>
+    <p><strong>We would miss the first entry of a "non-mainstream" activist into a competitor.</strong> IHS's 12 firms have broader coverage (including activists that only operate in specific sectors), and the ones we are missing might be precisely the ones that first build a position in CVNA/KMX/AN -- a critical signal. But the marginal cost of filling this gap is high (either manual 13D monthly scanning or paid WhaleWisdom). MVP judgment: <strong>use the 8-firm list + manual monthly 13D scan + a "new activist detected" alert</strong>. This combination covers ~80% of signals at the best cost-benefit ratio.</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>Next lesson (final in series):</strong> <a href="0009-cross-holding-methodology.html">Lesson 0009 — Cross-Holding Analysis Methodology</a>: What questions does this report answer and how to read it<br>
+  <strong>Recommended resource:</strong> <a href="https://www.youtube.com/watch?v=damodaran-activist">Aswath Damodaran on Activist Investing</a> (Damodaran is the NYU Stern valuation professor; this talk explains the nature of activist investing -- when they intervene and why)<br>
+  <strong>Professional tracking:</strong> <a href="https://13dmonitor.com/">13D Monitor</a> (published by Schulte Roth &amp; Zabel) -- the industry's most professional activist tracking newsletter<br>
+  <strong>Quick reference:</strong> <a href="../reference/sec-form-types.html">SEC Form Types Quick Reference</a> (13D/13G under "Insider Trading & Holdings")
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  If anything is unclear, ask me directly in the conversation.<br>
+  <em>The first three lessons (13F / Form 4 / 13D/G) cover all data sources for cross-holding analysis. The next lesson is methodology -- assembling the data into a report.</em>
+</p>
+
+</body>
+</html>

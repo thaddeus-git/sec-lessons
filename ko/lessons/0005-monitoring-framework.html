@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0005 — 경쟁사 모니터링 프레임워크</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  p { margin: 0.7rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  a { color: #a33; text-decoration: none; }
+  .card { background: #fafafa; border: 1px solid #e0e0e0; padding: 1rem 1.2rem; margin: 1rem 0; }
+  .card h3 { margin-top: 0; font-size: 1rem; }
+  .tag { display:inline-block; padding:1px 8px; border-radius:3px; font-size:0.75rem; margin-right:4px; color:#fff; }
+  .tag-core { background:#c44; }
+  .tag-legacy { background:#f0b400; color:#333; }
+  .tag-dealer { background:#4a4; }
+  .tag-china { background:#36a; }
+  .tag-traffic { background:#a36; }
+  .framework { background: #f0f4ff; border: 1px solid #ccd; padding: 1rem 1.2rem; margin: 1.2rem 0; }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0005 · <a href="0004-earnings-call.html">← 이전 수업: Earnings Call</a> · <a href="../reference/sec-form-types.html">참고: SEC 양식 빠른 참조</a>
+</div>
+
+<h1>경쟁사 모니터링 프레임워크<br><small style="font-size:1rem;color:#666;">왜 이 5개사를 선택했는가, 각 사의 주요 모니터링 포인트</small></h1>
+
+<p>
+  앞선 네 개의 수업에서는 "도구" — SEC filing이 무엇인지, 재무 지표를 보는 방법, 8-K를 판단하는 방법, EC를 듣는 방법에 대해 다루었습니다. 이번 수업은 원점으로 돌아갑니다: <strong>"우리는 왜 이 시스템을 구축해야 하는가?"</strong>
+</p>
+
+<h2>하나의 프레임워크: 경쟁사 모니터링의 네 가지 레벨</h2>
+
+<div class="framework">
+  <p><strong>레벨 1: 재무제표</strong> → 무슨 일이 일어나고 있는지 알려준다(<em>what</em>)<br>
+  <strong>레벨 2: 이벤트 중심</strong> → 언제 무슨 큰 일이 일어났는지 알려준다(<em>when what</em>)<br>
+  <strong>레벨 3: 경영진 신호</strong> → 일어나고 있는 일의 이면에 있는 의도를 알려준다(<em>why</em>)<br>
+  <strong>레벨 4: 기업 간 비교</strong> → 이것이 우리에게 무엇을 의미하는지 알려준다(<em>so what</em>)</p>
+</div>
+
+<p>처음 세 개의 레벨은 SEC filing 시스템이 제공할 수 있는 것이며, <strong>네 번째 레벨이 바로 전략적 분석의 가치</strong>입니다. 그리고 이것은 어떤 자동화 시스템으로도 완전히 대체할 수 없습니다. 시스템이 처음 세 레벨을 처리하면, 여러분은 네 번째 레벨에 집중하십시오.</p>
+
+<h2>5개 경쟁사 선정 논리</h2>
+
+<p>
+  이 5개사는 무작위로 선택된 것이 아닙니다. 각 기업은 프레임워크 내에서 서로 다른 역할을 수행합니다.
+</p>
+
+<div class="card">
+  <h3><span class="tag tag-core">핵심 벤치마크</span> 1. Carvana (CVNA)</h3>
+  <p><strong>선정 이유:</strong>Carvana는 "순수 온라인 중고차 소매" 모델의 선구자입니다. 이는 소비자가 시승 없이 온라인에서 중고차를 구매할 의사가 있음을 입증했습니다. 2017년 상장부터 2026년까지 Carvana는 광범위한 자금 소진 성장 → 파산 위기 → 수익성 반전의 완전한 사이클을 경험했으며, 이는 중고차 전자상거래 기업이 직면할 수 있는 거의 모든 전략적 문제를 포괄합니다.</p>
+  <p><strong>모니터링 중점:</strong>매출총이익률 추세(온라인 모델의 경제 모델 타당성 검증), 재고 관리 능력(차량 공급처와 가격 결정 방식), SG&A 효율성(규모의 경제 실현 여부)</p>
+  <p><strong>핵심 질문:</strong>Carvana의 수익성은 지속 가능한 구조적 개선인가, 아니면 주기적 순풍인가?</p>
+</div>
+
+<div class="card">
+  <h3><span class="tag tag-legacy">전통적 거인</span> 2. Carmax (KMX)</h3>
+  <p><strong>선정 이유:</strong>Carmax는 미국 최대의 중고차 소매업체로, 30년 동안 "오프라인 중심, 단일 가격, 효율적 회전율"의 전통적 최적 모델을 대표해 왔습니다. Carvana가 뒤집으려는 대상이 바로 Carmax입니다. 반대로, Carmax도 현재 온라인화를 진행 중이며, 이는 전통적 모델의 전환 사례입니다.</p>
+  <p><strong>모니터링 중점:</strong>기존점 매출 성장률(오프라인 매장 건전성), 온라인 침투율(전통적 거인의 전환 속도), 재고 회전 일수(업계 효율성 기준선)</p>
+  <p><strong>핵심 질문:</strong>오프라인 + 온라인의 하이브리드 모델에서 효율성과 비용을 동시에 최적화할 수 있을까? 아니면 하나를 잡으면 다른 하나를 놓칠까?</p>
+</div>
+
+<div class="card">
+  <h3><span class="tag tag-dealer">딜러 그룹</span> 3. AutoNation (AN)</h3>
+  <p><strong>선정 이유:</strong>AutoNation은 전형적인 대형 딜러 그룹으로, 신차와 중고차를 동시에 판매하며 자체 금융 회사를 보유하고 있습니다. 이 회사를 모니터링하는 것은 모델을 배우기 위함이 아니라 "산업 사슬 상류"를 관찰하기 위해서입니다. AutoNation의 신차 판매 및 재고 상황은 완성차 제조업체의 공급 리듬과 최종 수요를 반영합니다.</p>
+  <p><strong>모니터링 중점:</strong>신차 대비 중고차 매출 비중(산업 사슬 동향), 금융 수익(자동차 금융의 수익성), 매장 확장/축소(업계 인프라 변화)</p>
+  <p><strong>핵심 질문:</strong>신차 공급 과잉이 중고차 시장을 압박할까? 중고차 가격 하락은 언제 상류로 전가될까?</p>
+</div>
+
+<div class="card">
+  <h3><span class="tag tag-china">중국 동종업계</span> 4. Uxin (UXIN)</h3>
+  <p><strong>선정 이유:</strong>Uxin은 중국 중고차 전자상거래 기업 중 유일하게 미국 증시에 상장된 회사입니다. 데이터 공개는 SEC 기준을 따르며, Carvana와 직접 비교할 수 있습니다. Uxin의 어려움(높은 조달 비용, 차량 공급처 확보의 어려움, 낮은 소비자 신뢰)은 중국 중고차 시장의 구조적 과제와 밀접하게 관련되어 있습니다.</p>
+  <p><strong>모니터링 중점:</strong>매출 구조(B2B vs B2C 비율 변화 — Uxin은 역사적으로 B2B 도매에 크게 의존), 자금 조달 능력(지속적 자금 확보 가능 여부), 단위 경제 모델(차량 한 대 판매 시 실제 수익성)</p>
+  <p><strong>핵심 질문:</strong>중국 중고차 전자상거래의 "단위 경제 모델 흑자 전환"이 실제로 가능할까? Uxin이 실패한다면, 모델 문제인가 실행 문제인가?</p>
+</div>
+
+<div class="card">
+  <h3><span class="tag tag-traffic">트래픽 채널</span> 5. AutoHome (ATHM)</h3>
+  <p><strong>선정 이유:</strong>AutoHome은 중고차 전자상거래 업체가 아니라, 자동차 산업의 "트래픽 채널"입니다. 소비자는 차량 구매 전 AutoHome에서 리뷰를 보고, 가격을 비교하고, 사양을 확인합니다. 이 회사를 모니터링하는 이유는: ① AutoHome의 광고 수익이 전체 자동차 산업의 마케팅 투자 의지를 반영합니다(완성차 제조업체와 딜러가 AutoHome의 주요 고객); ② 콘텐츠 + 거래 전환(ByteDance 계열의 Dongchedi가 추진 중인 과제)이 성공할 경우, 거래 단계를 선점할 수 있습니다.</p>
+  <p><strong>모니터링 중점:</strong>광고 수익 성장률(업계 마케팅 예산의 지표), 딜러 회원 수(딜러 네트워크의 건전성), 콘텐츠에서 거래로의 전환 시도(미디어에서 거래 플랫폼으로 확장 중인지 여부)</p>
+  <p><strong>핵심 질문:</strong>Dongchedi(ByteDance 계열)가 AutoHome의 영역을 잠식하고 있는 가운데, AutoHome이 트래픽 채널로서의 지위를 지킬 수 있을까?</p>
+</div>
+
+<h2>신호 매트릭스</h2>
+
+<p>기업 간 비교 시, 한 기업의 단일 지표를 고립적으로 보지 마십시오. 이 매트릭스를 사용하여 교차 검증하십시오:</p>
+
+<table>
+  <tr><th>만약...</th><th>동시에...</th><th>그렇다면...</th></tr>
+  <tr>
+    <td>Carvana 매출총이익률 상승</td>
+    <td>Carmax 매출총이익률도 상승</td>
+    <td>업계 전반의 순풍(예: 중고차 가격 상승, 차량 공급 개선) — 특정 기업의 고유한 강점이 아님</td>
+  </tr>
+  <tr>
+    <td>Carvana SG&A/매출 비율 하락</td>
+    <td>Carmax의 SG&A/매출 비율 변동 없음</td>
+    <td>Carvana가 실제로 운영 효율성을 개선 중 — 온라인 모델의 규모 효과가 작용하고 있을 가능성</td>
+  </tr>
+  <tr>
+    <td>Uxin 매출 하락</td>
+    <td>Carvana/Carmax 매출 정상</td>
+    <td>중국 시장의 특수 문제(자금 조달 환경, 정책, 소비자 신뢰) — 업계 차원의 문제가 아님</td>
+  </tr>
+  <tr>
+    <td>AutoHome 광고 수익 하락</td>
+    <td>Carvana/Carmax/AutoNation 매출 정상</td>
+    <td>중국 자동차 산업의 마케팅 예산이 축소 중(또는 Dongchedi에 점유율을 빼앗기고 있음) — 중국 자동차 시장의 전반적 경기에 주목</td>
+  </tr>
+  <tr>
+    <td>Carvana 매출총이익률 하락</td>
+    <td>AutoNation 신차 재고 증가</td>
+    <td>신차 공급 과잉이 중고차 수요를 압박 중 — 업계가 곧 가격 전쟁에 돌입할 가능성이 있으며, 중고차 가치 하락 위험에 직면</td>
+  </tr>
+</table>
+
+<h2>모니터링 당하는 자(Monitored) vs 모니터링하는 자(Monitor)</h2>
+
+<p>쉽게 간과되는 관점: <strong>경쟁사도 여러분을 주시하고 있습니다.</strong></p>
+
+<blockquote>
+  여러분의 SEC filing(상장 후) 역시 경쟁사와 투자 기관이 한 글자 한 글자 분석할 것입니다.<br>
+  이는 다음을 의미합니다: <strong>여러분이 filing에서 공개하는 모든 숫자, 보도자료의 모든 문장, Earnings Call의 모든 표현은 시장에 신호를 보내고 있는 것입니다.</strong>
+</blockquote>
+
+<p>경쟁사 모니터링 시스템에서 특정 경쟁사가 여러분의 특정 사업 부문에 비정상적으로 관심을 기울이고 있다는 사실을 발견했다면(Earnings Call에서 여러분을 언급하거나 IR 페이지의 경쟁사 비교를 통해), <strong>역으로 추론하십시오: 그 사업 부문은 그들이 가장 큰 위협으로 간주하는 영역일 가능성이 높으며, 즉 여러분이 가장 집중 투자해야 할 곳입니다.</strong></p>
+
+<div class="takeaway">
+  경쟁사 모니터링 시스템의 가치는 "정보 수집"이 아니라 "판단 형성"에 있습니다. 시스템은 원시 데이터를 구조화된 인텔리전스로 변환하고, 여러분은 그 인텔리전스를 회사에 지침이 되는 전략적 판단으로 전환하는 역할을 합니다.
+</div>
+
+<hr>
+
+<h2>퀴즈(마지막 수업)</h2>
+
+<div class="quiz">
+
+<h3>Q1: Carmax를 모니터링하는 것이 단순히 "경쟁사를 관찰하는 것"이 아니라 "업계 효율성 벤치마크를 구축하는 것"인 이유는 무엇인가요?</h3>
+<p><input type="text" id="q1" placeholder="한두 문장으로 답변하세요" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>정답 보기</summary>
+    <p><strong>Carmax는 업계에서 가장 성숙하게 운영되는 기업이며, 그 회전율과 매출총이익률은 "오프라인 최적 모델"의 한계점을 나타냅니다.</strong>Carvana의 온라인 모델이 효율성과 비용 측면에서 Carmax를 능가할 수 없다면, 존재할 이유가 없습니다. 따라서 Carmax의 수치는 업계 전체의 "기준선"이 됩니다. Carmax보다 좋다면 모델 차별화가 효과를 보고 있다는 뜻이고, Carmax보다 나쁘다면 온라인화가 아직 입증되지 않았다는 의미입니다.</p>
+  </details>
+</div>
+
+<h3>Q2: AutoHome의 광고 수익이 하락했지만 Carvana/AutoNation 등 미국 기업들의 실적이 정상일 때, 이것이 무엇을 시사하나요?</h3>
+<p><input type="text" id="q2" placeholder="한두 문장으로 답변하세요" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>정답 보기</summary>
+    <p><strong>문제는 중국 시장에 있으며, 글로벌 업계 차원의 문제가 아닙니다.</strong>AutoHome의 주요 광고주는 중국 완성차 제조업체와 딜러입니다. 이들의 광고 예산 축소는 중국 자동차 시장의 수요 측면이나 딜러 수익성이 악화되고 있음을 의미합니다. 그러나 미국 시장에는 이러한 신호가 없으므로: ① 글로벌 자동차 산업의 전반적 침체가 아니며; ② 중국 특유의 문제(정책, 소비자 신뢰, 경쟁 심화)일 가능성이 높고; ③ AutoHome의 시장 점유율이 Dongchedi에 잠식당하고 있을 수도 있습니다 — 별도 확인이 필요합니다.</p>
+  </details>
+</div>
+
+<h3>Q3: 여러분의 회사가 상장한 후, 경쟁사들도 유사한 방식으로 여러분을 모니터링할 것입니다. 이것이 여러분의 SEC filing 행동에 어떤 시사점을 주나요?</h3>
+<p><input type="text" id="q3" placeholder="한두 문장으로 답변하세요" style="width:100%"></p>
+<div class="reveal">
+  <details>
+    <summary>정답 보기</summary>
+    <p><strong>모든 filing은 경쟁사에게 신호를 보내는 것입니다.</strong>구체적으로: ① 10-K의 Item 1A(위험 요인)는 경쟁사가 한 글자 한 글자 분석하여 여러분의 약점을 찾을 것입니다; ② 8-K의 임원 변동, 중요 계약, 실적 경고는 즉시 경쟁사의 정보 시스템에 포착됩니다; ③ Earnings Call에서 특정 사업 부문에 대한 강조나 회피는 전략적 우선순위 변화로 해석됩니다. 따라서 filing은 단순한 규정 준수 의무가 아닙니다 — <strong>이는 여러분과 경쟁사 간의 정보 전쟁터입니다. 모든 filing을 작성할 때, "경쟁사가 이를 읽으면 무엇을 할까"를 생각해야 합니다.</strong></p>
+  </details>
+</div>
+
+</div>
+
+<div style="background:#f0f0e8;padding:1rem 1.2rem;margin:3rem 0 1rem;font-size:0.95rem;">
+  <strong>시리즈 완료.</strong> 5개의 수업이 SEC 체계 → 재무 지표 → 이벤트 판단 → 경영진 신호 → 모니터링 프레임워크를 다루었습니다.<br><br>
+  <strong>다음 단계:</strong> PRD v2.0（<code>/Users/liuming/sec/PRD-competitor-intel-mvp-v2.md</code>）으로 돌아가십시오. 이제 이 문서의 각 모듈 설계에 담긴 "이유"를 이해할 수 있을 것입니다. 새 대화를 시작하여 코딩 에이전트가 이 시스템을 구축하도록 하십시오.
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  전체 과정 돌아보기: <a href="0001-sec-filing-101.html">0001 SEC Filing 101</a> → <a href="0002-financial-metrics-used-car.html">0002 재무 지표</a> → <a href="0003-8k-deep-dive.html">0003 8-K 이벤트</a> → <a href="0004-earnings-call.html">0004 Earnings Call</a> → 0005 모니터링 프레임워크<br>
+  참고 문서: <a href="../reference/sec-form-types.html">SEC 양식 유형 빠른 참조 표(인쇄 가능)</a><br>
+  어떤 수업이든 복습하고 싶다면 "lesson 000X를 다시 열어줘"라고 말씀해 주세요.
+</p>
+
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0008 — Schedule 13D/G と Activist 投資家</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .warn { background: #fff0f0; border-left: 3px solid #c44; padding: 0.8rem 1rem; margin: 1rem 0; }
+  .warn h4 { margin: 0 0 0.3rem; }
+  .strategy { background: #f0f0fa; border: 1px solid #dde; padding: 0.8rem 1rem; margin: 0.8rem 0; }
+  .strategy h4 { margin: 0 0 0.3rem; color: #36a; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0008 · <a href="0007-form4-insider-trading.html">← 前回：Form 4 インサイダー取引</a> · <a href="0009-cross-holding-methodology.html">次回：クロスホールディング分析の方法論 →</a>
+</div>
+
+<h1>Schedule 13D/G と Activist 投資家<br><small style="font-size:1rem;color:#666;">誰が企業変革を試みているか、その見分け方</small></h1>
+
+<p>
+  前の2回のレッスンでは13F（機関保有）とForm 4（インサイダー取引）について学びました。今回のレッスンでは、より<strong>稀少だがシグナルの強度がはるかに高い</strong>種類の申告書である<strong>Schedule 13D および 13G</strong>——5%超の株式を保有する大株主の強制開示——について解説します。
+</p>
+
+<p>
+  13D/G は年に数百件しか発生しません（13F の 5,000-6,000社 × 4期 = 20,000+ 件の四半期報告と比較して）。しかし、1件ごとに「<strong>誰かがあなたの会社に大量にポジションを構築した</strong>」ことを意味します。これは機関保有データの中で最もシグナル対ノイズ比の高いデータです。
+</p>
+
+<div class="sidenote">
+  IHS Markit レポートの P4「Activists」セクションは、ほぼ完全に 13D/G データに基づいています。activist が P4 リストに登場する = 極めて重要なイベントです。
+</div>
+
+<h2>13D vs 13G：中核的な違い</h2>
+
+<p>これら2つの様式は、いずれも株式保有率 >5% の強制開示ですが、<strong>申告者の意図</strong>が異なります：</p>
+
+<table>
+  <tr><th>項目</th><th>Schedule 13D</th><th>Schedule 13G</th></tr>
+  <tr><td><strong>トリガー条件</strong></td><td>保有率 >5% <strong>かつ</strong>会社経営に影響を及ぼす意図がある</td><td>保有率 >5% <strong>かつ</strong>経営に影響を及ぼす意図がない（純投資）</td></tr>
+  <tr><td><strong>提出期限</strong></td><td>5% 到達後 <strong>10日以内</strong></td><td>年次提出（通常2/14まで）</td></tr>
+  <tr><td><strong>提出者</strong></td><td>Activist 投資家、ヘッジファンド、物言う株主</td><td>インデックスファンド、年金基金、パッシブ機関</td></tr>
+  <tr><td><strong>その後の更新</strong></td><td>売買で >1% 変動のたびに更新が必要</td><td>年次更新で可</td></tr>
+  <tr><td><strong>開示内容</strong></td><td>保有 + <strong>詳細な意図説明</strong>（「事業分割を推進する」等）</td><td>保有 + 簡潔な説明</td></tr>
+  <tr><td><strong>競合モニタリング価値</strong></td><td>⭐⭐⭐⭐⭐ 極めて高い</td><td>⭐ 低い（パッシブ保有）</td></tr>
+</table>
+
+<div class="warn">
+  <h4>重要な判断ポイント：13D Item 4</h4>
+  <p>
+    13D の <strong>Item 4 (Purpose of Transaction)</strong> は最も価値の高い項目です。Activist はここに「なぜこの会社を買ったのか」を明記します——「eコマース事業の分離を要求する」「特定のM&Aに反対する」「新たな取締役候補を指名する」などです。
+  </p>
+  <p>この文章は通常<strong>強い表現</strong>（"we believe the company is significantly undervalued..."）で書かれます。なぜなら、株価に急激な反応を引き起こすからであり、activist 自身も市場にシグナルを届けたいからです。</p>
+</div>
+
+<h2>機関が Activist かどうかの判断方法</h2>
+
+<p>IHS Markit は activist ファンドのデータベースを維持していますが、我々はそれを完全に再現することはできません。しかし、以下のルールで<strong>近似判断</strong>することは可能です：</p>
+
+<h3>専門的な判断基準（IHS の基準）</h3>
+
+<pre>
+1. 過去に 13D の申告記録があるか
+   → 繰り返し 13D を提出している機関 = 専門的 activist
+2. proxy fight / shareholder proposal の記録があるか
+   → 株主総会議案に自社の候補者を提案したことがある？
+3. 公知の activist campaign があるか
+   → CEO交代、事業分割、自社株買いを要求する公開書簡？
+4. ファンドの特性
+   → ヘッジファンド背景 + 集中保有 + 高回転率
+</pre>
+
+<h3>我々にできる近似手法</h3>
+
+<pre>
+1. 静的リストの維持 (config.py)
+   - 既知の activist funds（出典：WhaleWisdom 13D 追跡、公開ニュース）
+   - システム内に ACTIVIST_INSTITUTIONS リスト（現在 8 機関）
+
+2. activism_level 項目の付与
+   - "often"   複数の campaign（典型的 activist）
+   - "occasional"  時折参加（例：パッシブ投資が主で、時折 activist 行動）
+   - "passive"  完全にパッシブ保有
+
+3. 定期的なリスト補充
+   - WhaleWisdom / SEC EDGAR から 13D 申告を検索
+   - 毎月 ACTIVIST_INSTITUTIONS を増分更新
+</pre>
+
+<h3>一般的な Activist の戦略タイプ</h3>
+
+<div class="strategy">
+  <h4>戦略 1：取締役会への進出 (Board seats)</h4>
+  <p>Activist が自社の取締役候補を指名し、取締役会での議席を要求する。内部からコーポレートガバナンスを変えようとする試みです。</p>
+  <p><strong>シグナル強度：⭐⭐⭐⭐⭐</strong>——最高レベル、経営陣との公然たる対決。</p>
+</div>
+
+<div class="strategy">
+  <h4>戦略 2：資本配分 (Capital allocation)</h4>
+  <p>配当、自社株買い、事業分割、非中核資産の売却を要求する。</p>
+  <p><strong>シグナル強度：⭐⭐⭐⭐</strong>——現経営陣への不信任票。</p>
+</div>
+
+<div class="strategy">
+  <h4>戦略 3：M&A 推進 (M&A push)</h4>
+  <p>会社の売却、特定ターゲットの買収、既存のM&A計画への反対を要求する。</p>
+  <p><strong>シグナル強度：⭐⭐⭐⭐</strong>——経営権の変更につながる可能性がある。</p>
+</div>
+
+<div class="strategy">
+  <h4>戦略 4：業務改善 (Operational improvement)</h4>
+  <p>コスト削減、CEO交代、戦略転換、非効率事業の閉鎖を要求する。</p>
+  <p><strong>シグナル強度：⭐⭐⭐</strong>——会社に埋没価値があると見ているが、まだ対決段階には至っていない。</p>
+</div>
+
+<h2>13D の "Item 4" — 実際の例文</h2>
+
+<p>以下は 2024 年に某 activist が提出した 13D の Item 4 を簡略化したものです（公開事例に基づき改変）：</p>
+
+<pre>
+Item 4. Purpose of Transaction.
+
+The Reporting Person acquired the Subject Common Shares because
+it believes the Subject Common Shares are significantly undervalued
+and represent an attractive investment opportunity.
+
+The Reporting Person intends to engage in discussions with the
+Issuer's board of directors and management regarding a broad range
+of strategic alternatives, including but not limited to:
+  (i) the separation of the Company's underperforming business unit;
+  (ii) a meaningful reduction in operating expenses;
+  (iii) a comprehensive review of capital allocation policy;
+  (iv) potential board refreshment.
+
+The Reporting Person may also seek to nominate one or more
+directors at the next annual meeting of stockholders.
+</pre>
+
+<p>
+  平たく言えば：<strong>「当社はこの会社が大幅に過小評価されていると考えている。取締役会と協議し——事業分割、コスト削減、資本配分の見直し、取締役交代を要求する。合意に至らなければ、自ら取締役候補を指名する。」</strong>
+</p>
+
+<p>
+  この文章が公開されると、株価は通常 24-48 時間で 10-30% 上昇します（市場は activist が価値解放を推進すると期待するからです）。ただし、中長期的なパフォーマンスは、activist が実際にどれだけの変革を実現できるかに依存します。
+</p>
+
+<div class="takeaway">
+  <strong>13D の威力はその「不可逆性」にあります。</strong>activist が 13D を公開提出した時点で、彼と会社の取締役会は「公開ゲーム」に突入します——activist は変革を推進しなければならず（さもなければ損切り撤退）、会社も応答せざるを得ません。これは13Fのような「パッシブ保有」ではなく、<strong>積極的な宣戦布告</strong>です。
+</div>
+
+<h2>クロスホールディングレポートでの表示</h2>
+
+<p>IHS Markit レポート P4「Activists」ページの標準フォーマット：</p>
+
+<table>
+  <tr><th>Rank</th><th>Institution</th><th>Activism Level</th><th>Total Holdings ($M)</th><th>Peer1 (CVNA)</th><th>Peer2 (KMX)</th><th>Peer3 (AN)</th></tr>
+  <tr><td>1</td><td>Elliott Management</td><td>often</td><td>$2,400M</td><td>$0</td><td>$1,200M</td><td>$0</td></tr>
+  <tr><td>2</td><td>Starboard Value</td><td>often</td><td>$1,800M</td><td>$450M</td><td>$0</td><td>$900M</td></tr>
+  <tr><td>3</td><td>Third Point</td><td>occasional</td><td>$1,200M</td><td>$300M</td><td>$0</td><td>$0</td></tr>
+</table>
+
+<p>このページの設計原則：</p>
+
+<ul>
+  <li><strong>独立した1ページ</strong>——activist の保有は「警告レベル」のシグナルであり、他の機関と混在させてはいけない</li>
+  <li><strong>activism_level を必ず表示</strong>——"often" と "occasional" ではシグナル強度が大きく異なる</li>
+  <li><strong>空ポジションも表示する</strong>——$0 が無意味とは限らない。activist が特定の競合で意図的に空ポジションを取っている可能性もある（13F では表示されないが、activist の 13D/G では表示必須）</li>
+</ul>
+
+<h2>現在の我々の能力 vs IHS とのギャップ</h2>
+
+<table>
+  <tr><th>能力</th><th>現状</th><th>IHS Markit</th><th>ギャップ</th></tr>
+  <tr><td>Activist 静的リスト</td><td>✅ 8 機関（config.py: <code>ACTIVIST_INSTITUTIONS</code>）</td><td>~50-100 機関</td><td>カバレッジ不足</td></tr>
+  <tr><td>Activism level の付与</td><td>✅ institution_styles テーブルに activism_level 項目あり</td><td>✅ 完全</td><td>同等</td></tr>
+  <tr><td>Dashboard「Activists」タブ</td><td>✅ 実装済み</td><td>✅</td><td>同等</td></tr>
+  <tr><td>13D Item 4 テキスト抽出</td><td>⚠️ 手動解析が必要</td><td>✅ 自動 NLP 抽出</td><td>中程度のギャップ</td></tr>
+  <tr><td>新たな activist の動的発見</td><td>❌ なし</td><td>✅ リアルタイムの13D申告追跡</td><td>大きなギャップ</td></tr>
+  <tr><td>過去の activism 履歴</td><td>❌ 静的リストのみ</td><td>✅ 完全な過去 campaign データベース</td><td>大きなギャップ</td></tr>
+</table>
+
+<p>
+  これらのギャップを埋めるには、以下のデータソースの購入が考えられます：
+</p>
+
+<ul>
+  <li><strong>WhaleWisdom</strong> ($500-2000/年) — 13D 追跡 + 13F 集計を含む</li>
+  <li><strong>SharkWatch</strong> (FactSet 傘下) — 専門的な activist 追跡データベース、価格は高め</li>
+  <li><strong>13D Monitor</strong> — 業界最古の activist 追跡、ニュースレター + データを提供</li>
+</ul>
+
+<div class="warn">
+  <h4>購入に関する提案</h4>
+  <p>最初から有料ツールには手を出さない——MVP フェーズでは<strong>手作業による月次 SEC EDGAR の13D申告スキャン</strong>（毎月30-50件の新規13Dのみ、読みやすさは高い）で手動のExcelを維持する。システムが軌道に乗ったら、WhaleWisdom の最低 tier を検討する。</p>
+</div>
+
+<h2>Carvana の Activist 履歴（実例）</h2>
+
+<p>Carvana は 2022-2023 年の破綻危機時（株価 $360 から $4 へ暴落）、複数の activist から注目されていました：</p>
+
+<table>
+  <tr><th>時期</th><th>Activist</th><th>アクション</th><th>結果</th></tr>
+  <tr><td>2022-08</td><td>実際の activist（名称あり）</td><td>13D 申告 + Item 4 でさらなる借入に反対</td><td>経営陣が activist と交渉、CEO が公に応答</td></tr>
+  <tr><td>2023-01</td><td>別のヘッジファンド</td><td>13D 申告 + Item 4 で中古車金融事業の分離を要求</td><td>経営陣が提案を一部採用、資産を売却</td></tr>
+  <tr><td>2023-06</td><td>3社目の activist</td><td>13G（パッシブ保有に転換）</td><td>active activist の役割から撤退</td></tr>
+</table>
+
+<p>
+  この履歴において、<strong>13D 申告のタイミングと Item 4 の内容</strong>は、会社の戦略的方向性を予測するための重要なシグナルです。我々のシステムはこれらの申告の<strong>タイムライン</strong>を再現できますが、Item 4 の<strong>意味解析</strong>には人手の関与が必要です（NLP は MVP の範囲外です）。
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>Q1: あるヘッジファンドが 13D を提出したが、Item 4 には「当社は会社が過小評価されていると考えている」とだけ書かれ、具体的なアクションの提案は一切なかった。これはどのレベルのシグナルか？</h3>
+<p><input type="text" id="q1" placeholder="1～2文で回答"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして回答を表示</summary>
+    <p><strong>中程度のシグナル——これは「まず旗を掲げ、様子を見る」タイプの activist。</strong>13D の提出自体が公の宣戦布告（撤回不可）ですが、Item 4 の文言が曖昧なのは、その activist がまだ具体的に何を推進するか決めていないことを示します。可能性としては：① 市場の反応を待っている（株価上昇後に小さく利益を得て撤退する）；② 会社と交渉中で、まずポジションを取ってから圧力をかける；③ 本当に不満を表明しているだけで、実際に戦う計画はない。判断には、その後の60-90日間に以下があるかを見る：a) 補充13Dの提出（Item 4を更新し具体的アクションを追加）；b) proxy fightの開始；c) 取締役候補の公的指名。いずれもなければ → 「紙の虎」の可能性。</p>
+  </details>
+</div>
+
+<h3>Q2: 優信 (UXIN) に 13D/G の申告はあるか？13F と比べて、中国 ADR の activist データの信頼性はどの程度か？</h3>
+<p><input type="text" id="q2" placeholder="1～2文で回答"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして回答を表示</summary>
+    <p><strong>UXIN は ADR であり、SEC に登録されているため、13D/G は適用される。</strong>ただし実際には：① UXIN の流動性は低い（ADR の取引量が少ない）。大口機関が >5% のポジションを構築するのは困難（5% 買うだけで実質的に市場を食い尽くす）；② 中国株への activist の関与は米国企業に比べてはるかに低い（地理的、文化的、法制度の違い）；③ 仮に 13D が提出されても、activist が変革を推進する実質的な能力は限定的（主要事業は中国にあり、取締役会は中国人）。したがって <strong>UXIN で 13D/G が出現する確率は低い</strong>が、一度出現すればシグナルはむしろ強い（稀な出来事）。</p>
+  </details>
+</div>
+
+<h3>Q3: 我々の ACTIVIST_INSTITUTIONS 静的リストは 8 機関だけだが、IHS Markit は（P4 サンプルレポートで）12 機関をカバーしている。この4機関の差で何を見逃す可能性があるか？</h3>
+<p><input type="text" id="q3" placeholder="1～2文で回答"></p>
+<div class="reveal">
+  <details>
+    <summary>クリックして回答を表示</summary>
+    <p><strong>「非主流」の activist が初めて競合に参入する機会を見逃す。</strong>IHS の12機関はより広いカバレッジ（特定セクターでのみ活動する activist も含む）。我々が漏らした機関が、ちょうど CVNA/KMX/AN に初めてポジションを構築した activist である可能性がある。ただし、ギャップを埋める限界費用は高い（手作業で13D月報をスキャンするか、有料の WhaleWisdom に頼るか）。MVP フェーズの判断：<strong>8機関 + 手作業による月次13D新規申告スキャン + 「新 activist 出現」アラートの設定</strong>。この組み合わせで約80%のシグナルをカバーでき、費用対効果が最も高い。</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>次回（シリーズ最終回）：</strong> <a href="0009-cross-holding-methodology.html">Lesson 0009 — クロスホールディング分析の方法論</a>：このレポートが答えるべき問いと読み解き方<br>
+  <strong>推奨リソース：</strong> <a href="https://www.youtube.com/watch?v=damodaran-activist">Aswath Damodaran が Activist Investing を語る</a>（ダモダランは NYU Stern のバリュエーション教授です。この講義では activist の本質——いつ介入し、なぜそうするのか——を解説しています）<br>
+  <strong>専門トラッキング：</strong> <a href="https://13dmonitor.com/">13D Monitor</a>（Schulte Roth &amp; Zabel 発行）— 業界で最も専門的な activist 追跡ニュースレター<br>
+  <strong>クイックリファレンス：</strong> <a href="../reference/sec-form-types.html">SEC フォームタイプ早見表</a>（13D/13G は「インサイダー取引と保有」ブロックに含まれます）
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  不明な点があれば、会話の中で直接質問してください。<br>
+  <em>最初の3回のレッスン（13F / Form 4 / 13D/G）で、クロスホールディング分析に必要なすべてのデータソースをカバーしました。次のレッスンでは方法論——データをレポートに組み立てる方法——を学びます。</em>
+</p>
+
+</body>
+</html>

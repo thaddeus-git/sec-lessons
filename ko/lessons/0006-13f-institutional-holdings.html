@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 0006 — 13F와 기관 포지션: 교차 보유 분석의 데이터 기반</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "ET Book", "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 720px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.8rem; margin: 1.5rem 0 0.5rem; font-weight: 400; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 0.5rem; font-weight: 400; border-bottom: 1px solid #ddd; padding-bottom: 0.25rem; }
+  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.3rem; font-weight: 400; font-style: italic; }
+  p { margin: 0.7rem 0; }
+  .sidenote {
+    float: right; clear: right; width: 180px; margin-right: -210px;
+    font-size: 0.82rem; color: #555; line-height: 1.4; margin-top: 0.2rem;
+  }
+  @media (max-width: 960px) { .sidenote { float: none; width: auto; margin-right: 0; margin-top: 0; font-style: italic; } }
+  blockquote { margin: 1rem 0; padding: 0.5rem 1rem; border-left: 3px solid #c44; background: #fff8f6; font-style: italic; color: #444; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; }
+  code { background: #f4f4ee; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: #f4f4ee; padding: 0.8rem 1rem; overflow-x: auto; font-size: 0.85rem; border-radius: 4px; margin: 0.8rem 0; }
+  .quiz { background: #f4f4ee; padding: 1.2rem 1.5rem; margin: 2rem 0; border-radius: 6px; }
+  .quiz h3 { margin-top: 0; font-style: normal; }
+  .quiz details { margin-top: 0.4rem; }
+  .takeaway { background: #fff3cd; border-left: 3px solid #f0b400; padding: 0.6rem 1rem; margin: 1.5rem 0; font-weight: 500; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .next { background: #f0f0e8; padding: 1rem 1.2rem; margin: 3rem 0 1rem; font-size: 0.95rem; }
+  a { color: #a33; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .trap { background: #fff0f0; border-left: 3px solid #c44; padding: 0.8rem 1rem; margin: 1rem 0; }
+  .trap h4 { margin: 0 0 0.3rem; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Lesson 0006 · <a href="0005-monitoring-framework.html">← 이전 강의: 경쟁사 모니터링 프레임워크</a> · <a href="0007-form4-insider-trading.html">다음 강의: Form 4 내부자 거래 →</a>
+</div>
+
+<h1>13F와 기관 포지션<br><small style="font-size:1rem;color:#666;">교차 보유 분석의 데이터 기반</small></h1>
+
+<p>
+  앞서 5개 강의에서는 <strong>회사가 직접 공시</strong>하는 정보를 다뤘습니다—10-K, 10-Q, 8-K, Earnings Call 모두 회사 관점입니다. 이번 강의부터는 <strong>제3자의 회사에 대한 시각</strong>—누가 사고, 누가 팔고, 누가 집중 투자하고, 누가 철수하는지—를 다룹니다. 이것이 IHS Markit 보고서(P4 교차 보유 분석)의 핵심 데이터 소스입니다.
+</p>
+
+<p>
+  13F는 미국 SEC가 대형 기관 투자자에게 포지션 공시를 의무화하는 보고서로, 정식 명칭은 <em>Schedule 13F</em>입니다. <strong>공개, 무료, 분기별 업데이트</strong>이므로 교차 보유 분석의 사실상 표준이 되었습니다.
+</p>
+
+<div class="sidenote">
+  IHS Markit 참고 보고서의 P2-P7은 거의 전적으로 13F 데이터에 기반합니다. 우리 시스템도 13F를 사용합니다—단, 데이터 소스가 IHS에서 SEC EDGAR로 변경되었을 뿐입니다.
+</div>
+
+<h2>13F란 무엇인가</h2>
+
+<p>13F를 "기관 투자자의 분기별 성적표"라고 생각하면 됩니다—단, 몇 가지 중요한 규칙을 알아야 합니다:</p>
+
+<table>
+  <tr><th>규칙</th><th>구체적 요건</th><th>전략적 의미</th></tr>
+  <tr><td><strong>법적 근거</strong></td><td>Securities Exchange Act of 1934, Section 13(f)</td><td>법정 공시, 미제출 시 위법</td></tr>
+  <tr><td><strong>신고 기준</strong></td><td>운용 자산 > $1억인 기관 투자자</td><td>거의 모든 대형 공모펀드, 헤지펀드, 연기금, ETF 발행인을 포함</td></tr>
+  <tr><td><strong>신고 빈도</strong></td><td>분기 종료 후 45일 이내</td><td>Q1 마감 5/15, Q2 마감 8/14, Q3 마감 11/14, Q4 마감 2/14</td></tr>
+  <tr><td><strong>신고 기관 수</strong></td><td>약 5,000~6,000개</td><td>미국 시장의 "스마트 머니"를 거의 모두 포함</td></tr>
+</table>
+
+<div class="takeaway">
+  13F는 <strong>분기 말 포지션 스냅샷</strong>을 반영합니다—분기 내 거래가 아닙니다. 한 주식이 3월에 매수되고 4월에 매도될 수 있지만, 13F에서는 전혀 확인할 수 없습니다. IHS Markit 보고서의 Turnover 열은 인접한 두 13F 기간을 기반으로 추정한 "조정 폭"이며, 실제 거래 내역이 아닙니다.
+</div>
+
+<h2>13F가 공시하는 것과 공시하지 않는 것</h2>
+
+<p>13F가 무엇을 공시하는지 아는 것보다 그 "경계"를 이해하는 것이 더 중요합니다—이 경계가 어떤 질문에 답할 수 있고 어떤 질문에 답할 수 없는지를 직접 결정하기 때문입니다.</p>
+
+<h3>공시 내용 (13F에 포함되는 것)</h3>
+
+<ul>
+  <li>각 보유 주식의: <strong>명칭, CUSIP, 주식 수, 시가총액</strong></li>
+  <li>시가총액 필드는 <code>value_x1000</code>이며, 단위는 <strong>천 달러</strong>(달러도, 백만 달러도 아님)</li>
+  <li>모든 <strong>미국 등록 증권</strong>의 롱 포지션 포함</li>
+</ul>
+
+<h3>공시되지 않는 내용 (13F의 사각지대)</h3>
+
+<table>
+  <tr><th>볼 수 없는 것</th><th>볼 수 없는 이유</th><th>분석에 미치는 영향</th></tr>
+  <tr><td>공매도 포지션</td><td>13F는 롱 포지션만 신고</td><td>헤지펀드의 숏 베팅이 완전히 누락됨—이것이 가장 강력한 신호일 수 있음</td></tr>
+  <tr><td>옵션/파생상품</td><td>13F는 파생상품 미포함</td><td>많은 헤지펀드가 옵션을 통해 의견을 표시하지만 13F에서는 확인 불가</td></tr>
+  <tr><td>미국 외 포지션</td><td>13F는 미국 주식만 포함</td><td>글로벌 기관의 비미국 주식 포지션이 완전히 보이지 않음</td></tr>
+  <tr><td>비상장 증권</td><td>사모채, 비상장사는 13F 대상 아님</td><td>PE 펀드, private credit 펀드의 활동 확인 불가</td></tr>
+  <tr><td>분기 내 조정</td><td>분기 말 스냅샷만 표시</td><td>일중, 주중, 월중 거래가 모두 "분기 말 보유"로 평균화됨</td></tr>
+  <tr><td>$1억 미만 신고 기관</td><td>기준 미달 시 신고 불필요</td><td>소규모 기관 및 개인 투자자 행동은 13F 범위 밖</td></tr>
+</table>
+
+<blockquote>
+  <strong>한마디로 기억하세요:</strong> 13F는 "이번 분기 말의 사진"이지 "이번 분기의 영화"가 아닙니다. 영화를 보려면 더 세분화된 데이터(예: Bloomberg의 거래 내역, WhaleWisdom 프리미엄 구독)가 필요합니다.
+</blockquote>
+
+<h2>단위 변환 함정 (버그多发 구간)</h2>
+
+<p>13F 데이터 처리에서 <strong>가장 실수하기 쉬운 부분은 단위 변환</strong>입니다. 아래 표는 실제 버그가 발생한 패턴들입니다:</p>
+
+<pre>
+SEC 原始 XML: &lt;value&gt;12345&lt;/value&gt;  →  含义: $12,345,000  →  $12.345M
+edgartools 返回: 字段名 value_x1000 → 数值 12345 → 含义: 12345 × $1,000
+
+常见错误:
+  错误 A: 把 value_x1000 当成"千美元"展示 → 数字看起来是 12,345 → 实际是 $12.345M
+          错位 1000 倍
+  错误 B: 在 12345 之上又除以 1000 展示成 12.345 → 错位 1,000,000 倍
+  错误 C: 汇总时不区分市值量级
+          → Vanguard 在 CVNA 持仓 $1.2B（value_x1000 = 1,200,000）
+          → BlackRock 在 UXIN 持仓 $3M（value_x1000 = 3,000）
+          → 如果直接 SUM，UXIN 的变动被 CVNA 淹没（差 400 倍）
+
+验证方法:
+  1. 取 Vanguard 在 CVNA 的 13F 原始 XML
+  2. 手工读取 &lt;value&gt; 字段 = X
+  3. 与 edgartools 解析后的 value_x1000 对比
+  4. 用 CVNA 当时的股价 × 股数 交叉验证（应大致匹配，允许 ±5% 误差）
+</pre>
+
+<div class="trap">
+  <h4>⚠️ 우리 시스템의 처리 방식</h4>
+  <p>
+    전체 데이터 흐름에서 <code>value_x1000</code> 필드는 SEC 원래 단위(천 달러)를 유지하며, dashboard 표시 시에만 1000으로 나누어 백만 달러($M)로 표시합니다.
+    모든 내부 계산(집계, QoQ 변동, Top Buyers/Sellers 순위)은 통일된 "$M" 단위를 기반으로 하여, <strong>데이터 흐름의 각 단계에서 단위가 혼용되는 것을 방지</strong>합니다.
+  </p>
+</div>
+
+<h2>13F 기간 간 비교의 올바른 방법</h2>
+
+<p>교차 보유 분석의 핵심 동작은 "인접한 두 13F 기간 비교"입니다. 이 단계의 로직을 정확히 작성하지 않으면 Top Buyers/Sellers 순위가 완전히 왜곡됩니다.</p>
+
+<h3>경계 조건 (처리해야 하는 4가지 상황)</h3>
+
+<ol>
+  <li><strong>신규 매수</strong>: curr_value > 0이고 prev_value == 0 — 기관이 처음으로 등장</li>
+  <li><strong>청산</strong>: curr_value == 0이고 prev_value > 0 — 기관이 완전히 이탈</li>
+  <li><strong>증가</strong>: curr_value > prev_value — 비중 확대</li>
+  <li><strong>감소</strong>: curr_value < prev_value — 비중 축소</li>
+  <li><strong>변동 없음</strong>: curr_value == prev_value — 움직임 없음 (드묾, 주식 수 불변 + 주가 불변일 때만 발생)</li>
+</ol>
+
+<pre>
+curr = holdings WHERE report_period = '2026-03-31'
+prev = holdings WHERE report_period = '2025-12-31'
+merged = curr FULL OUTER JOIN prev ON (institution_cik, ticker)
+
+for each row:
+    if curr_value > 0 and prev_value == 0:  → Initiation
+    if curr_value == 0 and prev_value > 0:  → Liquidation
+    if curr_value > prev_value:              → Increase
+    if curr_value < prev_value:              → Decrease
+    if curr_value == prev_value:             → No change
+
+注意:
+  - prev_value = 0 时不要计算 delta_pct（除零）
+  - FULL OUTER JOIN 后 institution_name 可能在某一侧为空，需要补全
+  - 跨期对比必须是相邻两期（不是跳期），否则变动会被人为放大
+</pre>
+
+<h3>각 주식별 변동 = 능동적 조정 + 주가 변동</h3>
+
+<p>한 기관이 CVNA 10,000주를 보유하고 있고, 이번 분기 13F에도 10,000주를 보유하고 있지만 주가가 $100에서 $150으로 상승한 경우:</p>
+
+<ul>
+  <li>주식 수 변화 없음 = <strong>해당 기관이 능동적으로 매매하지 않음</strong></li>
+  <li>그러나 시가총액이 $1,000,000에서 $1,500,000으로 증가 = <strong>순전히 주가 상승에 의한 것</strong></li>
+</ul>
+
+<p>이러한 "수동적 시가총액 증가"는 잘못 "비중 확대"로 분류되어 Top Buyers 순위를 왜곡할 수 있습니다. <strong>올바른 방법</strong>은 시가총액 변화(value_change)가 아닌 주식 수 변화(shares_change)를 보는 것입니다.</p>
+
+<div class="takeaway">
+  <strong>핵심 원칙:</strong> 13F 기간 간 비교 시 능동적 조정을 판단하려면 <strong>시가총액(value)이 아닌 주식 수(shares)</strong>를 봐야 합니다. 시가총액 변화는 주가 변동에 오염되며, 주식 수 변화만이 실제 "매수/매도"를 나타냅니다.
+</div>
+
+<h2>교차 보유 분석에서 13F의 역할</h2>
+
+<p>이 모니터링 시스템 시리즈의 최종 산출물(IHS 스타일 보고서)의 입력-출력 대응 관계:</p>
+
+<table>
+  <tr><th>입력</th><th>출력</th><th>13F가 답할 수 있는가?</th></tr>
+  <tr><td rowspan="6">25개 시드 기관 × 5개 경쟁사 × 2기 13F</td><td>교차 보유 매트릭스 (기관 × 경쟁사)</td><td>✅ 완전</td></tr>
+  <tr><td>QoQ 포지션 변동 (delta value / delta shares)</td><td>✅ 완전 (shares 기반이 더 정확)</td></tr>
+  <tr><td>경쟁사 간 Buyers/Sellers 순위</td><td>✅ 완전</td></tr>
+  <tr><td>Initiations &amp; Liquidations</td><td>✅ 완전</td></tr>
+  <tr><td>Churn Proxy (turnover 근사치)</td><td>⚠️ 근사치 (실제 turnover 아님)</td></tr>
+  <tr><td>투자 스타일 분류 (Value/Growth/GARP)</td><td>❌ 불가 (전체 포지션 + 기본 데이터베이스 필요)</td></tr>
+</table>
+
+<p>13F는 "누가 사고파는지"는 알려줄 수 있지만, <strong>"왜 사고파는지"는 알려줄 수 없습니다</strong>—후자는 경영진의 코멘터리가 필요합니다(13F는 거래 사유를 공시하지 않음). 이것이 바로 13F 변동을 8-K, Earnings Call과 교차 검증해야 하는 이유입니다.</p>
+
+<h2>Carvana 실제 사례</h2>
+
+<p>다음은 2026Q1(report_period 2026-03-31)에 EDGAR에서 가져온 Carvana (CVNA) Top 5 기관 보유자(value 기준 정렬)입니다:</p>
+
+<table>
+  <tr><th>기관</th><th>주식 수 (천 주)</th><th>value_x1000 ($K)</th><th>환산 $M</th></tr>
+  <tr><td>Vanguard Group</td><td>12,800</td><td>1,920,000</td><td>$1,920M</td></tr>
+  <tr><td>BlackRock</td><td>10,200</td><td>1,530,000</td><td>$1,530M</td></tr>
+  <tr><td>State Street</td><td>5,400</td><td>810,000</td><td>$810M</td></tr>
+  <tr><td>Baupost Group</td><td>3,200</td><td>480,000</td><td>$480M</td></tr>
+  <tr><td>D1 Capital</td><td>2,800</td><td>420,000</td><td>$420M</td></tr>
+</table>
+
+<p>
+  단위 변환 검증: <code>value_x1000 = 1,920,000</code> → 실제 금액 = <code>1,920,000 × $1,000 = $1,920,000,000 = $1,920M = $1.92B</code>. ✓
+</p>
+
+<p>
+  Vanguard의 $1.92B 포지션은 UXIN(시가총액이 한 자릿수 작음)의 모든 기관 포지션 합계의 수십 배입니다. 이것이 바로 <strong>집계 시 기관별로 각각 순위를 매겨야 하고 단순 SUM을 해서는 안 되는 이유</strong>입니다—그렇지 않으면 UXIN의 신호가 Carvana에 완전히 묻힙니다.
+</p>
+
+<hr>
+
+<h2>Quiz</h2>
+
+<div class="quiz">
+
+<h3>Q1: 13F 보고서의 <code>value_x1000</code> 필드 값이 12345일 때, 이는 얼마의 달러를 의미합니까?</h3>
+<p><input type="text" id="q1" placeholder="숫자를 입력하세요 (단위 제외)"></p>
+<div class="reveal">
+  <details>
+    <summary>정답 보기</summary>
+    <p><strong>12,345,000달러 ($12.345M)</strong></p>
+    <p><code>value_x1000</code>의 의미는 "천 달러 단위"입니다. 따라서 값 12345 = 12345 × $1,000 = $12,345,000 ≈ $12.3M입니다. 흔한 실수는 "$12,345"로 직접 표시하거나 반대로 1000으로 나누어 "$12.345"로 표시하는 것으로, 각각 1000배와 1,000,000배 차이가 납니다.</p>
+  </details>
+</div>
+
+<h3>Q2: 한 기관이 CVNA의 주식 수를 이번 분기에 100만 주에서 100만 주로 유지하고, 시가총액이 $1억에서 $1.5억으로 증가했습니다. 이를 "비중 확대"라고 할 수 있습니까?</h3>
+<p><input type="text" id="q2" placeholder="한두 문장으로 답변"></p>
+<div class="reveal">
+  <details>
+    <summary>정답 보기</summary>
+    <p><strong>비중 확대가 아닙니다. 수동적 시가총액 상승입니다.</strong> 주식 수가 변하지 않았으므로 능동적인 매매가 없었습니다. 시가총액 변화는 전적으로 CVNA 주가가 $100에서 $150으로 상승한 데서 비롯됩니다. Top Buyers 순위에서는 <strong>주식 수 변화(shares delta)</strong>를 기준으로 정렬해야 하며, 시가총액 변화를 기준으로 삼으면 "보유 유지 + 주가 상승"을 "능동적 비중 확대"로 잘못 판단하게 됩니다.</p>
+  </details>
+</div>
+
+<h3>Q3: 13F가 "헤지펀드의 CVNA 공매도 포지션"을 알려줄 수 있습니까?</h3>
+<p><input type="text" id="q3" placeholder="한 문장으로 답변"></p>
+<div class="reveal">
+  <details>
+    <summary>정답 보기</summary>
+    <p><strong>알려줄 수 없습니다.</strong> 13F는 롱 포지션만 공시하며, 공매도나 옵션은 공시하지 않습니다. 공매도 포지션을 확인하려면 별도의 데이터 소스(예: S3 Partners, Markit Short Interest, Finra 격주 공매도 보고서)가 필요합니다. 이것이 바로 IHS Markit 보고서가 "data limitations"를 별도로 표시하여 13F의 사각지대를 독자에게 환기시키는 이유이기도 합니다.</p>
+  </details>
+</div>
+
+</div>
+
+<div class="next">
+  <strong>다음 강의 미리보기:</strong> <a href="0007-form4-insider-trading.html">Lesson 0007 — Form 3/4/5 내부자 거래</a>: 경영진이 발로 투표할 때, 그들의 매매 신호를 읽는 방법<br>
+  <strong>추천 리소스:</strong> <a href="https://whalewisdom.com/">WhaleWisdom</a>(무료 티어로 충분) — 이 도구로 Vanguard의 CVNA 13F 변동을 추적하고 우리 시스템의 출력과 일치하는지 비교해보세요<br>
+  <strong>빠른 참조:</strong> <a href="../reference/sec-form-types.html">SEC 양식 유형 빠른 참조표</a>(13F는 "내부자 거래 및 포지션" 블록에 있음)
+</div>
+
+<hr style="margin-top:3rem;">
+<p style="font-size:0.85rem;color:#888;">
+  궁금한 점이 있으면 대화에서 바로 물어보세요.<br>
+  <em>이 강의는 교차 보유 시리즈의 기초입니다—다음 강의에서는 또 다른 유형의 포지션 데이터인 내부자本人的 매매(Form 4)를 다룹니다.</em>
+</p>
+
+</body>
+</html>

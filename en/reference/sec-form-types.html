@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEC Form Types Quick Reference</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 780px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.6rem; margin: 1.5rem 0 0.5rem; }
+  h2 { font-size: 1.2rem; margin: 2rem 0 0.4rem; border-bottom: 1px solid #ddd; padding-bottom: 0.2rem; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.88rem; }
+  th, td { padding: 0.45rem 0.55rem; text-align: left; border-bottom: 1px solid #e8e8e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; font-size: 0.8rem; text-transform: uppercase; color: #555; }
+  .critical { background: #fff3f3; }
+  .important { background: #fffdf3; }
+  .meta { color: #888; font-size: 0.85rem; margin-bottom: 2rem; }
+  a { color: #a33; text-decoration: none; }
+  .print-hint { background: #f0f0e8; padding: 0.5rem 0.8rem; font-size: 0.8rem; color: #666; margin-bottom: 1.5rem; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  Reference Document · Last updated 2026-06-16 · <a href="../lessons/0001-sec-filing-101.html">← Back to Lesson 0001</a>
+</div>
+
+<div class="print-hint">🖨️ This page is optimized for print -- feel free to print it out and keep it by your desk.</div>
+
+<h1>SEC Form Types Quick Reference</h1>
+
+<h2>Core Disclosures (essential for competitor monitoring)</h2>
+<table>
+  <tr><th style="width:70px">Form</th><th style="width:100px">Name</th><th>Content</th><th style="width:100px">Frequency</th><th>Competitor Monitoring Focus</th></tr>
+  <tr class="critical">
+    <td><strong>10-K</strong></td><td>Annual Report</td><td>Audited full annual report: business description, risk factors, MD&A, three financial statements</td><td>Annual</td><td>Most complete information source; starting point for understanding a company</td>
+  </tr>
+  <tr class="critical">
+    <td><strong>10-Q</strong></td><td>Quarterly Report</td><td>Unaudited quarterly financial data + period updates</td><td>Quarterly</td><td>Track performance trends; compare with year-ago period to find inflection points</td>
+  </tr>
+  <tr class="critical">
+    <td><strong>8-K</strong></td><td>Current Report</td><td>Any material event: earnings release(2.02), executive changes(5.02), acquisitions(2.01), contracts(1.01), etc.</td><td>Unscheduled</td><td>Fastest access to competitor strategic moves; Item number determines importance</td>
+  </tr>
+</table>
+
+<h2>Common 8-K Item Numbers</h2>
+<table>
+  <tr><th style="width:80px">Item</th><th>Event</th><th>Severity</th><th>Competitor Monitoring Interpretation</th></tr>
+  <tr class="critical"><td>1.01</td><td>Entry into material definitive agreement</td><td>🔴</td><td>New customer, new supplier, strategic partnership -- could reshape competitive landscape</td></tr>
+  <tr class="critical"><td>1.02</td><td>Termination of material definitive agreement</td><td>🔴</td><td>Lost a major customer? Supplier issues?</td></tr>
+  <tr class="critical"><td>2.01</td><td>Completion of acquisition or disposition of assets</td><td>🔴</td><td>Buying a company, selling a business -- strategic direction shift</td></tr>
+  <tr class="critical"><td>2.02</td><td>Results of operations and financial condition</td><td>🔴</td><td>See key financials before 10-Q; earnings warnings</td></tr>
+  <tr><td>2.03</td><td>Creation of direct financial obligation</td><td>🟡</td><td>Borrowed a large amount, guaranteed something</td></tr>
+  <tr class="important"><td>2.05</td><td>Costs associated with exit or disposal activities</td><td>🟡</td><td>Asset impairment, layoffs/restructuring -- could mean trouble</td></tr>
+  <tr class="critical"><td>3.01</td><td>Notice of delisting or failure to satisfy listing rule</td><td>🔴</td><td>Getting delisted? This is a major risk signal</td></tr>
+  <tr class="critical"><td>4.01</td><td>Change in registrant's certifying accountant</td><td>🔴</td><td>Auditor resigned or was replaced -- often means financial problems</td></tr>
+  <tr class="critical"><td>5.02</td><td>Departure of directors or principal officers</td><td>🔴</td><td>CEO/CFO/COO departure or appointment -- personnel earthquake</td></tr>
+  <tr><td>5.03</td><td>Amendments to articles of incorporation or bylaws</td><td>🟡</td><td>Changes to corporate charter -- possible governance structure changes</td></tr>
+  <tr class="important"><td>5.07</td><td>Submission of matters to a vote of security holders</td><td>🟡</td><td>Shareholder meeting results -- check for conflicts between shareholders and board</td></tr>
+  <tr><td>7.01</td><td>Regulation FD disclosure</td><td>🟢</td><td>Company proactively discloses information (usually accompanying a press release)</td></tr>
+  <tr><td>9.01</td><td>Financial statements and exhibits</td><td>🟢</td><td>Usually supporting documents for 10-K/Q or 2.02; not important</td></tr>
+</table>
+
+<h2>Insider Trading & Holdings (auxiliary signals)</h2>
+<table>
+  <tr><th style="width:70px">Form</th><th style="width:120px">Name</th><th>Content</th><th>Competitor Monitoring Focus</th></tr>
+  <tr class="important">
+    <td><strong>Form 4</strong></td><td>Statement of Changes in Beneficial Ownership</td><td>Executives/directors/large shareholders buy or sell company stock, disclosed <strong>within 2 business days</strong>. Includes Table I (direct holdings) and Table II (options/derivatives)</td><td>Focus on <strong>Code P (open market purchase)</strong> and <strong>Code S (open market sale)</strong>. Code F (tax withholding) gets low weight (0.2); Code A (award) is not an active trade. Watch out for 10b5-1 plan bulk selling</td>
+  </tr>
+  <tr>
+    <td><strong>Form 3</strong></td><td>Initial Statement of Beneficial Ownership</td><td>New executives/directors/large shareholders disclose holdings for the first time, filed within 10 days of becoming an insider</td><td>Understand management incentive structure (holdings = alignment with shareholder interests)</td>
+  </tr>
+  <tr>
+    <td><strong>Form 5</strong></td><td>Annual Statement of Beneficial Ownership</td><td>Filed within 45 days after fiscal year end; supplemental disclosure of exempt transactions (small trades not reported on Form 4)</td><td>Usually not important, but may hide "small trades that were forgotten" -- periodic scanning can yield surprises</td>
+  </tr>
+  <tr>
+    <td><strong>Form 144</strong></td><td>Notice of Proposed Sale of Securities</td><td>Large shareholder/insider <strong>advance notice</strong> of planned sale of ≥5,000 shares or ≥$50,000; valid for 90 days</td><td>Early warning of potential selling pressure. ⚠️ Not "already sold," but "preparing to sell." Multiple consecutive Form 144 filings = sustained selling signal</td>
+  </tr>
+  <tr class="important">
+    <td><strong>SC 13D</strong></td><td>Beneficial Ownership Report (Active)</td><td>"Active investor" with ownership exceeding <strong>5%</strong>, filed within <strong>10 days</strong>. <strong>Item 4 states intent</strong> ("we intend to push for a spin-off," etc.)</td>
+    <td>⭐⭐⭐⭐⭐ Very high value. An activist is targeting this company? Item 4 language determines signal strength (specific actions vs vague "undervalued")</td>
+  </tr>
+  <tr>
+    <td><strong>SC 13G</strong></td><td>Beneficial Ownership Report (Passive)</td><td>"Passive investor" with ownership exceeding <strong>5%</strong> (pure investment, no intervention), filed annually</td>
+    <td>Understand who holds large positions (Vanguard/BlackRock, etc.). Small changes, weak signal</td>
+  </tr>
+  <tr class="important">
+    <td><strong>13F</strong></td><td>Institutional Investment Manager Holdings Report</td><td>Institutions with assets under management <strong>&gt;$100M</strong> disclose holdings <strong>quarterly</strong> (within 45 days of quarter end)</td>
+    <td>Core data source for cross-holding analysis. Note: <code>value_x1000</code> field name = "in thousands of dollars"; 1000x misplacement is a classic bug. For period-over-period comparison, <strong>look at share count, not market value</strong></td>
+  </tr>
+</table>
+
+<h3>13D vs 13G: Core differences</h3>
+<table>
+  <tr><th>Dimension</th><th>Schedule 13D</th><th>Schedule 13G</th></tr>
+  <tr><td><strong>Trigger</strong></td><td>Ownership &gt;5% <strong>and intent to influence operations</strong></td><td>Ownership &gt;5% <strong>and no intent to influence</strong></td></tr>
+  <tr><td><strong>Filing deadline</strong></td><td>Within 10 days of reaching 5%</td><td>Annual filing</td></tr>
+  <tr><td><strong>Who files</strong></td><td>Activists, hedge funds</td><td>Index funds, pension funds</td></tr>
+  <tr><td><strong>Item 4 intent</strong></td><td><strong>Must be detailed</strong> (push spin-off? replace CEO?)</td><td>Brief statement</td></tr>
+  <tr><td><strong>Subsequent updates</strong></td><td>Each buy/sell &gt;1% requires amendment</td><td>Annual updates</td></tr>
+  <tr><td><strong>Competitor monitoring value</strong></td><td>⭐⭐⭐⭐⭐ Very high</td><td>⭐ Low</td></tr>
+</table>
+
+<h3>Form 4 Transaction Code Quick Reference (see Lesson 0007 for details)</h3>
+<table>
+  <tr><th style="width:80px">Code</th><th>Meaning</th><th>Signal Strength</th></tr>
+  <tr><td><strong>P</strong></td><td>Open market purchase</td><td>✅✅✅ Strong positive</td></tr>
+  <tr><td><strong>S</strong></td><td>Open market sale</td><td>✅ Weak negative (could be diversification)</td></tr>
+  <tr><td><strong>F</strong></td><td>Tax withholding (tax withholding on option exercise)</td><td>❌ Almost no signal (10b5-1 standard)</td></tr>
+  <tr><td><strong>G</strong></td><td>Gift</td><td>❌ Weak signal (charity/family trust)</td></tr>
+  <tr><td><strong>A</strong></td><td>Award/Exercise</td><td>❌ No signal (part of compensation)</td></tr>
+  <tr><td><strong>M</strong></td><td>Option exercise</td><td>Depends on post-exercise Code F/S pairing</td></tr>
+</table>
+
+<h3>13F Unit Conversion Trap (see Lesson 0006 for details)</h3>
+<div style="background:#fff0f0;border-left:3px solid #c44;padding:0.6rem 1rem;margin:0.8rem 0;font-size:0.88rem;">
+  <strong>⚠️ value_x1000 field</strong>: Unit is <strong>thousands of dollars</strong>, not dollars or millions.<br>
+  <code>value_x1000 = 1,920,000</code> → Actual amount = <code>1,920,000 × $1,000 = $1.92B</code><br>
+  Verification: <code>shares × stock price at time</code> should approximately match <code>value_x1000 × 1000</code> (allow ±5% error)<br>
+  Misplacing by 1000x = classic bug. <strong>Keep SEC raw units internally; divide by 1000 for $M display</strong>.
+</div>
+
+<h2>Other Common Types (know the names)</h2>
+<table>
+  <tr><th style="width:70px">Form</th><th>Purpose</th></tr>
+  <tr><td><strong>S-1</strong></td><td>IPO registration statement -- filed when a company first goes public. Must-read if researching a soon-to-be-public competitor.</td></tr>
+  <tr><td><strong>S-4</strong></td><td>Merger registration statement -- for stock-for-stock M&A transactions.</td></tr>
+  <tr><td><strong>DEF 14A</strong></td><td>Proxy statement -- contains governance information including executive compensation, board composition.</td></tr>
+  <tr><td><strong>20-F</strong></td><td>Annual report for foreign private issuers (foreign companies use 20-F instead of 10-K). UXIN's 20-F is typically filed in late April.</td></tr>
+  <tr><td><strong>6-K</strong></td><td>Interim report for foreign private issuers -- equivalent to 8-K, filed when material events occur in the home country. UXIN and ATHM file this.</td></tr>
+</table>
+
+<div style="margin-top:2rem; font-size:0.85rem; color:#888;">
+  <strong>Special note for foreign companies:</strong> Uxin (UXIN) and Autohome (ATHM) are not U.S. domestic companies. They use 20-F (annual report) instead of 10-K, and 6-K (current report) instead of 8-K.<br>
+  Our competitor monitoring system automatically handles this difference -- you do not need to distinguish them manually.
+</div>
+
+</body>
+</html>

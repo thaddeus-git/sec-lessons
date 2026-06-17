@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEC 様式タイプ早見表</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Palatino Linotype", Palatino, "Noto Serif SC", "Source Han Serif SC", serif;
+    background: #fffff8; color: #111; line-height: 1.6;
+    max-width: 780px; margin: 2rem auto; padding: 0 1.5rem 4rem;
+  }
+  h1 { font-size: 1.6rem; margin: 1.5rem 0 0.5rem; }
+  h2 { font-size: 1.2rem; margin: 2rem 0 0.4rem; border-bottom: 1px solid #ddd; padding-bottom: 0.2rem; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.88rem; }
+  th, td { padding: 0.45rem 0.55rem; text-align: left; border-bottom: 1px solid #e8e8e0; vertical-align: top; }
+  th { font-weight: 500; background: #f8f8f4; font-size: 0.8rem; text-transform: uppercase; color: #555; }
+  .critical { background: #fff3f3; }
+  .important { background: #fffdf3; }
+  .meta { color: #888; font-size: 0.85rem; margin-bottom: 2rem; }
+  a { color: #a33; text-decoration: none; }
+  .print-hint { background: #f0f0e8; padding: 0.5rem 0.8rem; font-size: 0.8rem; color: #666; margin-bottom: 1.5rem; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  参考資料 · 最終更新 2026-06-16 · <a href="../lessons/0001-sec-filing-101.html">← レッスン 0001 に戻る</a>
+</div>
+
+<div class="print-hint">🖨️ このページは印刷用に最適化されています。印刷して机のそばに貼っておけます。</div>
+
+<h1>SEC 様式タイプ早見表</h1>
+
+<h2>中核開示（競合モニタリング必須）</h2>
+<table>
+  <tr><th style="width:70px">Form</th><th style="width:100px">日本語名</th><th>内容</th><th style="width:100px">頻度</th><th>競合モニタリング重点</th></tr>
+  <tr class="critical">
+    <td><strong>10-K</strong></td><td>年次報告書</td><td>監査済み完全年次報告：事業概要、リスク要因、経営陣による討議、三大財務諸表</td><td>毎年</td><td>最も完全な情報源、企業理解の起点</td>
+  </tr>
+  <tr class="critical">
+    <td><strong>10-Q</strong></td><td>四半期報告書</td><td>非監査の四半期財務データ + 期間中の更新情報</td><td>毎四半期</td><td>業績動向の追跡、前年同期との比較で転換点を探る</td>
+  </tr>
+  <tr class="critical">
+    <td><strong>8-K</strong></td><td>重要事象報告書</td><td>あらゆる重要事象：業績発表(2.02)、経営陣異動(5.02)、買収(2.01)、契約(1.01)等</td><td>随時</td><td>競合の戦略的行動を最も早く入手。Item番号が重要度を決める</td>
+  </tr>
+</table>
+
+<h2>8-K 主要 Item 番号</h2>
+<table>
+  <tr><th style="width:80px">Item</th><th>事象</th><th>重要度</th><th>競合モニタリングの解釈</th></tr>
+  <tr class="critical"><td>1.01</td><td>重要契約の締結</td><td>🔴</td><td>新規顧客、新規サプライヤー、戦略的提携——競争構図を変える可能性</td></tr>
+  <tr class="critical"><td>1.02</td><td>重要契約の終了</td><td>🔴</td><td>大口顧客喪失？サプライヤーに問題？</td></tr>
+  <tr class="critical"><td>2.01</td><td>重要な資産の取得/売却</td><td>🔴</td><td>企業買収、事業売却——戦略的方向性の変化</td></tr>
+  <tr class="critical"><td>2.02</td><td>業績発表</td><td>🔴</td><td>10-Q 前に主要財務数値を確認。業績警告</td></tr>
+  <tr><td>2.03</td><td>重要な金融債務</td><td>🟡</td><td>多額の借入、保証の提供</td></tr>
+  <tr class="important"><td>2.05</td><td>減損/リストラ費用</td><td>🟡</td><td>資産減損、人員整理・リストラ——問題の兆候</td></tr>
+  <tr class="critical"><td>3.01</td><td>上場廃止/市場変更通知</td><td>🔴</td><td>上場廃止の可能性？重大なリスクシグナル</td></tr>
+  <tr class="critical"><td>4.01</td><td>監査人の変更</td><td>🔴</td><td>監査人の辞任または交代——しばしば財務上の問題を示唆</td></tr>
+  <tr class="critical"><td>5.02</td><td>経営陣/取締役の異動</td><td>🔴</td><td>CEO/CFO/COO の退任または任命——人事の激変</td></tr>
+  <tr><td>5.03</td><td>定款変更</td><td>🟡</td><td>定款の修正——ガバナンス構造の変化の可能性</td></tr>
+  <tr class="important"><td>5.07</td><td>株主投票結果</td><td>🟡</td><td>株主総会の投票——株主と取締役会の対立の有無を確認</td></tr>
+  <tr><td>7.01</td><td>Regulation FD 開示</td><td>🟢</td><td>企業による自主的な情報開示（通常はプレスリリースと併用）</td></tr>
+  <tr><td>9.01</td><td>財務諸表/添付資料</td><td>🟢</td><td>通常は 10-K/Q または 2.02 の付随文書。重要ではない</td></tr>
+</table>
+
+<h2>インサイダー取引と保有（補助シグナル）</h2>
+<table>
+  <tr><th style="width:70px">Form</th><th style="width:120px">日本語名</th><th>内容</th><th>競合モニタリング重点</th></tr>
+  <tr class="important">
+    <td><strong>Form 4</strong></td><td>インサイダー取引報告書</td><td>経営陣/取締役/大株主による自社株の売買、<strong>2営業日以内</strong>に開示。Table I（直接保有）と Table II（オプション/デリバティブ）を含む</td><td><strong>Code P（自発的買付）</strong> と <strong>Code S（自発的売却）</strong> を注視。Code F（納税目的売却）は低ウェイト（0.2）、Code A（付与）は自発的取引に該当しない。10b5-1計画に基づく大量売却に注意</td>
+  </tr>
+  <tr>
+    <td><strong>Form 3</strong></td><td>初期保有報告書</td><td>新任の経営陣/取締役/大株主が初めて株式保有を開示、インサイダー就任後10日以内に提出</td><td>経営陣のインセンティブ構造を把握（株式保有 = 株主利益との連動）</td>
+  </tr>
+  <tr>
+    <td><strong>Form 5</strong></td><td>年次保有報告書</td><td>事業年度終了後45日以内に、免除取引（Form 4未報告の少額取引）を補足開示</td><td>通常は重要ではないが、「報告漏れの少額取引」が含まれる可能性あり——定期的な確認でサプライズ</td>
+  </tr>
+  <tr>
+    <td><strong>Form 144</strong></td><td>売却計画通知</td><td>大株主/インサイダーが<strong>売却を計画</strong>している場合の事前通知（≥5,000株 または ≥$50,000）、有効期限90日</td><td>売り圧力の可能性を事前に把握。⚠️ 「売却済み」ではなく「売却予定」。複数の Form 144 が連続提出 = 継続的な売却シグナル</td>
+  </tr>
+  <tr class="important">
+    <td><strong>SC 13D</strong></td><td>アクティビスト大口保有</td><td><strong>5%超</strong>保有する「アクティビスト投資家」、<strong>10日以内</strong>に提出。<strong>Item 4 に意図を明記</strong>（「分割を推進する」等）</td><td>⭐⭐⭐⭐⭐ 極めて高価値。アクティビストがこの企業を標的に？Item 4の文言がシグナル強度を決める（具体的行動 vs 曖昧な「過小評価」）</td>
+  </tr>
+  <tr>
+    <td><strong>SC 13G</strong></td><td>パッシブ投資家大口保有</td><td><strong>5%超</strong>保有する「パッシブ投資家」（純粋投資で経営に非介入）、年次提出</td><td>誰が大口保有しているかを把握（Vanguard/BlackRock 等）。変動は小さく、シグナルは弱い</td>
+  </tr>
+  <tr class="important">
+    <td><strong>13F</strong></td><td>機関投資家保有報告書</td><td>運用資産<strong>>$1億</strong>の機関投資家が<strong>毎四半期</strong>、期末から45日以内に保有を開示</td><td>クロスホールディング分析の中核データソース。注意：<code>value_x1000</code> フィールド名 = 「千ドル単位」、1000倍のズレは古典的なバグ。期間比較では<strong>時価総額ではなく株式数を見る</strong></td>
+  </tr>
+</table>
+
+<h3>13D vs 13G：主な違い</h3>
+<table>
+  <tr><th>観点</th><th>Schedule 13D</th><th>Schedule 13G</th></tr>
+  <tr><td><strong>トリガー条件</strong></td><td>保有率 >5% <strong>かつ企業経営への影響意図あり</strong></td><td>保有率 >5% <strong>かつ経営への影響意図なし</strong></td></tr>
+  <tr><td><strong>提出期限</strong></td><td>5%到達後10日以内</td><td>年次提出</td></tr>
+  <tr><td><strong>提出者</strong></td><td>アクティビスト、ヘッジファンド</td><td>インデックスファンド、年金基金</td></tr>
+  <tr><td><strong>Item 4 の意図</strong></td><td><strong>詳細な記載が必要</strong>（分割推進？CEO交代？）</td><td>簡潔な説明</td></tr>
+  <tr><td><strong>その後の更新</strong></td><td>売買が >1% 変動するたびに更新</td><td>年次更新</td></tr>
+  <tr><td><strong>競合モニタリング価値</strong></td><td>⭐⭐⭐⭐⭐ 極めて高い</td><td>⭐ 低い</td></tr>
+</table>
+
+<h3>Form 4 取引コード早見表（詳細はレッスン 0007 参照）</h3>
+<table>
+  <tr><th style="width:80px">Code</th><th>意味</th><th>シグナル強度</th></tr>
+  <tr><td><strong>P</strong></td><td>自発的買付</td><td>✅✅✅ 強いポジティブ</td></tr>
+  <tr><td><strong>S</strong></td><td>自発的売却</td><td>✅ 弱いネガティブ（ポートフォリオ分散の可能性）</td></tr>
+  <tr><td><strong>F</strong></td><td>納税目的売却（オプション行使時の源泉徴収）</td><td>❌ ほぼシグナルなし（10b5-1標準）</td></tr>
+  <tr><td><strong>G</strong></td><td>贈与</td><td>❌ 弱いシグナル（慈善/家族信託）</td></tr>
+  <tr><td><strong>A</strong></td><td>付与/権利行使</td><td>❌ シグナルなし（報酬の一部）</td></tr>
+  <tr><td><strong>M</strong></td><td>オプション行使</td><td>行使後の Code F/S の組み合わせで判断</td></tr>
+</table>
+
+<h3>13F 単位換算の落とし穴（詳細はレッスン 0006 参照）</h3>
+<div style="background:#fff0f0;border-left:3px solid #c44;padding:0.6rem 1rem;margin:0.8rem 0;font-size:0.88rem;">
+  <strong>⚠️ value_x1000 フィールド</strong>：単位は<strong>千米ドル</strong>、ドルでも百万ドルでもない。<br>
+  <code>value_x1000 = 1,920,000</code> → 実際の金額 = <code>1,920,000 × $1,000 = $1.92B</code><br>
+  検証方法：<code>株式数 × 当時の株価</code> が <code>value_x1000 × 1000</code> とおおむね一致するはず（±5%の誤差を許容）<br>
+  1000倍の誤りは古典的なバグ。<strong>内部計算では SEC 原単位を維持し、表示時に一律 1,000 で割って $M 単位で表示する</strong>。
+</div>
+
+<h2>その他の一般的な様式（名称のみ把握）</h2>
+<table>
+  <tr><th style="width:70px">Form</th><th>用途</th></tr>
+  <tr><td><strong>S-1</strong></td><td>IPO登録届出書——企業が新規公開時（IPO）に提出。上場予定の競合を調査する際の必読書。</td></tr>
+  <tr><td><strong>S-4</strong></td><td>合併登録届出書——株式交換を伴うM&A取引に使用。</td></tr>
+  <tr><td><strong>DEF 14A</strong></td><td>株主総会委任状説明書（Proxy Statement）——役員報酬や取締役会構成などのガバナンス情報を含む。</td></tr>
+  <tr><td><strong>20-F</strong></td><td>外国企業の年次報告書（外国企業は10-Kではなく20-Fを使用）。UXINの20-Fは4月末に提出される。</td></tr>
+  <tr><td><strong>6-K</strong></td><td>外国企業の「期中報告書」——8-Kに相当。本国で重要な事象が発生した場合に提出。UXINとATHMが提出する。</td></tr>
+</table>
+
+<div style="margin-top:2rem; font-size:0.85rem; color:#888;">
+  <strong>外国企業に関する特記事項：</strong>UXIN（優信）とATHM（汽車之家）は米国本土企業ではなく、10-K の代わりに20-F（年次報告書）、8-K の代わりに6-K（臨時報告書）を使用する。<br>
+  当社の競合モニタリングシステムはこの差異を自動処理しているため、手動で区別する必要はない。
+</div>
+
+</body>
+</html>
