@@ -105,17 +105,17 @@
 
 <pre>
 Table I — Non-Derivative Securities（직접 보유 주식의 매매）
-  字段:
-    - Title of Security          股票名称
-    - Transaction Date           交易日
-    - Transaction Code           P=买入, S=卖出, G=赠与, A=授予, F=交税卖出
-    - Amount                     股数
-    - Price                      单价
-    - Amount After               交易后持股数
+  필드:
+    - Title of Security          증권명
+    - Transaction Date           거래일
+    - Transaction Code           P=매수, S=매도, G=증여, A=부여, F=세금납부용매도
+    - Amount                     주식수
+    - Price                      단가
+    - Amount After               거래 후 보유 주식수
 
-Table II — Derivative Securities（期权/derivatives 的变动）
-  字段类似，但单位是"期权份数"而非"股数"
-  常见 Code: M=行权, A=授予（期权）, C=转换
+Table II — Derivative Securities (파생증권/옵션의 변동)
+  필드 유사하나, 단위가 "주식수"가 아닌 "옵션 계약수"
+  일반적인 Code: M=행사, A=부여(옵션), C=전환
 </pre>
 
 <h3>일반적인 거래 코드 (Transaction Code)</h3>
@@ -143,27 +143,27 @@ Table II — Derivative Securities（期权/derivatives 的变动）
 </p>
 
 <pre>
-InsiderSentiment = Σ(买入金额_i × 角色权重_i × 交易代码权重_i)
-                  - Σ(卖出金额_j × 角色权重_j × 交易代码权重_j)
+InsiderSentiment = Σ(매수 금액_i × 역할 가중치_i × 거래 코드 가중치_i)
+                  - Σ(매도 금액_j × 역할 가중치_j × 거래 코드 가중치_j)
 
-角色权重:
-  CEO / CFO                   2.0    最高决策层
-  10% Owner                   1.5    大股东
-  Director                    1.0    董事会
-  EVP / SVP / VP              0.8    执行层
+역할 가중치:
+  CEO / CFO                   2.0    최고 의사결정층
+  10% Owner                   1.5    대주주
+  Director                    1.0    이사회
+  EVP / SVP / VP              0.8    집행층
 
-交易代码权重:
-  P (主动买入)                1.0
-  S (主动卖出)                1.0
-  F (交税卖出)                0.2
-  G (赠与)                    0.3
-  A (期权授予)                0.0
-  M (期权行权)                0.0   (只看向行权后的卖出)
+거래 코드 가중치:
+  P (적극 매수)               1.0
+  S (적극 매도)               1.0
+  F (세금 납부용 매도)        0.2
+  G (증여)                    0.3
+  A (스톡옵션 부여)           0.0
+  M (스톡옵션 행사)           0.0   (행사 후 매도만 확인)
 
-归一化到 [-100, +100]:
-  &gt; +30  → 看多信号
-  -30 ~ +30 → 中性
-  &lt; -30  → 看空信号
+정규화 [-100, +100]:
+  &gt; +30  → 강세 신호
+  -30 ~ +30 → 중립
+  &lt; -30  → 약세 신호
 </pre>
 
 <p>

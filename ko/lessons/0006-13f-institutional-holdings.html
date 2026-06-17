@@ -102,28 +102,28 @@
   <strong>한마디로 기억하세요:</strong> 13F는 "이번 분기 말의 사진"이지 "이번 분기의 영화"가 아닙니다. 영화를 보려면 더 세분화된 데이터(예: Bloomberg의 거래 내역, WhaleWisdom 프리미엄 구독)가 필요합니다.
 </blockquote>
 
-<h2>단위 변환 함정 (버그多发 구간)</h2>
+<h2>단위 변환 함정 (버그 다발 구간)</h2>
 
 <p>13F 데이터 처리에서 <strong>가장 실수하기 쉬운 부분은 단위 변환</strong>입니다. 아래 표는 실제 버그가 발생한 패턴들입니다:</p>
 
 <pre>
-SEC 原始 XML: &lt;value&gt;12345&lt;/value&gt;  →  含义: $12,345,000  →  $12.345M
-edgartools 返回: 字段名 value_x1000 → 数值 12345 → 含义: 12345 × $1,000
+SEC 원시 XML: &lt;value&gt;12345&lt;/value&gt;  →  의미: $12,345,000  →  $12.345M
+edgartools 반환: 필드명 value_x1000 → 값 12345 → 의미: 12345 × $1,000
 
-常见错误:
-  错误 A: 把 value_x1000 当成"千美元"展示 → 数字看起来是 12,345 → 实际是 $12.345M
-          错位 1000 倍
-  错误 B: 在 12345 之上又除以 1000 展示成 12.345 → 错位 1,000,000 倍
-  错误 C: 汇总时不区分市值量级
-          → Vanguard 在 CVNA 持仓 $1.2B（value_x1000 = 1,200,000）
-          → BlackRock 在 UXIN 持仓 $3M（value_x1000 = 3,000）
-          → 如果直接 SUM，UXIN 的变动被 CVNA 淹没（差 400 倍）
+일반적인 오류:
+  오류 A: value_x1000을 "천 달러"로 표시 → 숫자가 12,345로 보임 → 실제는 $12.345M
+          1000배 차이
+  오류 B: 12345를 다시 1000으로 나누어 12.345로 표시 → 1,000,000배 차이
+  오류 C: 집계 시 시가총액 규모를 구분하지 않음
+          → Vanguard의 CVNA 보유 $1.2B (value_x1000 = 1,200,000)
+          → BlackRock의 UXIN 보유 $3M (value_x1000 = 3,000)
+          → 단순 SUM하면 UXIN 변동이 CVNA에 묻힘 (400배 차이)
 
-验证方法:
-  1. 取 Vanguard 在 CVNA 的 13F 原始 XML
-  2. 手工读取 &lt;value&gt; 字段 = X
-  3. 与 edgartools 解析后的 value_x1000 对比
-  4. 用 CVNA 当时的股价 × 股数 交叉验证（应大致匹配，允许 ±5% 误差）
+검증 방법:
+  1. Vanguard의 CVNA 13F 원시 XML을 가져옴
+  2. 수동으로 &lt;value&gt; 필드 읽기 = X
+  3. edgartools로 파싱된 value_x1000과 비교
+  4. CVNA 당시 주가 × 주식수로 교차 검증 (대략 일치해야 하며, ±5% 오차 허용)
 </pre>
 
 <div class="trap">
@@ -160,10 +160,10 @@ for each row:
     if curr_value < prev_value:              → Decrease
     if curr_value == prev_value:             → No change
 
-注意:
-  - prev_value = 0 时不要计算 delta_pct（除零）
-  - FULL OUTER JOIN 后 institution_name 可能在某一侧为空，需要补全
-  - 跨期对比必须是相邻两期（不是跳期），否则变动会被人为放大
+주의:
+  - prev_value = 0일 때 delta_pct를 계산하지 않음 (0으로 나누기 방지)
+  - FULL OUTER JOIN 후 institution_name이 한쪽에만 있을 수 있으므로 보완 필요
+  - 시계열 비교는 반드시 인접한 두 기간 간에 수행 (건너뛰지 않음), 그렇지 않으면 변동이 인위적으로 확대됨
 </pre>
 
 <h3>각 주식별 변동 = 능동적 조정 + 주가 변동</h3>
@@ -263,7 +263,7 @@ for each row:
 <hr style="margin-top:3rem;">
 <p style="font-size:0.85rem;color:#888;">
   궁금한 점이 있으면 대화에서 바로 물어보세요.<br>
-  <em>이 강의는 교차 보유 시리즈의 기초입니다—다음 강의에서는 또 다른 유형의 포지션 데이터인 내부자本人的 매매(Form 4)를 다룹니다.</em>
+  <em>이 강의는 교차 보유 시리즈의 기초입니다—다음 강의에서는 또 다른 유형의 포지션 데이터인 내부자 본인의 매매(Form 4)를 다룹니다.</em>
 </p>
 
 </body>
